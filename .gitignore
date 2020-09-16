@@ -1,0 +1,13 @@
+.vscode
+
+#pyenv
+.python-version
+
+#mac
+.DS_Store
+
+#pycache
+__pycache__/
+
+#Results
+results
