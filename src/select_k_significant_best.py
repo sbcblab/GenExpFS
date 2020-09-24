@@ -8,8 +8,8 @@ class SelectKSignificantBest:
         self.p_threshold = p_threshold
         self.scores_, self.pvalues_ = None, None
 
-    def fit(self, X, y):
-        score_func_result = self.score_func(X, y)
+    def fit(self, X, y, **kwargs):
+        score_func_result = self.score_func(X, y, **kwargs)
 
         if isinstance(score_func_result, (list, tuple)):
             self.scores_, self.pvalues_ = score_func_result
