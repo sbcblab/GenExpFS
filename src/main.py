@@ -10,16 +10,16 @@ from .multi_class_model import MultiClassModel
 from .select_k_significant_best import SelectKSignificantBest
 from .statistics import kruskal_wallis
 
-filtering_strategies = [
-    (SelectKBest, 'SelectKBeast'),
-    (SelectKSignificantBest, 'SelectKSignificantBest')
-]
+filtering_strategies = {
+    'SelectKBeast': SelectKBest,
+    'SelectKSignificantBest': SelectKSignificantBest
+}
 
-filtering_functions = [
-    (f_classif, 'Anova'),
-    (mutual_info_classif, 'MultualInformation'),
-    (kruskal_wallis, 'KruskalWallis')
-]
+filtering_functions = {
+    'Anova': f_classif,
+    'MultualInformation': mutual_info_classif,
+    'KruskalWallis': kruskal_wallis
+}
 
 embedded_selection = {
     'DecisionTree': DecisionTreeClassifier,
@@ -28,10 +28,10 @@ embedded_selection = {
     'Lasso': MultiClassModel(Lasso)
 }
 
-evaluation_models = [
-    (SVC(), 'SupportVectorMachine'),
-    (RandomForestClassifier, 'RandomForest')
-]
+evaluation_models = {
+    'SupportVectorMachine': SVC(),
+    'RandomForest': RandomForestClassifier()
+}
 
 evaluation_scoring = {
     "accuracy": make_scorer(accuracy_score),
