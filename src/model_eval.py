@@ -2,11 +2,10 @@ from sklearn.model_selection import StratifiedKFold, cross_validate
 from sklearn.preprocessing import minmax_scale
 
 
-class FeaturesEvaluator:
-    def __init__(self, models={}, scoring={}, stability={}):
+class ModelEvaluator:
+    def __init__(self, models={}, scoring={}):
         self._models = models
         self._scoring = scoring
-        self._stability = stability
 
     def _eval(self, X, y, model, scoring):
         X = minmax_scale(X)
@@ -22,5 +21,5 @@ class FeaturesEvaluator:
 
         return avg_results
 
-    def classification_eval(self, X, y):
+    def eval(self, X, y):
         return {name: self._eval(X, y, model) for name, model in self._models.items()}
