@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from .metrics import one_vs_all_roc_auc
 from .multi_class_model import MultiClassModel
 from .select_k_significant_best import SelectKSignificantBest
+from .forward_feature_selector import ForwardFeatureSelector
 from .statistics import kruskal_wallis
 
 filtering_strategies = {
@@ -26,6 +27,10 @@ embedded_selection = {
     'RandomForest': RandomForestClassifier,
     'RidgeClassifier': RidgeClassifier,
     'Lasso': MultiClassModel(Lasso)
+}
+
+wrapper_selection = {
+    'ForwardFeatureSelector': ForwardFeatureSelector()
 }
 
 evaluation_models = {
