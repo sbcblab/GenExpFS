@@ -28,9 +28,9 @@ filtering_functions = {
 }
 
 embedded_selection = {
-    'DecisionTree': DecisionTreeClassifier,
-    'RandomForest': RandomForestClassifier,
-    'RidgeClassifier': RidgeClassifier,
+    'DecisionTree': DecisionTreeClassifier(),
+    'RandomForest': RandomForestClassifier(),
+    'RidgeClassifier': RidgeClassifier(),
     'Lasso': MultiClassModel(Lasso)
 }
 
