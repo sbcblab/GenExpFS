@@ -77,4 +77,15 @@ class DataLoader:
         elif not full_path.endswith('.csv'):
             raise Exception("Only .csv format currently supported.")
         else:
-            return self._load(full_path, targets, to_drop)
+            return self._load(full_path, targets, to_drop, check_columns, ret_col_names)
+
+    def load_paths(
+        self,
+        paths: List[str],
+        targets: List[str] = ['type', 'class'],
+        to_drop: List[str] = [],
+        check_columns: bool = False,
+        ret_col_names: bool = True
+    ):
+        for path in paths:
+            yield self.load(path, targets, to_drop, check_columns, ret_col_names)
