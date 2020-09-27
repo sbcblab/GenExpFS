@@ -11,6 +11,11 @@ from .select_k_significant_best import SelectKSignificantBest
 from .forward_feature_selector import ForwardFeatureSelector
 from .statistics import kruskal_wallis
 
+datasets = [
+    'breastCancer.csv',
+    'xor_500samples50feats.csv'
+]
+
 filtering_strategies = {
     'SelectKBeast': SelectKBest,
     'SelectKSignificantBest': SelectKSignificantBest
