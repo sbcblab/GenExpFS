@@ -1,9 +1,11 @@
 from sklearn.model_selection import StratifiedKFold, cross_validate
 from sklearn.preprocessing import minmax_scale
 
+from .default import evaluation_scoring, evaluation_models
+
 
 class ModelEvaluator:
-    def __init__(self, models={}, scoring={}):
+    def __init__(self, models=evaluation_models, scoring=evaluation_scoring):
         self._models = models
         self._scoring = scoring
 
