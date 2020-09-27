@@ -25,12 +25,12 @@ class MultiClassModel():
         importances = []
         classes = np.unique(y)
 
-        if len(classes) <= 1:
+        if len(classes) <= 2:
             self._fit(X, y, importances, **kwargs)
         else:
             binarized_classes = label_binarize(y, classes).transpose()
             for bin_y in binarized_classes:
                 self._fit(X, bin_y, importances, **kwargs)
 
-        self.feature_importances_ = np.array(importances)
+        self.feature_importances_ = np.array(importances).sum(axis=0)
         self.coef_ = self.feature_importances_
