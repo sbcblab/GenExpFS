@@ -9,7 +9,7 @@ class ModelEvaluator:
         self._models = models
         self._scoring = scoring
 
-    def _eval(self, X, y, model, scoring):
+    def _eval(self, X, y, model):
         X = minmax_scale(X)
         cv = StratifiedKFold()
 
