@@ -1,4 +1,4 @@
-from numpy import np
+import numpy as np
 from sklearn.preprocessing import label_binarize
 
 

@@ -1,7 +1,7 @@
 from sklearn.model_selection import StratifiedKFold, cross_validate
 from sklearn.preprocessing import minmax_scale
 
-from .default import evaluation_scoring, evaluation_models
+from default import evaluation_scoring, evaluation_models
 
 
 class ModelEvaluator:
