@@ -35,7 +35,7 @@ embedded_selection = {
 }
 
 wrapper_selection = {
-    'ForwardFeatureSelector': ForwardFeatureSelector()
+    'ForwardFeatureSelector': ForwardFeatureSelector
 }
 
 evaluation_models = {
