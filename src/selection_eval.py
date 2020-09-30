@@ -4,7 +4,7 @@ from sklearn.preprocessing import minmax_scale
 from default import evaluation_scoring, evaluation_models
 
 
-class ModelEvaluator:
+class SelectionEvaluator:
     def __init__(self, models=evaluation_models, scoring=evaluation_scoring):
         self._models = models
         self._scoring = scoring
