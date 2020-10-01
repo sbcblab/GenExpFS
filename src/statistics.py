@@ -22,3 +22,10 @@ def kruskal_wallis(X, y):
     results = np.array([single_feature_kruskal_wallis(x, y) for x in X.T])
     scores, pvalues = results.T
     return scores, pvalues
+
+
+def spearmans_rank(a, b):
+    _a = np.array(a) + 1
+    _b = np.array(b) + 1
+    m = len(_a)
+    return 1 - 6 * np.power(_a - _b, 2).sum() / (m * (np.power(m, 2) - 1))
