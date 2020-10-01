@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.spatial.distance import jaccard, hamming
+from scipy.spatial.distance import jaccard, hamming, dice
 from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import label_binarize
 
@@ -36,3 +36,13 @@ def normalized_hamming_distance(a, b):
         return hamming(a, b)
     except Exception:
         raise TypeError("Only pair of `lists` or `numpy arrays` of the same size is allowed.")
+
+
+def dice_coefficient(a, b):
+    is_list = isinstance(a, list) and isinstance(b, list) or isinstance(a, np.ndarray) and isinstance(b, np.ndarray)
+    if is_list and len(a) == len(b):
+        return 1 - dice(a, b)
+    elif isinstance(a, set) and isinstance(b, set):
+        return 2 * len(a.intersection(b)) / (len(a) + len(b))
+    else:
+        raise TypeError("Only a pair of `sets`, `lists` or `numpy arrays` is allowed.")
