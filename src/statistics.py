@@ -1,3 +1,5 @@
+from itertools import combinations
+
 import numpy as np
 from scipy.stats import kruskal
 from sklearn.feature_selection import mutual_info_classif, mutual_info_regression
@@ -47,3 +49,15 @@ def canberra_rank(a, b):
     _a = np.array(a) + 1
     _b = np.array(b) + 1
     return (np.abs(_a - _b) / (_a + _b)).sum()
+
+
+def kendalls_rank(a, b):
+    _a = np.array(a) + 1
+    _b = np.array(b) + 1
+
+    a_pairs = combinations(_a, 2)
+    b_pairs = combinations(_b, 2)
+
+    concordant = [x[0][0] < x[0][1] and x[1][0] < x[1][1] for x in zip(a_pairs, b_pairs)]
+
+    return (2 * np.count_nonzero(concordant) - len(concordant)) / len(concordant)
