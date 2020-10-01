@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.spatial.distance import jaccard
+from scipy.spatial.distance import jaccard, hamming
 from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import label_binarize
 
@@ -29,3 +29,10 @@ def jaccard_score(s1, s2):
         return len(intersection) / len(union)
     else:
         raise TypeError("Only a pair of `sets`, `lists` or `numpy arrays` is allowed.")
+
+
+def normalized_hamming_distance(a, b):
+    try:
+        return hamming(a, b)
+    except Exception:
+        raise TypeError("Only pair of `lists` or `numpy arrays` of the same size is allowed.")
