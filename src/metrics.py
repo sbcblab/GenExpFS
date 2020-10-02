@@ -46,3 +46,11 @@ def dice_coefficient(a, b):
         return 2 * len(a.intersection(b)) / (len(a) + len(b))
     else:
         raise TypeError("Only a pair of `sets`, `lists` or `numpy arrays` is allowed.")
+
+
+def ochiai_index(a, b):
+    if isinstance(a, set) and isinstance(b, set):
+        intersection = a.intersection(b)
+        return len(intersection) / np.sqrt(len(a) * len(b))
+    else:
+        raise TypeError("Only a pair of `sets` of the same size is allowed.")
