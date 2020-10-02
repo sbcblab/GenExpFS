@@ -45,6 +45,10 @@ def spearman_rank_ties(a, b):
     return div / quo
 
 
+def pearsons_correlation(a, b):
+    return spearman_rank_ties(a, b)
+
+
 def canberra_rank(a, b):
     _a = np.array(a) + 1
     _b = np.array(b) + 1
