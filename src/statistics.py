@@ -55,7 +55,7 @@ def pearsons_correlation(a, b):
 def canberra_rank(a, b):
     _a = np.array(a) + 1
     _b = np.array(b) + 1
-    return (np.abs(_a - _b) / (_a + _b)).sum()
+    return (np.abs(_a - _b) / np.abs(_a + _b)).sum()
 
 
 def kendalls_rank(a, b):
