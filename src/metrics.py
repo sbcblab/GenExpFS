@@ -54,3 +54,22 @@ def ochiai_index(a, b):
         return len(intersection) / np.sqrt(len(a) * len(b))
     else:
         raise TypeError("Only a pair of `sets` of the same size is allowed.")
+
+
+def kuncheva_index(a, b, m):
+    '''
+    m = total number of features
+    k = length of features - assumes equal length of a and b
+    r = number of common elements in both signatures
+    kuncheva_index = (r*m - k^2)/k*(m-k)
+    '''
+
+    feat_size = len(a)
+    same_size = feat_size == len(b)
+
+    if same_size and isinstance(a, set) and isinstance(b, set):
+        r = a.intersection(b)
+        k = feat_size
+        return (len(r) * m - np.power(k, 2)) / (k * (m - k))
+    else:
+        raise TypeError("Only a pair of `sets` of the same size is allowed.")
