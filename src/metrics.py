@@ -73,3 +73,11 @@ def kuncheva_index(a, b, m):
         return (len(r) * m - np.power(k, 2)) / (k * (m - k))
     else:
         raise TypeError("Only a pair of `sets` of the same size is allowed.")
+
+
+def percentage_of_overlapping_features(a, b):
+    if isinstance(a, set) and isinstance(b, set):
+        intersection = a.intersection(b)
+        return len(intersection) / len(a)
+    else:
+        raise TypeError("Only a pair of `sets` of the same size is allowed.")
