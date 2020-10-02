@@ -16,12 +16,15 @@ def mutual_information(X, y):
     return mutual_info(X, y, discrete_features=is_discrete(X))
 
 
-def single_feature_kruskal_wallis(X, y):
+def _single_feature_kruskal_wallis(X, y):
     return kruskal(*[X[y == c] for c in np.unique(y)])
 
 
 def kruskal_wallis(X, y):
-    results = np.array([single_feature_kruskal_wallis(x, y) for x in X.T])
+    if len(X.shape) == 1:
+        return _single_feature_kruskal_wallis(X, y)
+
+    results = np.array([_single_feature_kruskal_wallis(x, y) for x in X.T])
     scores, pvalues = results.T
     return scores, pvalues
 
