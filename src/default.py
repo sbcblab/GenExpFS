@@ -4,6 +4,8 @@ from sklearn.metrics import make_scorer, accuracy_score, recall_score, precision
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.dummy import DummyClassifier
 
 from metrics import one_vs_all_roc_auc
 from multi_class_model import MultiClassModel
@@ -40,7 +42,10 @@ wrapper_selection = {
 
 evaluation_models = {
     'SupportVectorMachine': SVC(),
-    'RandomForest': RandomForestClassifier()
+    'DecisionTree': DecisionTreeClassifier(),
+    'RandomForest': RandomForestClassifier(),
+    'NaiveBayes': GaussianNB(),
+    'ZeroR': DummyClassifier()
 }
 
 evaluation_scoring = {
