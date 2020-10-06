@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 from numpy.random import random, randint, uniform, permutation
 
@@ -19,7 +21,7 @@ class GeneticAlgorithmFeatureSelector:
     def __init__(
         self,
         n_features=50,
-        num_individuals=50,
+        num_individuals='auto',
         max_generations=100,
         num_elite=0.1,
         cross_over_rate=0.5,
@@ -32,28 +34,54 @@ class GeneticAlgorithmFeatureSelector:
         self._num_individuals = num_individuals
         self._max_generations = max_generations
         self._mutation_rate = mutation_rate
-        self._cross_over_rate = cross_over_rate
+        self._crossover_rate = crossover_rate
+        self._random_individuals = random_individuals
         self._max_fitness = max_fitness
         self._fitness_function = fitness_function
         self._verbose = verbose
 
-        if isinstance(num_elite, float) and num_elite < 1 and num_elite >= 0:
-            self._num_elite = int(num_individuals * num_elite)
-        elif isinstance(num_elite, int) and num_elite < num_individuals:
-            self._num_elite = num_elite
+        def check_type(val, name, types=[int]):
+            if type(val) not in types:
+                raise ValueError(f"{name} must be one of {types}")
+
+        check_type(num_elite, 'num_elite', [float, int])
+        self._num_elite = num_elite
+
+        check_type(num_individuals, 'num_individuals', [int, str])
+        if type(num_individuals) is str and not num_individuals == 'auto':
+            raise ValueError("Unknown value for num_individuals, must be `int` or 'auto'")
+
+    def _auto_population(self, n_features):
+        feature_pool = permutation(n_features)
+        remaining = n_features % self._n
+        if remaining > 0:
+            padding = np.random.choice(feature_pool[:-remaining], self._n - remaining, replace=False)
+            feature_pool = np.concatenate((feature_pool, padding))
+
+        num_individuals = len(feature_pool) / self._n
+
+        return np.split(feature_pool, num_individuals)
+
+    def _initial_population(self, n_features):
+        """Generate initial population as diverse as possible, if
+        self._num_individuals is set to 'auto', then population
+        size is gonna be the minimum needed so that each gene
+        happens at least once in first generation"""
+
+        if self._num_individuals == 'auto':
+            return self._auto_population(n_features)
+
+        num_ind_to_all = math.ceil(n_features / self._n)
+
+        if self._num_individuals < num_ind_to_all:
+            feature_pool = permutation(n_features)
+            cut_point = self._num_individuals * self._n
+            return np.split(feature_pool[:cut_point], self._num_individuals)
+
         else:
-            raise ValueError("num_elite must be a `float` between 0.0 and 1.0 or an `int` < num_individuals")
-
-        num_to_select = num_individuals - self._num_elite
-        self._num_to_select = num_to_select + (num_to_select % 2)
-
-    def _make_random(self, n_features):
-        individual = []
-        while len(individual) < self._n:
-            feat = randint(0, n_features)
-            if feat not in individual:
-                individual.append(feat)
-        return np.array(individual)
+            needed_pops = math.ceil(self._num_individuals / math.ceil(n_features / self._n))
+            population = np.concatenate([self._auto_population(n_features) for x in range(needed_pops)])
+            return population[:self._num_individuals]
 
     def _mutate(self, individual, n_features):
         for i in range(self._n):
@@ -140,13 +168,21 @@ class GeneticAlgorithmFeatureSelector:
     def fit(self, X, y):
         n_samples, n_features = X.shape
 
-        population = np.array([self._make_random(n_features) for i in range(self._n)])
+        population = np.array(self._initial_population(n_features))
         fitness = np.array([self._fitness_function(X[:, x], y) for x in population])
+
+        num_individuals = len(population)
+        self.num_individuals_ = num_individuals
+
+        num_elite = int(self._num_elite * num_individuals) if type(self._num_elite) is float else self._num_elite
+
+        num_to_select = num_individuals - num_elite
+        self._num_to_select = num_to_select + (num_to_select % 2)
 
         for gen in range(self._max_generations):
 
             fitness_index = np.argsort(fitness)[::-1]
-            elite_index = fitness_index[:self._num_elite]
+            elite_index = fitness_index[:num_elite]
             elite_fitness = fitness[elite_index]
             elite = population[elite_index]
 
