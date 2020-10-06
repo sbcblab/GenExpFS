@@ -94,61 +94,27 @@ class GeneticAlgorithmFeatureSelector:
                     value = randint(0, n_features)
         return individual
 
-    def _uniform_crossover(self, parent1, parent2):
-        p1 = permutation(parent1)
-        p2 = permutation(parent2)
-
-        diff_p1 = np.setdiff1d(p1, p2)
+    def _crossover(self, parent1, parent2):
+        diff_p1 = np.setdiff1d(parent1, parent2)
         num_diff = len(diff_p1)
 
         if num_diff == 0:
-            return p1, p2
+            return parent1, parent2
 
-        diff_p2 = np.setdiff1d(p2, p1)
+        diff_p2 = np.setdiff1d(parent2, parent1)
+
+        diff_p1 = permutation(diff_p1)
+        diff_p2 = permutation(diff_p2)
 
         for i in range(num_diff):
-            if random() < self._cross_over_rate:
-                tmp = diff_p1[i]
-                diff_p1[i] = diff_p2[i]
-                diff_p2[i] = tmp
+            if random() < self._crossover_rate:
+                diff_p1[i], diff_p2[i] = diff_p2[i], diff_p1[i]
 
-        common = np.intersect1d(p1, p2)
-        if len(common) > 0:
+        if num_diff < self._n:
+            common = np.intersect1d(parent1, parent2)
             return np.concatenate((common, diff_p1)), np.concatenate((common, diff_p2))
         else:
             return diff_p1, diff_p2
-
-    def _one_point_crossover(self, parent1, parent2):
-        p1 = permutation(parent1)
-        p2 = permutation(parent2)
-
-        diff_p1 = np.setdiff1d(p1, p2)
-        num_diff = len(diff_p1)
-
-        upper_bound = int(num_diff * 0.8)
-        if upper_bound == 0:
-            return None
-
-        lower_bound = int(num_diff * 0.2)
-        cut = randint(lower_bound, upper_bound)
-
-        diff_p2 = np.setdiff1d(p2, p1)
-        child1 = np.concatenate((diff_p1[:cut], diff_p2[cut:]))
-        child2 = np.concatenate((diff_p2[:cut], diff_p1[cut:]))
-
-        common = np.intersect1d(p1, p2)
-        if len(common) > 0:
-            return np.concatenate((common, child1)), np.concatenate((common, child2))
-        else:
-            return child1, child2
-
-    def _cross_over(self, parent1, parent2):
-        children1 = self._one_point_crossover(parent1, parent2)
-        children2 = self._uniform_crossover(parent1, parent2)
-        if children1:
-            return children1 + children2
-        else:
-            return children2
 
     def _selection(self, population, fitness):
         scaled_fitness = minmax_scale(fitness)
