@@ -38,6 +38,7 @@ class GeneticAlgorithmFeatureSelector:
         self._max_fitness = max_fitness
         self._fitness_function = fitness_function
         self._verbose = verbose
+        self._is_fitted = False
 
         def check_type(val, name, types=[int]):
             if type(val) not in types:
@@ -131,7 +132,11 @@ class GeneticAlgorithmFeatureSelector:
         return selected
 
     def fit(self, X, y):
+        if self._is_fitted:
+            raise Exception("Model is already fit!")
+
         n_samples, n_features = X.shape
+        self._total_features = n_features
 
         population = np.array(self._initial_population(n_features))
         fitness = np.array([self._fitness_function(X[:, x], y) for x in population])
@@ -145,7 +150,6 @@ class GeneticAlgorithmFeatureSelector:
         self._num_to_select = num_to_select + (num_to_select % 2)
 
         for gen in range(self._max_generations):
-
             fitness_index = np.argsort(fitness)[::-1]
             elite_index = fitness_index[:num_elite]
             elite_fitness = fitness[elite_index]
@@ -177,4 +181,26 @@ class GeneticAlgorithmFeatureSelector:
             fitness = np.concatenate((elite_fitness, offsprings_fitness))
 
         best_index = np.argsort(fitness)[-1]
-        self.selected_features_ = population[best_index]
+        self.last_generation_ = population
+        self.last_generation_fitness_ = fitness
+        self._selected_fitness = fitness[best_index]
+        self._selected = population[best_index]
+        self._is_fitted = True
+
+    def _get_support_mask(self):
+        mask = np.zeros(self._total_features)
+        mask[self._selected] = True
+        return mask
+
+    def get_suport(self, indices=False):
+        if not self._is_fitted:
+            raise Exception("Model is not fitted!")
+        return self._selected if indices else self._get_support_mask()
+
+    def transform(self, X):
+        if not self._is_fitted:
+            raise Exception("Model is not fitted!")
+        return X[:, self._selected]
+
+    def fit_transform(self, X, y):
+        return self.fit(X, y).transform(X)
