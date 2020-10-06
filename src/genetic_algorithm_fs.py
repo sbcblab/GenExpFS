@@ -197,19 +197,19 @@ class GeneticAlgorithmFeatureSelector:
 
             new_population = self._selection(population, fitness)
 
-            child_pairs = [
-                self._cross_over(new_population[i], new_population[i + 1])
+            offspring_pairs = [
+                self._crossover(new_population[i], new_population[i + 1])
                 for i in range(0, self._num_to_select, 2)
             ]
 
-            children = [child for cp in child_pairs for child in cp]
+            offsprings = [offspring for osp in offspring_pairs for offspring in osp]
 
-            [self._mutate(individual, n_features) for individual in children]
+            [self._mutate(individual, n_features) for individual in offsprings]
 
-            children_fitness = [self._fitness_function(X[:, x], y) for x in children]
+            offsprings_fitness = [self._fitness_function(X[:, x], y) for x in offsprings]
 
-            population = np.concatenate((elite, children))
-            fitness = np.concatenate((elite_fitness, children_fitness))
+            population = np.concatenate((elite, offsprings))
+            fitness = np.concatenate((elite_fitness, offsprings_fitness))
 
         best_index = np.argsort(fitness)[-1]
         self.selected_features_ = population[best_index]
