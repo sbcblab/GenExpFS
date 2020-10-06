@@ -23,9 +23,9 @@ class GeneticAlgorithmFeatureSelector:
         n_features=50,
         num_individuals='auto',
         max_generations=100,
-        num_elite=0.1,
-        cross_over_rate=0.5,
-        mutation_rate=0.01,
+        num_elite=0.05,
+        crossover_rate=0.5,
+        mutation_rate=0.001,
         max_fitness=1.0,
         fitness_function=svd_f_score_fitness,
         verbose=0
@@ -35,7 +35,6 @@ class GeneticAlgorithmFeatureSelector:
         self._max_generations = max_generations
         self._mutation_rate = mutation_rate
         self._crossover_rate = crossover_rate
-        self._random_individuals = random_individuals
         self._max_fitness = max_fitness
         self._fitness_function = fitness_function
         self._verbose = verbose
