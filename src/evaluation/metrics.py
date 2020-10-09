@@ -53,7 +53,7 @@ def ochiai_index(a, b):
         intersection = a.intersection(b)
         return len(intersection) / np.sqrt(len(a) * len(b))
     else:
-        raise TypeError("Only a pair of `sets` of the same size is allowed.")
+        raise TypeError("Only a pair of `sets` is allowed.")
 
 
 def kuncheva_index(a, b, m):
@@ -80,4 +80,4 @@ def percentage_of_overlapping_features(a, b):
         intersection = a.intersection(b)
         return len(intersection) / len(a)
     else:
-        raise TypeError("Only a pair of `sets` of the same size is allowed.")
+        raise TypeError("Only a pair of `sets` is allowed.")
