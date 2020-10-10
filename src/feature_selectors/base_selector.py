@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from enum import Enum
 
 
@@ -9,7 +10,7 @@ class SelectorKind(Enum):
     ENSEMBLE = "ensemble"
 
 
-class BaseSelector:
+class BaseSelector(ABC):
     def __init__(self, kind: SelectorKind, n_features: int):
         self._kind = kind
         self._n_features = n_features
@@ -21,6 +22,7 @@ class BaseSelector:
         self._weights = None
         self._fitted = False
 
+    @abstractmethod
     def fit(X, y):
         raise NotImplementedError()
 
