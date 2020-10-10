@@ -1,10 +1,12 @@
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
+from .base_selector import BaseSelector, SelectorKind
 
-class ReliefF:
-    def __init__(self, k=20, n_neighbors=10):
-        self._k = k
+
+class ReliefF(BaseSelector):
+    def __init__(self, n_features=20, n_neighbors=10):
+        super().__init__(SelectorKind.FILTER, n_features)
         self._n = n_neighbors
 
     def _n_first_x_in_y(self, x, y):
@@ -18,8 +20,9 @@ class ReliefF:
         return first_k
 
     def fit(self, X, y):
+        self._X = X
         n_samples, n_features = X.shape
-        self.feature_importances_ = np.zeros((n_features))
+        self._weights = np.zeros((n_features))
 
         _, neighbors = NearestNeighbors(n_samples, metric='manhattan').fit(X).kneighbors(X)
 
@@ -48,12 +51,14 @@ class ReliefF:
             }
 
             for hit in hits:
-                self.feature_importances_ -= np.array(abs(X[instance] - X[hit])) / self._n
+                self._weights -= np.array(abs(X[instance] - X[hit])) / self._n
 
             for (c, misses) in misses_by_class.items():
                 for miss in misses:
                     class_weight = class_factor[instance_class][c]
                     miss_weights = np.array(abs(X[instance] - X[miss])) / (self._n * class_weight)
-                    self.feature_importances_ += miss_weights
+                    self._weights += miss_weights
+
+        self._rank = np.argsort(self._weights)[::-1]
 
         return self
