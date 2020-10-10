@@ -35,7 +35,9 @@ class BaseSelector:
 
     def get_selected(self):
         self._check_fit()
-        return self._selected
+        if self._selected:
+            return self._selected
+        raise Exception("This selector does not return a subset of features!")
 
     def get_rank(self, k):
         self._check_fit()
