@@ -2,11 +2,12 @@ import math
 
 import numpy as np
 from numpy.random import random, randint, uniform, permutation
-
 from sklearn.metrics import f1_score, make_scorer
 from sklearn.model_selection import cross_validate, StratifiedKFold
 from sklearn.preprocessing import minmax_scale
 from sklearn.svm import SVC
+
+from .base_selector import BaseSelector, SelectorKind
 
 
 def svd_f_score_fitness(X, y):
@@ -17,7 +18,7 @@ def svd_f_score_fitness(X, y):
     return results["test_macro_f1"].mean()
 
 
-class GeneticAlgorithmFeatureSelector:
+class GeneticAlgorithmFeatureSelector(BaseSelector):
     def __init__(
         self,
         n_features=50,
@@ -30,7 +31,7 @@ class GeneticAlgorithmFeatureSelector:
         fitness_function=svd_f_score_fitness,
         verbose=0
     ):
-        self._n = n_features
+        super().__init__(SelectorKind.WRAPPER, n_features)
         self._num_individuals = num_individuals
         self._max_generations = max_generations
         self._mutation_rate = mutation_rate
@@ -135,6 +136,7 @@ class GeneticAlgorithmFeatureSelector:
         if self._is_fitted:
             raise Exception("Model is already fit!")
 
+        self._X = X
         n_samples, n_features = X.shape
         self._total_features = n_features
 
@@ -185,22 +187,6 @@ class GeneticAlgorithmFeatureSelector:
         self.last_generation_fitness_ = fitness
         self._selected_fitness = fitness[best_index]
         self._selected = population[best_index]
+        self._support_mask = np.zeros(self._total_features)
+        self._support_mask[self._selected] = True
         self._is_fitted = True
-
-    def _get_support_mask(self):
-        mask = np.zeros(self._total_features)
-        mask[self._selected] = True
-        return mask
-
-    def get_suport(self, indices=False):
-        if not self._is_fitted:
-            raise Exception("Model is not fitted!")
-        return self._selected if indices else self._get_support_mask()
-
-    def transform(self, X):
-        if not self._is_fitted:
-            raise Exception("Model is not fitted!")
-        return X[:, self._selected]
-
-    def fit_transform(self, X, y):
-        return self.fit(X, y).transform(X)
