@@ -15,8 +15,7 @@ class BaseSelector:
         self._n_features = n_features
 
         self._X = None
-        self._y = None
-        self._mask = None
+        self._support_mask = None
         self._selected = None
         self._rank = None
         self._weights = None
@@ -29,35 +28,36 @@ class BaseSelector:
         if not self._fitted:
             raise Exception("Model is not fitted!")
 
-    def get_features(self, k):
+    def get_features(self, k=None):
         self._check_fit()
-        return self._X[:, self._mask]
+        feats = self._X[:, self._support_mask]
+        return feats[:, :k] if k else feats
 
-    def get_selected(self, k):
+    def get_selected(self):
         self._check_fit()
-        return self.selected_
+        return self._selected
 
     def get_rank(self, k):
         self._check_fit()
         if self._rank:
-            return self._rank
+            return self._rank[:k] if k else self._rank
         raise Exception("This selector does not return feature ranks!")
 
     def get_weights(self, k):
         self._check_fit()
         if self._weights:
-            return self._weights
+            return self._weights[:k] if k else self._weights
         raise Exception("This selector does not return feature weights!")
 
     def get_mask(self):
         self._check_fit()
-        return self._mask
+        return self._support_mask
 
     def get_support(self, indices=False):
-        return self._selected if indices else self._mask
+        return self._selected if indices else self._support_mask
 
     def transform(self, X):
-        return X[:, self._mask()]
+        return X[:, self._support_mask()]
 
     def fit_transform(self, X, y):
         return self.fit(X, y).transform(X)
