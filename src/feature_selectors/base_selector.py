@@ -54,6 +54,7 @@ class BaseSelector:
         return self._support_mask
 
     def get_support(self, indices=False):
+        self._check_fit()
         return self._selected if indices else self._support_mask
 
     def transform(self, X):
