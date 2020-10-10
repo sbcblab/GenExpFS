@@ -41,16 +41,16 @@ class BaseSelector(ABC):
             return self._selected
         raise Exception("This selector does not return a subset of features!")
 
-    def get_rank(self, k):
+    def get_rank(self, k=None):
         self._check_fit()
         if self._rank:
-            return self._rank[:k] if k else self._rank
+            return self._rank[:k] if k and k < self._n_features else self._rank
         raise Exception("This selector does not return feature ranks!")
 
-    def get_weights(self, k):
+    def get_weights(self, k=None):
         self._check_fit()
         if self._weights:
-            return self._weights[:k] if k else self._weights
+            return self._weights[:k] if k and k < self._n_features else self._weights
         raise Exception("This selector does not return feature weights!")
 
     def get_mask(self):
