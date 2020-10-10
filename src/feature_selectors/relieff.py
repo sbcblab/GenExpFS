@@ -1,12 +1,12 @@
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
-from .base_selector import BaseSelector, SelectorKind
+from .base_selector import BaseSelector, ResultType
 
 
 class ReliefF(BaseSelector):
     def __init__(self, n_features=20, n_neighbors=10):
-        super().__init__(SelectorKind.FILTER, n_features)
+        super().__init__(ResultType.WEIGTS, n_features)
         self._n = n_neighbors
 
     def _n_first_x_in_y(self, x, y):
@@ -60,5 +60,7 @@ class ReliefF(BaseSelector):
                     self._weights += miss_weights
 
         self._rank = np.argsort(self._weights)[::-1]
+        self._support_mask = np.zeros(n_features)
+        self._support_mask[self._rank] = True
 
         return self

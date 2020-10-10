@@ -1,12 +1,13 @@
 import numpy as np
 from sklearn.model_selection import KFold, cross_val_score
 
-from .base_selector import BaseSelector, SelectorKind
+from .base_selector import BaseSelector, ResultType
 
 
 class ForwardFeatureSelector(BaseSelector):
-    def __init__(self, model, n_features, cv_folds=5, verbose=0):
-        super().__init__(SelectorKind.WRAPPER, n_features)
+    def __init__(self, model, n_features=None, cv_folds=5, verbose=0):
+        result_type = ResultType.RANK if n_features else ResultType.COMPLETE_RANK
+        super().__init__(result_type, n_features)
         self._model = model
         self._cv = KFold(cv_folds)
         self._verbose = verbose

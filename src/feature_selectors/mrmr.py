@@ -1,12 +1,13 @@
 import numpy as np
 
 from evaluation.statistics import mutual_information
-from .base_selector import BaseSelector, SelectorKind
+from .base_selector import BaseSelector, ResultType
 
 
 class MRMRFeatureSelector(BaseSelector):
-    def __init__(self, n_features):
-        super().__init__(SelectorKind.FILTER, n_features)
+    def __init__(self, n_features=None):
+        result_type = ResultType.WEIGHTS if n_features else ResultType.COMPLETE_WEIGHTS
+        super().__init__(result_type, n_features)
 
     def _get_support_mask(self):
         if not self._fitted:

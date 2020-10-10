@@ -7,7 +7,7 @@ from sklearn.model_selection import cross_validate, StratifiedKFold
 from sklearn.preprocessing import minmax_scale
 from sklearn.svm import SVC
 
-from .base_selector import BaseSelector, SelectorKind
+from .base_selector import BaseSelector, ResultType
 
 
 def svd_f_score_fitness(X, y):
@@ -31,7 +31,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         fitness_function=svd_f_score_fitness,
         verbose=0
     ):
-        super().__init__(SelectorKind.WRAPPER, n_features)
+        super().__init__(ResultType.SUBSET, n_features)
         self._num_individuals = num_individuals
         self._max_generations = max_generations
         self._mutation_rate = mutation_rate
