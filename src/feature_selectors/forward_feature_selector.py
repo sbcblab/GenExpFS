@@ -1,15 +1,16 @@
 import numpy as np
 from sklearn.model_selection import KFold, cross_val_score
 
+from base_selector import BaseSelector, SelectorKind
 
-class ForwardFeatureSelector:
-    def __init__(self, model, k, cv_folds=5):
+
+class ForwardFeatureSelector(BaseSelector):
+    def __init__(self, model, n_features, cv_folds=5, verbose=0):
+        super().__init__(SelectorKind.WRAPPER, n_features)
         self._model = model
-        self._k = k
         self._cv = KFold(cv_folds)
+        self._verbose = verbose
         self._selected = []
-
-        self._fitted = False
 
     def _select_best(self, X, y, remaining):
         accuracies = np.array([
@@ -23,16 +24,17 @@ class ForwardFeatureSelector:
 
         return best_feat
 
-    def fit(self, X, y, verbose=False):
+    def fit(self, X, y):
         if self._fitted:
             raise Exception("Model is already fit.")
         self._fitted = True
+        self._X = X
 
         num_feats = X.shape[1]
         remaining = list(range(num_feats))
         self._support_mask = np.zeros(num_feats, dtype=bool)
 
-        num_feats_to_select = np.min(np.array([num_feats, self._k]))
+        num_feats_to_select = np.min(np.array([num_feats, self._n_features]))
         for i in range(num_feats_to_select):
             selected_idx = self._select_best(X, y, remaining)
 
@@ -40,16 +42,8 @@ class ForwardFeatureSelector:
             self._support_mask[selected_idx] = 1
             remaining.remove(selected_idx)
 
-            if verbose:
+            if self._verbose:
                 print(f'[{i+1}/{num_feats_to_select}] Selected variable {selected_idx}.')
 
+        self._rank = np.copy(self._selected)
         return self
-
-    def get_suport(self, indices=False):
-        return self._selected if indices else self._support_mask
-
-    def transform(self, X):
-        return X[:, self._selected]
-
-    def fit_transform(self, X, y, verbose=False):
-        return self.fit(X, y, verbose).transform(X)
