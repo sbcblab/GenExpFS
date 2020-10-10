@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.model_selection import KFold, cross_val_score
 
-from base_selector import BaseSelector, SelectorKind
+from .base_selector import BaseSelector, SelectorKind
 
 
 class ForwardFeatureSelector(BaseSelector):
