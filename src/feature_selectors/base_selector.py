@@ -1,5 +1,16 @@
+from enum import Enum
+
+
+class SelectorKind(Enum):
+    FILTER = "filter"
+    WRAPPER = "wrapper"
+    EMBEDDED = "embedded"
+    HYBRID = "hybrid"
+    ENSEMBLE = "ensemble"
+
+
 class BaseSelector:
-    def __init__(self, kind, n_features):
+    def __init__(self, kind: SelectorKind, n_features: int):
         self._kind = kind
         self._n_features = n_features
 
