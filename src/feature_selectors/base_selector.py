@@ -58,7 +58,7 @@ class BaseSelector:
         return self._selected if indices else self._support_mask
 
     def transform(self, X):
-        return X[:, self._support_mask()]
+        return X[:, self._support_mask]
 
     def fit_transform(self, X, y):
         return self.fit(X, y).transform(X)
