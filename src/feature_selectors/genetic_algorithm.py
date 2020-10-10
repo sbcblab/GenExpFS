@@ -190,3 +190,5 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         self._support_mask = np.zeros(self._total_features)
         self._support_mask[self._selected] = True
         self._is_fitted = True
+
+        return self
