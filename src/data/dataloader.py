@@ -36,7 +36,7 @@ class DataLoader:
 
         if len(targets) > 0:
             targets = targets[0] if len(targets) == 1 else targets
-            y = df[targets].values
+            y = np.array(list(df[targets].values))
             to_return += (y,)
 
         if ret_col_names:
