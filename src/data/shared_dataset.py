@@ -1,7 +1,7 @@
 from multiprocessing.sharedctypes import RawArray
 from ctypes import c_char
 
-from numpy import np
+import numpy as np
 
 from .dataset import Dataset
 
