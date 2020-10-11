@@ -3,9 +3,7 @@ from enum import Enum
 
 
 class ResultType(Enum):
-    COMPLETE_WEIGHTS = "complete_weights"
     WEIGHTS = "weights"
-    COMPLETE_RANK = "complete_rank"
     RANK = "rank"
     SUBSET = "subset"
 
@@ -44,17 +42,17 @@ class BaseSelector(ABC):
             return self._selected
         raise Exception("This selector does not return a subset of features!")
 
-    def get_rank(self):
-        self._check_fit()
-        if self._rank:
-            return self._rank
-        raise Exception("This selector does not return feature ranks!")
-
     def get_weights(self):
         self._check_fit()
         if self._weights:
             return self._weights
         raise Exception("This selector does not return feature weights!")
+
+    def get_rank(self):
+        self._check_fit()
+        if self._rank:
+            return self._rank
+        raise Exception("This selector does not return feature ranks!")
 
     def get_top_k_rank(self, k):
         self._check_fit()
@@ -64,15 +62,6 @@ class BaseSelector(ABC):
             else:
                 raise ValueError("Given `k` should be lower than the number of selected `n_features!")
         raise Exception("This selector does not return feature ranks!")
-
-    def get_top_k_weights(self, k):
-        self._check_fit()
-        if self._weights:
-            if k < self._n_features:
-                return self._weights[:k]
-            else:
-                raise ValueError("Given `k` should be lower than the number of selected `n_features`!")
-        raise Exception("This selector does not return feature weights!")
 
     def get_mask(self):
         self._check_fit()

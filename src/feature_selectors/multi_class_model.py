@@ -6,7 +6,7 @@ from .base_selector import BaseSelector, ResultType
 
 class MultiClassModel(BaseSelector):
     def __init__(self, model_cls: BaseSelector, *args, **kwargs):
-        super().__init__(ResultType.COMPLETE_WEIGHTS)
+        super().__init__(ResultType.WEIGHTS)
         self._model_cls = model_cls
         self._model_args = (args, kwargs)
 

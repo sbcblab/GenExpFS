@@ -6,8 +6,7 @@ from .base_selector import BaseSelector, ResultType
 
 class ForwardFeatureSelector(BaseSelector):
     def __init__(self, model, n_features=None, cv_folds=5, verbose=0):
-        result_type = ResultType.RANK if n_features else ResultType.COMPLETE_RANK
-        super().__init__(result_type, n_features)
+        super().__init__(ResultType.RANK, n_features)
         self._model = model
         self._cv = KFold(cv_folds)
         self._verbose = verbose
