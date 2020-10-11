@@ -34,6 +34,6 @@ class MultiClassModel(BaseSelector):
             for bin_y in binarized_classes:
                 self._fit(X, bin_y, all_weights, **kwargs)
 
-        self._weights = np.array(all_weights).sum(axis=0)
+        self._weights = np.array(all_weights).mean(axis=0)
         self._rank = np.argsort(self._weights)[::-1]
         return self
