@@ -2,6 +2,7 @@ import os
 from typing import List
 
 import pandas as pd
+import numpy as np
 
 
 class DataLoader:
@@ -39,7 +40,7 @@ class DataLoader:
             to_return += (y,)
 
         if ret_col_names:
-            col_names = [x for x in df.columns if x not in targets and x not in to_drop]
+            col_names = np.array([x for x in df.columns if x not in targets and x not in to_drop])
             to_return += (col_names,)
 
         return to_return
