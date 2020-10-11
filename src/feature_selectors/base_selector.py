@@ -2,14 +2,6 @@ from abc import ABC, abstractmethod
 from enum import Enum
 
 
-class SelectorKind(Enum):
-    FILTER = "filter"
-    WRAPPER = "wrapper"
-    EMBEDDED = "embedded"
-    HYBRID = "hybrid"
-    ENSEMBLE = "ensemble"
-
-
 class ResultType(Enum):
     COMPLETE_WEIGHTS = "complete_weights"
     WEIGHTS = "weights"
