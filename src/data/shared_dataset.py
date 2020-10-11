@@ -35,7 +35,7 @@ class SharedDataset(Dataset):
         columns = np.frombuffer(self.columns, dtype=self._columns_type).reshape(self._columns_shape)
         return data, classes, columns
 
-    def get_data(self):
+    def get_instances(self):
         return np.frombuffer(self.data, dtype=self._data_type).reshape(self._data_shape)
 
     def get_classes(self):
