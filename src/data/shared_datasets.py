@@ -21,6 +21,6 @@ class SharedDatasets:
 
     def get_dataset(self, name):
         try:
-            self._datasets.get(name)
+            self._datasets[name]
         except Exception:
-            print(f"There is no {name} dataset.")
+            raise Exception(f"There is no dataset named `{name}`.")
