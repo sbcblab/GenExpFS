@@ -33,13 +33,24 @@ class SharedDataset(Dataset):
         data = np.frombuffer(self.data, dtype=self._data_type).reshape(self._data_shape)
         classes = np.frombuffer(self.classes, dtype=self._classes_type).reshape(self._classes_shape)
         columns = np.frombuffer(self.columns, dtype=self._columns_type).reshape(self._columns_shape)
+
+        data.flags.writeable = False
+        classes.flags.writeable = False
+        columns.flags.writeable = False
+
         return data, classes, columns
 
     def get_instances(self):
-        return np.frombuffer(self.data, dtype=self._data_type).reshape(self._data_shape)
+        data = np.frombuffer(self.data, dtype=self._data_type).reshape(self._data_shape)
+        data.flags.writeable = False
+        return data
 
     def get_classes(self):
-        return np.frombuffer(self.classes, dtype=self._classes_type).reshape(self._classes_shape)
+        classes = np.frombuffer(self.classes, dtype=self._classes_type).reshape(self._classes_shape)
+        classes.flags.writeable = False
+        return classes
 
     def get_column_names(self):
-        return np.frombuffer(self.columns, dtype=self._columns_type).reshape(self._columns_shape)
+        columns = np.frombuffer(self.columns, dtype=self._columns_type).reshape(self._columns_shape)
+        columns.flags.writeable = False
+        return columns
