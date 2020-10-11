@@ -11,9 +11,9 @@ class SharedDataset(Dataset):
         self._data_shape = data.shape
         self._data_type = data.dtype
         self._classes_shape = classes.shape
-        self._classes_type = classes.type
+        self._classes_type = classes.dtype
         self._columns_shape = columns.shape
-        self._columns_type = columns.type
+        self._columns_type = columns.dtype
 
         c_data = RawArray(np.ctypeslib.as_ctypes_type(data.dtype), data.size)
         c_classes = RawArray(c_char, classes.nbytes)
