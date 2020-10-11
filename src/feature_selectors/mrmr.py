@@ -73,7 +73,8 @@ class MRMRFeatureSelector(BaseSelector):
         self._support_mask[selected] = True
         self._selected = selected
         self._rank = selected
-        self._weights = selected_to_class_mi
+        self._wegihts = np.zeros(n_features, dtype='d')
+        self._weights[selected] = selected_to_class_mi
         self._fitted = True
 
         return self
