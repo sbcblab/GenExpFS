@@ -16,11 +16,12 @@ class SharedDatasets:
         for name, path in paths_dict.items():
             try:
                 self.add_dataset(name, path)
+                print(f"Added {name} dataset successfully")
             except Exception as e:
                 print(f"Could not load {path}: {e}")
 
     def get_dataset(self, name):
         try:
-            self._datasets[name]
+            return self._datasets[name]
         except Exception:
             raise Exception(f"There is no dataset named `{name}`.")
