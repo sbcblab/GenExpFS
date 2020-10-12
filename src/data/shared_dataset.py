@@ -54,3 +54,6 @@ class SharedDataset(Dataset):
         columns = np.frombuffer(self.columns, dtype=self._columns_type).reshape(self._columns_shape)
         columns.flags.writeable = False
         return columns
+
+    def get_instances_shape(self):
+        return self._data_shape
