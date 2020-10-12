@@ -5,6 +5,7 @@ from .model import Task
 from data.sampling import bootstrap
 from feature_selectors.base_selector import ResultType
 from util.shared_resources import SharedResources
+from data.results import Result
 
 
 class TaskRunner():
@@ -39,20 +40,20 @@ class TaskRunner():
 
         num_selected = task.feature_selector._n_features
 
-        results = {
-            'name': task.name,
-            'processing_time': time_spent,
-            'task_type': task.kind.value,
-            'dataset_path': dataset.path,
-            'num_features': dataset.get_instances_shape(),
-            'num_selected': num_selected if num_selected else -1,
-            'sampling': 'boostrap' if task.bootstrap else 'none',
-            'result_type': result_type.value,
-            'values': json.dumps(values)
-        }
+        result = Result(
+            name=task.name,
+            processing_time=time_spent,
+            task_type=task.kind.value,
+            dataset_path=dataset.path,
+            num_features=dataset.get_instances_shape()[1],
+            num_selected=num_selected if num_selected else -1,
+            sampling='boostrap' if task.bootstrap else 'none',
+            result_type=result_type.value,
+            values=json.dumps(values)
+        )
 
         lock.acquire()
         try:
-            self._results_writter.write(results)
+            self._results_writter.write(result)
         finally:
             lock.release()
