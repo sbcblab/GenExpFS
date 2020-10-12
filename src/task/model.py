@@ -17,11 +17,11 @@ class Task():
         name: str,
         feature_selector: BaseSelector,
         kind: SelectorKind,
-        dataset: str,
+        dataset_name: str,
         bootstrap: bool = False
     ):
         self.name = name
         self.feature_selector = feature_selector
         self.kind = kind
-        self.dataset = dataset
+        self.dataset_name = dataset_name
         self.bootstrap = bootstrap
