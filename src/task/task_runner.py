@@ -44,11 +44,11 @@ class TaskRunner():
             'processing_time': time_spent,
             'task_type': task.kind.value,
             'dataset_path': dataset.path,
-            'result_type': result_type.value,
-            'values': json.dumps(values),
-            'num_selected': num_selected if num_selected else -1,
             'num_features': dataset.get_instances_shape(),
-            'sampling': 'boostrap' if task.bootstrap else 'none'
+            'num_selected': num_selected if num_selected else -1,
+            'sampling': 'boostrap' if task.bootstrap else 'none',
+            'result_type': result_type.value,
+            'values': json.dumps(values)
         }
 
         lock.acquire()
