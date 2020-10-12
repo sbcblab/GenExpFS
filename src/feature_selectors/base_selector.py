@@ -31,32 +31,32 @@ class BaseSelector(ABC):
     def get_result_type(self):
         return self._result_type
 
-    def get_features(self, k):
+    def get_features(self, k=None):
         self._check_fit()
         feats = self._X[:, self._support_mask]
-        return feats[:, :k] if k and k < self._n_features else feats
+        return feats[:, :k] if k and k is not None < self._n_features else feats
 
     def get_selected(self):
         self._check_fit()
-        if self._selected:
+        if self._selected is not None:
             return self._selected
         raise Exception("This selector does not return a subset of features!")
 
     def get_weights(self):
         self._check_fit()
-        if self._weights:
+        if self._weights is not None:
             return self._weights
         raise Exception("This selector does not return feature weights!")
 
     def get_rank(self):
         self._check_fit()
-        if self._rank:
+        if self._rank is not None:
             return self._rank
         raise Exception("This selector does not return feature ranks!")
 
     def get_top_k_rank(self, k):
         self._check_fit()
-        if self._rank:
+        if self._rank is not None:
             if k < self._n_features:
                 return self._rank[:k]
             else:
