@@ -8,7 +8,7 @@ class Dataset:
     def get(self):
         return self.data, self.classes, self.columns
 
-    def get_data(self):
+    def get_instances(self):
         return self.data
 
     def get_classes(self):
