@@ -4,7 +4,7 @@ import numpy as np
 from .base_selector import BaseSelector, ResultType
 
 
-class SelectKSignificantBest(BaseSelector):
+class KSignificantBestFeatureSelector(BaseSelector):
     def __init__(self, score_func, n_features=None, p_threshold=0.05):
         super().__init__(ResultType.WEIGHTS, n_features)
         self.score_func = score_func
