@@ -36,7 +36,7 @@ class TaskRunner():
         elif result_type is ResultType.RANK:
             values = list(fs.get_rank())
         else:
-            values = list(fs.get_selected())
+            values = [int(v) for v in fs.get_selected()]
 
         num_selected = task.feature_selector._n_features
 
