@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 from enum import Enum
 
 
+from sklearn.preprocessing import minmax_scale
+
+
 class ResultType(Enum):
     WEIGHTS = "weights"
     RANK = "rank"
@@ -49,7 +52,7 @@ class BaseSelector(ABC):
     def get_weights(self):
         self._check_fit()
         if self._weights is not None:
-            return self._weights
+            return minmax_scale(self._weights)
         raise Exception("This selector does not return feature weights!")
 
     def get_rank(self):
