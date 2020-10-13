@@ -32,6 +32,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         verbose=0
     ):
         super().__init__(ResultType.SUBSET, n_features)
+        self._n = n_features
         self._num_individuals = num_individuals
         self._max_generations = max_generations
         self._mutation_rate = mutation_rate
