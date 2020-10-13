@@ -18,6 +18,10 @@ class BaseEmbeddedFeatureSelector(BaseSelector):
         self._model.fit(X, y, **kwargs)
 
         weights = eval(f'self._model.{self._weights_attr}{"()" if self._is_callable else ""}')
+
+        if len(weights.shape) > 1:
+            weights = weights.sum(axis=0)
+
         self._weights = np.copy(weights)
         self._rank = np.argsort(self._weights)[::-1]
 
