@@ -40,7 +40,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         self._max_fitness = max_fitness
         self._fitness_function = fitness_function
         self._verbose = verbose
-        self._is_fitted = False
+        self._fitted = False
 
         def check_type(val, name, types=[int]):
             if type(val) not in types:
@@ -188,6 +188,6 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         self._selected = population[best_index]
         self._support_mask = np.zeros(self._total_features)
         self._support_mask[self._selected] = True
-        self._is_fitted = True
+        self._fitted = True
 
         return self
