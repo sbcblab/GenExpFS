@@ -7,7 +7,7 @@ from sklearn.model_selection import cross_validate, StratifiedKFold
 from sklearn.preprocessing import minmax_scale
 from sklearn.svm import SVC
 
-from .base_selector import BaseSelector, ResultType
+from feature_selectors.base_models.base_selector import BaseSelector, ResultType
 
 
 def svd_f_score_fitness(X, y):

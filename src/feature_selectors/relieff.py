@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
-from .base_selector import BaseSelector, ResultType
+from feature_selectors.base_models.base_selector import BaseSelector, ResultType
 
 
 class ReliefF(BaseSelector):

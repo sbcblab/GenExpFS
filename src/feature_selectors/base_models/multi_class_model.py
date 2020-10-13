@@ -5,8 +5,8 @@ from .base_selector import BaseSelector, ResultType
 
 
 class MultiClassModel(BaseSelector):
-    def __init__(self, model_cls: BaseSelector, *args, **kwargs):
-        super().__init__(ResultType.WEIGHTS)
+    def __init__(self, model_cls: BaseSelector, n_features=None, *args, **kwargs):
+        super().__init__(ResultType.WEIGHTS, n_features)
         self._model_cls = model_cls
         self._model_args = (args, kwargs)
 

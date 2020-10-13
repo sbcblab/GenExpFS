@@ -14,7 +14,7 @@ class ForwardFeatureSelector(BaseSelector):
 
     def _select_best(self, X, y, remaining):
         accuracies = np.array([
-            cross_val_score(self._model, X[:, self._selected + [feat]], y, cv=self._cv, n_jobs=-1).mean()
+            cross_val_score(self._model, X[:, self._selected + [feat]], y, cv=self._cv).mean()
             for feat
             in remaining
         ])
@@ -33,7 +33,9 @@ class ForwardFeatureSelector(BaseSelector):
         remaining = list(range(num_feats))
         self._support_mask = np.zeros(num_feats, dtype=bool)
 
-        num_feats_to_select = np.min(np.array([num_feats, self._n_features]))
+        n_features = num_feats if self._n_features is None else self._n_features
+        num_feats_to_select = np.min(np.array([num_feats, n_features]))
+
         for i in range(num_feats_to_select):
             selected_idx = self._select_best(X, y, remaining)
 
