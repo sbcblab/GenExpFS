@@ -1,6 +1,6 @@
 from enum import Enum
 
-from feature_selectors.base_selector import BaseSelector
+from feature_selectors.base_models.base_selector import BaseSelector
 
 
 class SelectorKind(Enum):

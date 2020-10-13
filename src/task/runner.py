@@ -1,11 +1,11 @@
 import json
 from time import time
 
-from .model import Task
 from data.sampling import bootstrap
-from feature_selectors.base_selector import ResultType
-from util.shared_resources import SharedResources
 from data.results import Result
+from feature_selectors.base_models.base_selector import ResultType
+from .model import Task
+from util.shared_resources import SharedResources
 
 
 class TaskRunner():
