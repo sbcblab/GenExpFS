@@ -133,9 +133,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         return selected
 
     def fit(self, X, y):
-        if self._is_fitted:
-            raise Exception("Model is already fit!")
-
+        self.check_already_fitted()
         self._X = X
         n_samples, n_features = X.shape
         self._total_features = n_features

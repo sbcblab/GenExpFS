@@ -11,8 +11,7 @@ class SelectKBest(BaseSelector):
         self._selector = SKSelectKBest(score_func, n_features, p_threshold)
 
     def fit(self, X, y, **kwargs):
-        if self._is_fitted:
-            raise Exception("Model is already fit!")
+        self.check_already_fitted()
         self._X = X
 
         self._selector.fit(X, y, **kwargs)

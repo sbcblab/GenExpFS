@@ -8,14 +8,8 @@ class MRMRFeatureSelector(BaseSelector):
     def __init__(self, n_features=None):
         super().__init__(ResultType.WEIGHTS, n_features)
 
-    def _get_support_mask(self):
-        if not self._fitted:
-            raise Exception('Model is not fitted.')
-        return self._support_mask
-
     def fit(self, X, y, verbose=0):
-        if self._fitted:
-            raise Exception('Model is already fitted.')
+        self.check_already_fitted()
 
         self._X = X
         n_samples, n_features = X.shape

@@ -20,8 +20,7 @@ class MultiClassModel(BaseSelector):
         all_weights = all_weights.append(features_weights)
 
     def fit(self, X, y, **kwargs):
-        if self._fitted:
-            raise Exception('Model is already fit.')
+        self.check_already_fitted()
         self._fitted = True
 
         all_weights = []

@@ -20,6 +20,7 @@ class ReliefF(BaseSelector):
         return first_k
 
     def fit(self, X, y):
+        self.check_already_fitted()
         self._X = X
         n_samples, n_features = X.shape
         self._weights = np.zeros((n_features))

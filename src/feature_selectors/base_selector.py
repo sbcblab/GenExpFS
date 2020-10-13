@@ -28,6 +28,10 @@ class BaseSelector(ABC):
         if not self._fitted:
             raise Exception("Model is not fitted!")
 
+    def check_already_fitted(self):
+        if self._fitted:
+            raise Exception("Model is already fitted!")
+
     def get_result_type(self):
         return self._result_type
 

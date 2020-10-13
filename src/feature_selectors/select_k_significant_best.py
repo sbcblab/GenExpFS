@@ -12,8 +12,7 @@ class SelectKSignificantBest(BaseSelector):
         self._weights, self._p_values = None, None
 
     def fit(self, X, y, **kwargs):
-        if self._is_fitted:
-            raise Exception("Model is already fit!")
+        self.check_already_fitted()
         self._X = X
         n_samples, n_features = X.shape
 

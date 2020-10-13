@@ -25,8 +25,7 @@ class ForwardFeatureSelector(BaseSelector):
         return best_feat
 
     def fit(self, X, y):
-        if self._fitted:
-            raise Exception("Model is already fit.")
+        self.check_already_fitted()
         self._fitted = True
         self._X = X
 
