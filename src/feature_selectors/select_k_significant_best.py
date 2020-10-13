@@ -25,12 +25,12 @@ class SelectKSignificantBest(BaseSelector):
         else:
             weights = score_func_result
 
-        if self._p_values:
+        if self._p_values is not None:
             self._selected = np.argwhere(self._p_values < self.p_threshold)
         else:
             self._selected = np.arange(n_features)
 
         self._weights = np.asarray(weights)
-        self.rank = np.argsort(self._weights[self._selected])[::-1]
+        self._rank = np.argsort(self._weights[self._selected])[::-1]
         self._fitted = True
         return self
