@@ -4,7 +4,7 @@ import numpy as np
 from scipy.stats import kruskal
 from sklearn.feature_selection import mutual_info_classif, mutual_info_regression
 
-from features import is_discrete
+from util.features import is_discrete
 
 
 def mutual_information(X, y):
