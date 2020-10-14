@@ -1,21 +1,12 @@
 import math
 
+
 import numpy as np
 from numpy.random import random, randint, uniform, permutation
-from sklearn.metrics import f1_score, make_scorer
-from sklearn.model_selection import cross_validate, StratifiedKFold
 from sklearn.preprocessing import minmax_scale
-from sklearn.svm import SVC
+
 
 from feature_selectors.base_models.base_selector import BaseSelector, ResultType
-
-
-def svd_f_score_fitness(X, y):
-    eval_model = SVC()
-    scoring = {"macro_f1": make_scorer(f1_score, average='macro')}
-    cv = StratifiedKFold()
-    results = cross_validate(eval_model, X, y, cv=cv, scoring=scoring)
-    return results["test_macro_f1"].mean()
 
 
 class GeneticAlgorithmFeatureSelector(BaseSelector):
@@ -27,8 +18,8 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         num_elite=0.05,
         crossover_rate=0.5,
         mutation_rate=0.001,
-        max_fitness=1.0,
-        fitness_function=svd_f_score_fitness,
+        max_fitness=None,
+        fitness_function=None,
         verbose=0
     ):
         super().__init__(ResultType.SUBSET, n_features)
@@ -37,10 +28,13 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         self._max_generations = max_generations
         self._mutation_rate = mutation_rate
         self._crossover_rate = crossover_rate
+        self._verbose = verbose
         self._max_fitness = max_fitness
         self._fitness_function = fitness_function
-        self._verbose = verbose
         self._fitted = False
+
+        if fitness_function is None:
+            raise Exception("fitness_function `f(numpy.array, numpy.array) -> float` must be provided")
 
         def check_type(val, name, types=[int]):
             if type(val) not in types:
@@ -161,7 +155,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
             if self._verbose > 0:
                 print(f"Generation [{gen + 1}/{self._max_generations}]: Best fitness: {fitness[fitness_index[0]]}")
 
-            if best_fitness >= self._max_fitness:
+            if self._max_fitness is not None and best_fitness >= self._max_fitness:
                 print("Early stop, found optimal solution!")
                 break
 
