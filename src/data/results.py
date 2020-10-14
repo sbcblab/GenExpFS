@@ -8,7 +8,6 @@ from dataclasses import dataclass
 class Result:
     name: str
     processing_time: float
-    task_type: str
     dataset_path: str
     num_features: int
     num_selected: int

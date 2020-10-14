@@ -43,7 +43,6 @@ class TaskRunner():
         result = Result(
             name=task.name,
             processing_time=time_spent,
-            task_type=task.kind.value,
             dataset_path=dataset.path,
             num_features=dataset.get_instances_shape()[1],
             num_selected=num_selected if num_selected else -1,
