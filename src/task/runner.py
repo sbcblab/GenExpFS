@@ -34,7 +34,7 @@ class TaskRunner():
         if result_type is ResultType.WEIGHTS:
             values = list(fs.get_weights())
         elif result_type is ResultType.RANK:
-            values = list(fs.get_rank())
+            values = [int(v) for v in fs.get_rank()]
         else:
             values = [int(v) for v in fs.get_selected()]
 
