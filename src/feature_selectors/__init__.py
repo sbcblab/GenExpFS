@@ -8,6 +8,7 @@ from .ridge import RidgeClassifierFeatureSelector
 from .mutual_info_filter import MutualInformationFeatureSelector
 from .kruskall_wallis_filter import KruskalWallisFeatureSelector
 from .svm_forward_selector import SVMForwardFeatureSelector
+from .logistic_regression_forward_selector import LRForwardFeatureSelector
 
 from .base_models.forward_feature_selector import ForwardFeatureSelector
 from .base_models.k_best import KBestFeatureSelector
@@ -24,6 +25,7 @@ __all__ = [
     MutualInformationFeatureSelector,
     KruskalWallisFeatureSelector,
     SVMForwardFeatureSelector,
+    LRForwardFeatureSelector,
 
     ForwardFeatureSelector,
     KBestFeatureSelector,
