@@ -30,12 +30,12 @@ class KSignificantBestFeatureSelector(BaseSelector):
             self._selected = np.arange(n_features)
 
         self._weights = np.asarray(weights)
-        self._rank = np.argsort(self._weights[self._selected])[::-1]
+        self._rank = np.argsort(self._weights)[::-1]
 
         if self._n_features is not None:
             self._selected = self._rank[:self._n_features]
             self._support_mask = np.zeros(X.shape[1])
-            self._support_mask[self._rank] = True
+            self._support_mask[self._selected] = True
 
         self._fitted = True
         return self
