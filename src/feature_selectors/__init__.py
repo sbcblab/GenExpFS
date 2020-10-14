@@ -9,6 +9,7 @@ from .kruskall_wallis_filter import KruskalWallisFeatureSelector
 from .svm_forward_selector import SVMForwardFeatureSelector
 from .logistic_regression_forward_selector import LRForwardFeatureSelector
 from .svm_genetic_algorithm import SVMGAFeatureSelector
+from .logistic_regression_genetic_algorithm import LRGAFeatureSelector
 
 from .base_models.genetic_algorithm import GeneticAlgorithmFeatureSelector
 from .base_models.forward_feature_selector import ForwardFeatureSelector
@@ -27,6 +28,7 @@ __all__ = [
     SVMForwardFeatureSelector,
     LRForwardFeatureSelector,
     SVMGAFeatureSelector,
+    LRGAFeatureSelector,
 
     GeneticAlgorithmFeatureSelector,
     ForwardFeatureSelector,
