@@ -29,7 +29,7 @@ def check_steps(steps):
 class FeatureSelectorPipeline(BaseSelector):
     def __init__(self, steps: list):
         last_step = steps[-1]
-        result_type = last_step.model._result_type
+        result_type = last_step.feature_selector._result_type
         n_features = last_step._n_features
         super().__init__(result_type, n_features)
 
