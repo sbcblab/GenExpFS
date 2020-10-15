@@ -6,4 +6,4 @@ from feature_selectors.base_models.embedded import BaseEmbeddedFeatureSelector
 
 class LassoFeatureSelector(BaseEmbeddedFeatureSelector):
     def __init__(self, n_features=None, **kwargs):
-        super().__init__(Lasso(aplha=0.001, **kwargs), 'coef_')
+        super().__init__(Lasso(alpha=0.001, **kwargs), 'coef_')
