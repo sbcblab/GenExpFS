@@ -5,7 +5,7 @@ from .genetic_algorithm import GeneticAlgorithmFeatureSelector
 from .k_best import KBestFeatureSelector
 from .k_significant_best import KSignificantBestFeatureSelector
 from .multi_class_model import MultiClassModel
-from .pipeline import FeatureSelectorPipeline
+from .pipeline import FeatureSelectorPipeline, Step
 
 __all__ = [
     BaseSelector, ResultType,
@@ -15,5 +15,5 @@ __all__ = [
     KBestFeatureSelector,
     KSignificantBestFeatureSelector,
     MultiClassModel,
-    FeatureSelectorPipeline
+    FeatureSelectorPipeline, Step
 ]

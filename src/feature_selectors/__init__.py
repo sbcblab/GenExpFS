@@ -10,6 +10,7 @@ from .relieff import ReliefF
 from .ridge import RidgeClassifierFeatureSelector
 from .svm_forward_selector import SVMForwardFeatureSelector
 from .svm_genetic_algorithm import SVMGAFeatureSelector
+from .mrmr_ga import MRMRGAFeatureSelector
 
 __all__ = [
     DecisionTreeFeatureSelector,
@@ -17,6 +18,7 @@ __all__ = [
     LassoFeatureSelector,
     LRForwardFeatureSelector,
     LRGAFeatureSelector,
+    MRMRGAFeatureSelector,
     MRMRFeatureSelector,
     MutualInformationFeatureSelector,
     RandomForestFeatureSelector,
