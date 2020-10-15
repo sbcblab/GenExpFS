@@ -5,8 +5,11 @@ from feature_selectors.base_models.base_selector import BaseSelector, ResultType
 
 
 class ReliefF(BaseSelector):
+
+    result_type = ResultType.WEIGHTS
+
     def __init__(self, n_features=20, n_neighbors=10):
-        super().__init__(ResultType.WEIGHTS, n_features)
+        super().__init__(n_features)
         self._n = n_neighbors
 
     def _n_first_x_in_y(self, x, y):

@@ -5,8 +5,11 @@ from .base_selector import BaseSelector, ResultType
 
 
 class BaseEmbeddedFeatureSelector(BaseSelector):
-    def __init__(self, model, weights_attr, is_callable=False, n_features=None, result_type=ResultType.WEIGHTS):
-        super().__init__(result_type, n_features)
+
+    result_type = ResultType.WEIGHTS
+
+    def __init__(self, model, weights_attr, is_callable=False, n_features=None):
+        super().__init__(n_features)
         self._model = model
         self._weights_attr = weights_attr
         self._is_callable = is_callable

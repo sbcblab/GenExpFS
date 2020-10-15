@@ -12,8 +12,7 @@ class ResultType(Enum):
 
 
 class BaseSelector(ABC):
-    def __init__(self, result_type: ResultType, n_features: int):
-        self._result_type = result_type
+    def __init__(self, n_features: int):
         self._n_features = n_features
 
         self._X = None
@@ -35,8 +34,11 @@ class BaseSelector(ABC):
         if self._fitted:
             raise Exception("Model is already fitted!")
 
-    def get_result_type(self):
-        return self._result_type
+    @property
+    @classmethod
+    @abstractmethod
+    def result_type(self):
+        raise NotImplementedError()
 
     def get_features(self, k=None):
         self._check_fit()

@@ -4,22 +4,15 @@ import numpy as np
 from .base_selector import BaseSelector, ResultType
 
 
-class Step:
-    def __init__(self, feature_selector: BaseSelector, *args, **kwargs):
-        self.feature_selector = feature_selector
-        self.args = args
-        self.kwargs = kwargs
+def check_selectors(selectors):
+    all_selectors_have_n_features = all([s._n_features for s in selectors])
 
-
-def check_steps(steps):
-    all_steps_have_n_features = all([s.feature_selector._n_features for s in steps])
-
-    if not all_steps_have_n_features:
-        raise Exception("All steps must have n_features!")
+    if not all_selectors_have_n_features:
+        raise Exception("All selectors must have n_features param not None!")
 
     num_features_decreases = all([
-        s1.feature_selector._n_features > s2.feature_selector._n_features
-        for s1, s2 in zip(steps, steps[1:])
+        s1._n_features > s2._n_features
+        for s1, s2 in zip(selectors, selectors[1:])
     ])
 
     if not num_features_decreases:
@@ -27,14 +20,16 @@ def check_steps(steps):
 
 
 class FeatureSelectorPipeline(BaseSelector):
-    def __init__(self, steps: list):
-        last_step = steps[-1]
-        result_type = last_step.feature_selector._result_type
-        n_features = last_step._n_features
-        super().__init__(result_type, n_features)
 
-        check_steps(steps)
-        self._steps = steps
+    result_type = ResultType.SUBSET
+
+    def __init__(self, selectors: list):
+        last_selector = selectors[-1]
+        super().__init__(last_selector._n_features)
+
+        check_selectors(selectors)
+        self.result_type = last_selector.result_type
+        self._selectors = selectors
 
     def fit(self, X, y, **kwargs):
         self.check_already_fitted()
@@ -42,13 +37,12 @@ class FeatureSelectorPipeline(BaseSelector):
         n_samples, n_features = X.shape
 
         X_selected = X
-        selected_idx = list(range(n_features))
+        selected_idx = np.arange(n_features)
 
-        for step in self._steps:
-            fs = step.feature_selector(*step.args, **step.kwargs)
+        for fs in self._selectors:
             fs.fit(X_selected, y)
 
-            subset_indices = fs.get_features()
+            subset_indices = np.array(fs.get_selected())
             selected_idx = selected_idx[subset_indices]
 
             X_selected = fs.get_features()
@@ -58,12 +52,12 @@ class FeatureSelectorPipeline(BaseSelector):
         self._support_mask = np.zeros(n_features)
         self._support_mask[selected_idx] = True
 
-        if fs._result_type is ResultType.WEIGHTS:
-            self._weights = np.zeros(n_features)
+        if self.result_type is ResultType.WEIGHTS:
+            self._weights = np.zeros(n_features, dtype=np.bool)
             self._weights[selected_idx] = fs.get_weights()
             self._rank = np.argsort(self._weights)[::-1]
 
-        elif fs._result_type is ResultType.RANK:
+        elif self.result_type is ResultType.RANK:
             self._rank = fs.get_rank()
 
         self._fitted = True

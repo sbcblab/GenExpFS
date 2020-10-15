@@ -10,6 +10,9 @@ from feature_selectors.base_models.base_selector import BaseSelector, ResultType
 
 
 class GeneticAlgorithmFeatureSelector(BaseSelector):
+
+    result_type = ResultType.SUBSET
+
     def __init__(
         self,
         n_features=50,
@@ -22,7 +25,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         fitness_function=None,
         verbose=0
     ):
-        super().__init__(ResultType.SUBSET, n_features)
+        super().__init__(n_features)
         self._n = n_features
         self._num_individuals = num_individuals
         self._max_generations = max_generations
@@ -180,7 +183,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         self.last_generation_fitness_ = fitness
         self._selected_fitness = fitness[best_index]
         self._selected = population[best_index]
-        self._support_mask = np.zeros(self._total_features)
+        self._support_mask = np.zeros(self._total_features, dtype=np.bool)
         self._support_mask[self._selected] = True
         self._fitted = True
 

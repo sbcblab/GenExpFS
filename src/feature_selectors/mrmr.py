@@ -5,8 +5,11 @@ from feature_selectors.base_models.base_selector import BaseSelector, ResultType
 
 
 class MRMRFeatureSelector(BaseSelector):
+
+    result_type = ResultType.WEIGHTS
+
     def __init__(self, n_features=None):
-        super().__init__(ResultType.WEIGHTS, n_features)
+        super().__init__(n_features)
 
     def fit(self, X, y, verbose=0):
         self.check_already_fitted()

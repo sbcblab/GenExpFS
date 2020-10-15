@@ -5,8 +5,11 @@ from .base_selector import BaseSelector, ResultType
 
 
 class ForwardFeatureSelector(BaseSelector):
+
+    result_type = ResultType.RANK
+
     def __init__(self, model, n_features=None, cv_folds=5, verbose=0):
-        super().__init__(ResultType.RANK, n_features)
+        super().__init__(n_features)
         self._model = model
         self._cv = KFold(cv_folds)
         self._verbose = verbose

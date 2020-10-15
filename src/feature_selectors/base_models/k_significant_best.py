@@ -5,8 +5,11 @@ from .base_selector import BaseSelector, ResultType
 
 
 class KSignificantBestFeatureSelector(BaseSelector):
+
+    result_type = ResultType.WEIGHTS
+
     def __init__(self, score_func, n_features=None, p_threshold=0.05):
-        super().__init__(ResultType.WEIGHTS, n_features)
+        super().__init__(n_features)
         self.score_func = score_func
         self.p_threshold = p_threshold
         self._weights, self._p_values = None, None
