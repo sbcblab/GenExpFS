@@ -17,7 +17,9 @@ class MRMRFeatureSelector(BaseSelector):
         self._X = X
         n_samples, n_features = X.shape
 
-        if self._n_features > n_features:
+        if self._n_features is None:
+            self._n_features = n_features
+        elif self._n_features > n_features:
             raise Exception(
                 f'Number of features to select ({self._n_features}) is higher '
                 f'than number of features in data ({n_features})'
