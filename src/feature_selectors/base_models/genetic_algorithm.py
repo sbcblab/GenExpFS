@@ -136,6 +136,9 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         n_samples, n_features = X.shape
         self._total_features = n_features
 
+        if n_features < self._n_features:
+            raise ValueError("Given dataset has less features than the number that should be selected.")
+
         population = np.array(self._initial_population(n_features))
         fitness = np.array([self._fitness_function(X[:, x], y) for x in population])
 
