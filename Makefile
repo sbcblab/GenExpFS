@@ -6,3 +6,6 @@ setup-dev:
 
 lint:
 	flake8
+
+run:
+	python src/main.py
