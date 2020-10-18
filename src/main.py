@@ -18,7 +18,7 @@ def main():
     args = get_args()
     results_path = args.results_path
 
-    dataloader = DataLoader('datasets')
+    dataloader = DataLoader('datasets', normalize=True)
 
     datasets = SharedDatasets(dataloader)
 

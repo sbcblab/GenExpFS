@@ -3,11 +3,13 @@ from typing import List
 
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import minmax_scale
 
 
 class DataLoader:
-    def __init__(self, base_path):
+    def __init__(self, base_path, normalize=False):
         self._base_path = base_path
+        self._normalize = normalize
 
     def _load(
         self,
@@ -31,6 +33,9 @@ class DataLoader:
             to_drop = [x for x in to_drop if x in df.columns]
 
         X = df.drop(targets + to_drop, axis=1).values
+
+        if self._normalize:
+            X = minmax_scale(X)
 
         to_return = (X,)
 
