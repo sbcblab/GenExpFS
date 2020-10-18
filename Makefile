@@ -12,3 +12,6 @@ run:
 
 build-synthetic-data:
 	python scripts/synthetic_datasets.py
+
+build-xor-data:
+	python scripts/xor_dataset.py

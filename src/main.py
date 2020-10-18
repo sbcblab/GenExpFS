@@ -23,12 +23,37 @@ def main():
     datasets = SharedDatasets(dataloader)
 
     datasets_paths = {
-        'xor_500samples50feats': 'xor_500samples50feats.csv',
-        # 'Liver_GSE22405': 'cumida_binary/Liver_GSE22405.csv',
-        # 'Prostate_GSE6919_U95C': 'cumida_binary/Prostate_GSE6919_U95C.csv',
-        # 'Breast_GSE70947': 'cumida_binary/Breast_GSE70947.csv',
-        # 'Renal_GSE53757': 'cumida_binary/Renal_GSE53757.csv',
-        # 'Colorectal_GSE44861': 'cumida_binary/Colorectal_GSE44861.csv'
+        # Xor Dataset
+        'xor_500samples_50features':
+            'xor/xor_500samples_50features.csv',
+        # Cumida Datasets
+        'Liver_GSE22405':
+            'cumida_binary/Liver_GSE22405.csv',
+        'Prostate_GSE6919_U95C':
+            'cumida_binary/Prostate_GSE6919_U95C.csv',
+        'Breast_GSE70947':
+            'cumida_binary/Breast_GSE70947.csv',
+        'Renal_GSE53757':
+            'cumida_binary/Renal_GSE53757.csv',
+        'Colorectal_GSE44861':
+            'cumida_binary/Colorectal_GSE44861.csv',
+        # Synthetic Datasets
+        'synth_100samples_5000features_50informative':
+            'synthetic/synth_100samples_5000features_50informative.csv',
+        'synth_100samples_5000features_50informative_50redundant':
+            'synthetic/synth_100samples_5000features_50informative_50redundant.csv',
+        'synth_100samples_5000features_50informative_50redundant_50repeated':
+            'synthetic/synth_100samples_5000features_50informative_50redundant_50repeated.csv',
+        'synth_100samples_5000features_50informative_50repeated':
+            'synthetic/synth_100samples_5000features_50informative_50repeated.csv',
+        'synth_200samples_5000features_50informative':
+            'synthetic/synth_200samples_5000features_50informative.csv',
+        'synth_200samples_5000features_50informative_50redundant':
+            'synthetic/synth_200samples_5000features_50informative_50redundant.csv',
+        'synth_200samples_5000features_50informative_50redundant_50repeated':
+            'synthetic/synth_200samples_5000features_50informative_50redundant_50repeated.csv',
+        'synth_200samples_5000features_50informative_50repeated':
+            'synthetic/synth_200samples_5000features_50informative_50repeated.csv',
     }
 
     datasets.add_datasets(datasets_paths)

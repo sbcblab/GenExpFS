@@ -92,7 +92,7 @@ def get_test_presets():
     task_descriptors += mrmr([20])
     task_descriptors += sequential_forward_search([20])
     task_descriptors += [mrmr_ga_task([20], 30)]
-    return interpolate_tasks(1, ['xor_500samples_50feats'], False, task_descriptors)
+    return interpolate_tasks(1, ['xor_500samples_50features'], False, task_descriptors)
 
 
 def generate_tasks(
@@ -125,31 +125,59 @@ def get_presets(test=False):
         return get_test_presets()
 
     xor_presets = generate_tasks(
-        100,
-        ['xor_500samples_50feats'],
-        [5, 10, 20],
-        100,
-        [None],
-        50,
-        [None],
-        20,
-        [([5], 10), ([10], 20), ([20], 30)],
-        50
+        runs=100,
+        datasets=['xor_500samples_50features'],
+        ga_feats=[5, 10, 20],
+        ga_runs=100,
+        mrmr_feats=[None],
+        mrmr_runs=50,
+        sfs_feats=[None],
+        sfs_runs=20,
+        mmrmr_ga_feats=[([5], 10), ([10], 20), ([20], 30)],
+        mrmr_ga_runs=50
     )
 
     cumida_presets = generate_tasks(
-        50,
-        ['Liver_GSE22405', 'Prostate_GSE6919_U95C', 'Breast_GSE70947', 'Renal_GSE53757', 'Colorectal_GSE44861'],
-        [5, 10, 20, 50, 100, 200],
-        30,
-        [200],
-        20,
-        [200],
-        10,
-        [([5, 10, 20, 50, 100, 200],)],
-        30
+        runs=50,
+        datasets=[
+            'Liver_GSE22405',
+            'Prostate_GSE6919_U95C',
+            'Breast_GSE70947',
+            'Renal_GSE53757',
+            'Colorectal_GSE44861'
+        ],
+        ga_feats=[5, 10, 20, 50, 100, 200],
+        ga_runs=30,
+        mrmr_feats=[200],
+        mrmr_runs=20,
+        sfs_feats=[200],
+        sfs_runs=10,
+        mmrmr_ga_feats=[([5, 10, 20, 50, 100, 200],)],
+        mrmr_ga_runs=30
     )
 
-    tasks = list(chain(xor_presets, cumida_presets))
+    synthetic_presets = generate_tasks(
+        runs=50,
+        datasets=[
+            'synth_100samples_5000features_50informative',
+            'synth_100samples_5000features_50informative_50redundant',
+            'synth_100samples_5000features_50informative_50redundant_50repeated',
+            'synth_100samples_5000features_50informative_50repeated',
+            'synth_200samples_5000features_50informative',
+            'synth_200samples_5000features_50informative_50redundant',
+            'synth_200samples_5000features_50informative_50redundant_50repeated',
+            'synth_200samples_5000features_50informative_50repeated'
+        ],
+        ga_feats=[5, 10, 20, 50, 100],
+        ga_runs=20,
+        mrmr_feats=[100],
+        mrmr_runs=10,
+        sfs_feats=[100],
+        sfs_runs=10,
+        mmrmr_ga_feats=[([5, 10, 20, 50, 100], 500)],
+        mrmr_ga_runs=10,
+    )
+
+    tasks = list(chain(xor_presets, cumida_presets, synthetic_presets))
     np.random.shuffle(tasks)
     return tasks
