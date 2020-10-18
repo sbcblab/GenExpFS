@@ -6,7 +6,7 @@ from feature_selectors.base_models.genetic_algorithm import GeneticAlgorithmFeat
 
 
 def logistic_regression_f_score(X, y, n_splits=3):
-    eval_model = LogisticRegression()
+    eval_model = LogisticRegression(max_iter=300)
     scoring = {"macro_f1": make_scorer(f1_score, average='macro')}
     cv = StratifiedKFold(n_splits)
     results = cross_validate(eval_model, X, y, cv=cv, scoring=scoring)
