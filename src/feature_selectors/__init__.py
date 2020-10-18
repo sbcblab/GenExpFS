@@ -6,7 +6,7 @@ from .logistic_regression_genetic_algorithm import LRGAFeatureSelector
 from .mrmr import MRMRFeatureSelector
 from .mutual_info_filter import MutualInformationFeatureSelector
 from .random_forest import RandomForestFeatureSelector
-from .relieff import ReliefF
+from .relieff import ReliefFFeatureSelector
 from .ridge import RidgeClassifierFeatureSelector
 from .svm_forward_selector import SVMForwardFeatureSelector
 from .svm_genetic_algorithm import SVMGAFeatureSelector
@@ -22,7 +22,7 @@ __all__ = [
     MRMRFeatureSelector,
     MutualInformationFeatureSelector,
     RandomForestFeatureSelector,
-    ReliefF,
+    ReliefFFeatureSelector,
     RidgeClassifierFeatureSelector,
     SVMForwardFeatureSelector,
     SVMGAFeatureSelector

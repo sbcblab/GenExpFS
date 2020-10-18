@@ -4,7 +4,7 @@ from sklearn.neighbors import NearestNeighbors
 from feature_selectors.base_models.base_selector import BaseSelector, ResultType
 
 
-class ReliefF(BaseSelector):
+class ReliefFFeatureSelector(BaseSelector):
 
     result_type = ResultType.WEIGHTS
 

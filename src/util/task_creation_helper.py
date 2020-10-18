@@ -12,7 +12,7 @@ from feature_selectors import (
     MRMRFeatureSelector,
     MutualInformationFeatureSelector,
     RandomForestFeatureSelector,
-    ReliefF,
+    ReliefFFeatureSelector,
     RidgeClassifierFeatureSelector,
     SVMForwardFeatureSelector,
     SVMGAFeatureSelector,
@@ -55,7 +55,7 @@ def deterministic_algs():
     return [
         _TaskDescriptor(MutualInformationFeatureSelector, "MutualInformationFilter"),
         _TaskDescriptor(KruskalWallisFeatureSelector, "KruskallWallisFilter"),
-        _TaskDescriptor(ReliefF, "ReliefF"),
+        _TaskDescriptor(ReliefFFeatureSelector, "ReliefFFeatureSelector"),
         _TaskDescriptor(LassoFeatureSelector, "Lasso"),
         _TaskDescriptor(RidgeClassifierFeatureSelector, "RidgeClassifier")
     ]
