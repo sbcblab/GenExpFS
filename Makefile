@@ -9,3 +9,6 @@ lint:
 
 run:
 	python src/main.py
+
+build-synthetic-data:
+	python scripts/synthetic_datasets.py
