@@ -92,7 +92,7 @@ def get_test_presets():
     task_descriptors += mrmr([20])
     task_descriptors += sequential_forward_search([20])
     task_descriptors += [mrmr_ga_task([20], 30)]
-    return interpolate_tasks(1, ['xor_500samples50feats'], False, task_descriptors)
+    return interpolate_tasks(1, ['xor_500samples_50feats'], False, task_descriptors)
 
 
 def generate_tasks(
@@ -126,7 +126,7 @@ def get_presets(test=False):
 
     xor_presets = generate_tasks(
         100,
-        ['xor_500samples50feats'],
+        ['xor_500samples_50feats'],
         [5, 10, 20],
         100,
         [None],
