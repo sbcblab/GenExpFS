@@ -15,3 +15,6 @@ build-synthetic-data:
 
 build-xor-data:
 	python scripts/xor_dataset.py
+
+download-cumida-data:
+	python scripts/download_cumida_datasets.py
