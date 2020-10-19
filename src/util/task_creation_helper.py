@@ -92,7 +92,9 @@ def get_test_presets():
     task_descriptors += mrmr([20])
     task_descriptors += sequential_forward_search([20])
     task_descriptors += [mrmr_ga_task([20], 30)]
-    return interpolate_tasks(1, ['xor_500samples_50features'], False, task_descriptors)
+    no_bootstrap = interpolate_tasks(1, ['xor_500samples_50features'], False, task_descriptors)
+    bootstrap = interpolate_tasks(1, ['xor_500samples_50features'], True, task_descriptors)
+    return chain(bootstrap, no_bootstrap)
 
 
 def generate_tasks(
@@ -163,10 +165,6 @@ def get_presets(test=False):
             'synth_100samples_5000features_50informative_50redundant',
             'synth_100samples_5000features_50informative_50redundant_50repeated',
             'synth_100samples_5000features_50informative_50repeated',
-            'synth_200samples_5000features_50informative',
-            'synth_200samples_5000features_50informative_50redundant',
-            'synth_200samples_5000features_50informative_50redundant_50repeated',
-            'synth_200samples_5000features_50informative_50repeated'
         ],
         ga_feats=[5, 10, 20, 50, 100],
         ga_runs=20,

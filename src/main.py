@@ -1,17 +1,20 @@
 from multiprocessing import Pool, Lock, cpu_count
 import warnings
 
+from sklearn.exceptions import ConvergenceWarning
+
 from data.dataloader import DataLoader
 from data.shared_datasets import SharedDatasets
 from data.results import ResultsWritter
 from task.runner import TaskRunner
-
 from util.shared_resources import SharedResources
 from util.command_line import get_args
 from util.task_creation_helper import get_presets
 
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.simplefilter(action='ignore', category=ConvergenceWarning)
+ConvergenceWarning('ignore')
 
 
 def main():
@@ -42,14 +45,6 @@ def main():
             'synthetic/synth_100samples_5000features_50informative_50redundant_50repeated.csv',
         'synth_100samples_5000features_50informative_50repeated':
             'synthetic/synth_100samples_5000features_50informative_50repeated.csv',
-        'synth_200samples_5000features_50informative':
-            'synthetic/synth_200samples_5000features_50informative.csv',
-        'synth_200samples_5000features_50informative_50redundant':
-            'synthetic/synth_200samples_5000features_50informative_50redundant.csv',
-        'synth_200samples_5000features_50informative_50redundant_50repeated':
-            'synthetic/synth_200samples_5000features_50informative_50redundant_50repeated.csv',
-        'synth_200samples_5000features_50informative_50repeated':
-            'synthetic/synth_200samples_5000features_50informative_50repeated.csv',
     }
 
     datasets.add_datasets(datasets_paths)
