@@ -1,7 +1,13 @@
+from enum import Enum
 from time import time
 import random
 
 import numpy as np
+
+
+class SamplingType(Enum):
+    NONE = 'none'
+    BOOTSTRAP = 'bootstrap'
 
 
 def bootstrap(X, y=None):
