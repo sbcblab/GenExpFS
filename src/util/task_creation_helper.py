@@ -7,6 +7,7 @@ from feature_selectors import (
     DecisionTreeFeatureSelector,
     KruskalWallisFeatureSelector,
     LassoFeatureSelector,
+    LinearSVMFeatureSelector,
     LRForwardFeatureSelector,
     LRGAFeatureSelector,
     MRMRFeatureSelector,
@@ -57,7 +58,8 @@ def deterministic_algs():
         _TaskDescriptor(KruskalWallisFeatureSelector, "KruskallWallisFilter"),
         _TaskDescriptor(ReliefFFeatureSelector, "ReliefFFeatureSelector"),
         _TaskDescriptor(LassoFeatureSelector, "Lasso"),
-        _TaskDescriptor(RidgeClassifierFeatureSelector, "RidgeClassifier")
+        _TaskDescriptor(RidgeClassifierFeatureSelector, "RidgeClassifier"),
+        _TaskDescriptor(LinearSVMFeatureSelector, "LinearSVM"),
     ]
 
 
