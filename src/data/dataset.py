@@ -1,6 +1,6 @@
 class Dataset:
-    def __init__(self, path, data, classes, columns):
-        self.path = path
+    def __init__(self, name, data, classes, columns):
+        self.name = name
         self.data = data
         self.classes = classes
         self.columns = columns

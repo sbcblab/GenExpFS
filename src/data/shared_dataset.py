@@ -7,7 +7,7 @@ from .dataset import Dataset
 
 
 class SharedDataset(Dataset):
-    def __init__(self, path, data, classes, columns):
+    def __init__(self, name, data, classes, columns):
         self._data_shape = data.shape
         self._data_type = data.dtype
         self._classes_shape = classes.shape
@@ -27,7 +27,7 @@ class SharedDataset(Dataset):
         np.copyto(np_classes, classes)
         np.copyto(np_columns, columns)
 
-        super().__init__(path, c_data, c_classes, c_columns)
+        super().__init__(name, c_data, c_classes, c_columns)
 
     def get(self):
         data = np.frombuffer(self.data, dtype=self._data_type).reshape(self._data_shape)

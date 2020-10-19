@@ -8,7 +8,7 @@ from dataclasses import dataclass
 class Result:
     name: str
     processing_time: float
-    dataset_path: str
+    dataset_name: str
     num_features: int
     num_selected: int
     sampling: str
@@ -30,7 +30,7 @@ class ResultsWritter:
         dir_path = os.path.join(self._base_path, result.name)
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
-        path_to_save = os.path.join(dir_path, os.path.basename(result.dataset_path))
+        path_to_save = os.path.join(dir_path, f"{result.dataset_name}.csv",)
         with open(path_to_save, "a") as f:
             writer = csv.DictWriter(f, result.fields())
 

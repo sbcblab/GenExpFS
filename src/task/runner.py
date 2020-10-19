@@ -67,7 +67,7 @@ class TaskRunner():
             result = Result(
                 name=task.name,
                 processing_time=time_spent,
-                dataset_path=dataset.path,
+                dataset_name=dataset.name,
                 num_features=dataset.get_instances_shape()[1],
                 num_selected=num_selected if num_selected else -1,
                 sampling='boostrap' if task.bootstrap else 'none',

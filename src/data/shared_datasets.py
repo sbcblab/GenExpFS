@@ -9,7 +9,7 @@ class SharedDatasets:
 
     def add_dataset(self, name, path):
         X, y, cols = self._dataloader.load(path, to_drop=['samples'])
-        sd = SharedDataset(path, X, y, cols)
+        sd = SharedDataset(name, X, y, cols)
         self._datasets[name] = sd
 
     def add_datasets(self, paths_dict):
