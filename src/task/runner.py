@@ -70,7 +70,7 @@ class TaskRunner():
                 dataset_name=dataset.name,
                 num_features=dataset.get_instances_shape()[1],
                 num_selected=num_selected if num_selected else -1,
-                sampling='boostrap' if task.bootstrap else 'none',
+                sampling='bootstrap' if task.bootstrap else 'none',
                 result_type=fs.result_type.value,
                 values=json.dumps(values)
             )
