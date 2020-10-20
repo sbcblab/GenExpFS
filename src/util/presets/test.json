@@ -1,0 +1,93 @@
+[
+    {
+        "datasets": [
+            "xor_500samples_50features"
+        ],
+        "algs": [
+            {
+                "name": "MRMR",
+                "params": [[20]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "SVMFowardSelection",
+                "params": [[20]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "LRFowardSelection",
+                "params": [[20]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "MutualInformationFilter",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "KruskallWallisFilter",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "ReliefFFeatureSelector",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "Lasso",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "RidgeClassifier",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "LinearSVM",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "LogisticRegressionGeneticAlgorithm",
+                "params": [[20]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "SVMGeneticAlgorithm",
+                "params": [[20]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "DecisionTree",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "RandomForest",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "MRMRGeneticAlgorithm",
+                "params": [[20, 30]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            }
+        ]
+    }
+]

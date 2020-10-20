@@ -9,7 +9,7 @@ from data.results import ResultsWritter
 from task.runner import TaskRunner
 from util.shared_resources import SharedResources
 from util.command_line import get_args
-from util.task_creation_helper import get_presets
+from util.task_creation_helper import default_presets
 
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -57,7 +57,7 @@ def main():
     results_writter = ResultsWritter(results_path)
     task_runner = TaskRunner(results_writter)
 
-    tasks = get_presets()
+    tasks = default_presets(1)
 
     with Pool(cpu_count(), SharedResources.set_resources, [shared_resources]) as pool:
         pool.map(task_runner.run, tasks)
