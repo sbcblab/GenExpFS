@@ -1,5 +1,5 @@
 import numpy as np
-
+from sklearn.preprocessing import label_binarize
 
 from .base_selector import BaseSelector, ResultType
 
@@ -8,17 +8,20 @@ class BaseEmbeddedFeatureSelector(BaseSelector):
 
     result_type = ResultType.WEIGHTS
 
-    def __init__(self, model, weights_attr, is_callable=False, n_features=None):
+    def __init__(self, model, weights_attr, is_callable=False, n_features=None, encode_classes=False):
         super().__init__(n_features)
         self._model = model
         self._weights_attr = weights_attr
         self._is_callable = is_callable
+        self._encode = encode_classes
 
     def fit(self, X, y, **kwargs):
         self.check_already_fitted()
         self._X = X
 
-        self._model.fit(X, y, **kwargs)
+        _y = label_binarize(y, np.unique(y)) if self._encode else y
+
+        self._model.fit(X, _y, **kwargs)
 
         weights = eval(f'self._model.{self._weights_attr}{"()" if self._is_callable else ""}')
 
