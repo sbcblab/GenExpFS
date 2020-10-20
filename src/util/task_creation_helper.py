@@ -110,7 +110,7 @@ def generate_tasks(
 
     mrmr_bootstrap = interpolate_tasks(mrmr_runs, datasets, True, mrmr_descriptors)
     sfs_bootstrap = interpolate_tasks(sfs_runs, datasets, True, sfs_descriptors)
-    det_tasks_bootstrap = interpolate_tasks(runs, datasets, True, det_tasks)
+    det_tasks_bootstrap = interpolate_tasks(runs, datasets, True, det_task_descriptors)
 
     ga_descriptors = genetic_algorithms(ga_feats)
     tree_forest_descriptors = tree_and_forest_algs()
