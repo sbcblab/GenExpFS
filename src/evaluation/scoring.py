@@ -1,6 +1,6 @@
 from sklearn.metrics import make_scorer, accuracy_score, recall_score, precision_score, f1_score
 
-from metrics import one_vs_all_roc_auc
+from .metrics import one_vs_all_roc_auc
 
 
 default_scoring = {
