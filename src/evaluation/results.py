@@ -14,7 +14,7 @@ class ResultsScorer:
         datasets,
         selection_scorer,
         evaluate_at=[5, 10, 20, 50, 100, 200],
-        verbose=0
+        verbose=1
     ):
         self._results_loader = results_loader
         self._datasets = datasets
