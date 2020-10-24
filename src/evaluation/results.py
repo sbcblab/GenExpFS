@@ -22,7 +22,7 @@ class ResultsScorer:
         self._evaluate_at = evaluate_at
         self._verbose = verbose
 
-    def score_all(self, save=True):
+    def score_all(self):
         subset_results = self._results_loader.load_by_result_type('subset')
         rank_results = self._results_loader.load_by_result_type('rank')
         weights_results = self._results_loader.load_by_result_type('weights')
