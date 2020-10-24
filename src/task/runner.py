@@ -1,5 +1,6 @@
 import json
 from time import time
+import traceback
 
 from data.sampling import bootstrap
 from results.model import Result
@@ -7,24 +8,43 @@ from feature_selectors.base_models import ResultType
 from .model import Task
 from util.shared_resources import SharedResources
 
+
 DEFAULT_COLOR = '\033[39m'
 RED_COLOR = "\033[31m"
 CYAN_COLOR = '\033[36m'
 GREEN_COLOR = '\033[32m'
+YELLOW_COLOR = '\033[33m'
 
 
 class TaskRunner():
-    def __init__(self, results_writter):
+    def __init__(self, results_writter, verbose=1):
         self._results_writter = results_writter
+        self._verbose = verbose
+
+    def _print_start(self, name, dataset_name):
+        if self._verbose > 0:
+            print(f"{CYAN_COLOR}Starting task {name} for dataset: {dataset_name}{DEFAULT_COLOR}")
+
+    def _print_end(self, name, dataset_name, time):
+        if self._verbose > 0:
+            print(
+                f"{GREEN_COLOR}Task {name} done! written results for "
+                f"{dataset_name}{YELLOW_COLOR} [{time:0.2f}s]{DEFAULT_COLOR}"
+            )
+
+    def _error(self, text):
+        print(f"{RED_COLOR}{text}{DEFAULT_COLOR}")
+        tb_string = traceback.format_exc(limit=5)
+        print(f"{YELLOW_COLOR}{tb_string}{DEFAULT_COLOR}", end='')
 
     def run(self, task: Task):
-        print(f"{CYAN_COLOR}Starting task {task.name} for dataset: {task.dataset_name}{DEFAULT_COLOR}")
+        self._print_start(task.name, task.dataset_name)
         try:
             shared_resources = SharedResources.get()
             datasets = shared_resources['datasets']
             lock = shared_resources['lock']
-        except Exception as e:
-            print(f"{RED_COLOR}Failed to get shared resources! Reason: {e}{DEFAULT_COLOR}")
+        except Exception:
+            self._print("Failed to get shared resources!")
             return
 
         try:
@@ -34,10 +54,9 @@ class TaskRunner():
 
             if task.bootstrap:
                 X, y = bootstrap(X, y)
-        except Exception as e:
-            print(
-                f"{RED_COLOR}Failed to load dataset `{task.dataset_name}` "
-                f"for task `{task.name}`! Reason: {e}{DEFAULT_COLOR}"
+        except Exception:
+            self._error(
+                f"Failed to load dataset `{task.dataset_name}` for task `{task.name}`!"
             )
             return
 
@@ -47,12 +66,9 @@ class TaskRunner():
             start = time()
             fs.fit(X, y)
             time_spent = time() - start
-        except Exception as e:
-            print(
-                f"{RED_COLOR}Failed to fit model for dataset `{task.dataset_name}` "
-                f"and task `{task.name}`! Reason: {e}{DEFAULT_COLOR}"
-            )
-            raise e
+        except Exception:
+            self._error(f"Failed to fit model for dataset `{task.dataset_name}` and task `{task.name}`!")
+            return
 
         try:
             if fs.result_type is ResultType.WEIGHTS:
@@ -78,11 +94,8 @@ class TaskRunner():
             lock.acquire()
             try:
                 self._results_writter.write_csv(result)
-                print(f"{GREEN_COLOR}Task {task.name} done! written results for {task.dataset_name}{DEFAULT_COLOR}")
+                self._print_end(task.name, task.dataset_name, time_spent)
             finally:
                 lock.release()
-        except Exception as e:
-            print(
-                f"{RED_COLOR}Failed to save results task `{task.name}` and dataset "
-                f"`{task.dataset_name}`! Reason: {e}{DEFAULT_COLOR}"
-            )
+        except Exception:
+            self._error(f"Failed to save results task `{task.name}` and dataset `{task.dataset_name}`!")
