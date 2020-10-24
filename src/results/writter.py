@@ -11,7 +11,7 @@ class ResultsWritter:
         self._base_path = base_path
         self._file_name = file_name
 
-    def _write_csv(path_to_save, result: Result):
+    def _write_csv(self, path_to_save, result: Result):
         with open(path_to_save, "a") as f:
             writer = csv.DictWriter(f, result.fields())
 
