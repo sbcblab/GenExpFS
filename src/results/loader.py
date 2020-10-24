@@ -8,55 +8,50 @@ from src.util.filesystem import files_in_dir_tree
 
 
 class ResultsLoader:
-    def __init__(self, base_path):
-        if not os.path.exists(base_path):
-            raise Exception(f"Folder '{base_path}' does not exist!")
-        if not os.path.isdir(base_path):
-            raise Exception(f"{base_path} is not a directory!")
-        if os.listdir(base_path) == []:
-            raise Exception(f"No results found at {base_path}!")
-        self._base_path = base_path
+    def __init__(self, results_path):
+        if not os.path.exists(results_path):
+            raise Exception(f"'{results_path}' does not exist!")
 
-    def get_results_names(self):
-        return os.listdir(self._base_path)
+        if os.path.isdir(results_path):
+            self._is_dir = True
+            if [f for f in files_in_dir_tree(results_path) if f.endswith('.csv')] == []:
+                raise Exception(f"No results found at {results_path}!")
 
-    def load_by_name(self, name):
-        alg_path = os.path.join(self._base_path, name)
-        try:
-            data_sets = os.listdir(alg_path)
-        except FileNotFoundError:
-            raise Exception(f"Directory {alg_path} not found!")
-        if len(data_sets) == 0:
-            raise Exception(f"No dataset found at {alg_path}")
+        elif not results_path.endswith('.csv'):
+            raise Exception(f"{results_path} should be either a path to dir "
+                            f"containing csv files or a path to csv itself.")
 
-        datasets = (pd.read_csv(os.path.join(alg_path, d)) for d in data_sets)
-        return pd.concat(datasets, ignore_index=True)
-
-    def load_by_dataset_name(self, dataset_name):
-        if not dataset_name.endswith('.csv'):
-            dataset_name += '.csv'
-
-        paths = [p for p in files_in_dir_tree(self._base_path) if p.endswith(dataset_name)]
-        if paths == []:
-            raise Exception(f"No results found for dataset {dataset_name}")
-
-        datasets = [pd.read_csv(p) for p in paths]
-        return pd.concat(datasets, ignore_index=True)
+        self._results_path = results_path
 
     def load_all(self):
-        paths = files_in_dir_tree(self._base_path)
-        return pd.concat((pd.read_csv(p) for p in paths), ignore_index=True)
+        if self._is_dir:
+            paths = files_in_dir_tree(self._results_path)
+            return pd.concat((pd.read_csv(p) for p in paths), ignore_index=True)
+        else:
+            return pd.read_csv(self._results_path)
+
+    def load_by(self, field, field_value, allowed_field_values=None):
+        if allowed_field_values is not None and field_value not in allowed_field_values:
+            raise Exception(f"{field_value} must be one of: {allowed_field_values}")
+
+        df = self.load_all()
+        results = df[df[field] == field_value].reset_index(drop=True)
+
+        if results.size == 0:
+            raise Exception(f"No results found for {field} {field_value}")
+
+        return results
 
     def load_by_sampling(self, sampling):
         sampling_types = {s.value for s in SamplingType}
-        if sampling not in sampling_types:
-            raise Exception(f"{sampling} must be one of: {sampling_types}")
-        df = self.load_all()
-        return df[df['sampling'] == sampling].reset_index(drop=True)
+        return self.load_by('sampling', sampling, allowed_field_values=sampling_types)
 
     def load_by_result_type(self, result_type):
         result_types = {rt.value for rt in ResultType}
-        if result_type not in result_types:
-            raise Exception(f"{result_type} must be one of: {result_types}")
-        df = self.load_all()
-        return df[df['result_type'] == result_type].reset_index(drop=True)
+        return self.load_by('result_type', result_type, allowed_field_values=result_types)
+
+    def load_by_dataset(self, dataset_name):
+        return self.load_by('dataset_name', dataset_name)
+
+    def load_by_name(self, name):
+        return self.load_by('name', name)
