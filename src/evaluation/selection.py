@@ -5,7 +5,7 @@ from .scoring import default_scoring
 from .models import default_models
 
 
-class SelectionEvaluator:
+class SelectionScorer:
     def __init__(self, models=default_models, scoring=default_scoring):
         self._models = models
         self._scoring = scoring
