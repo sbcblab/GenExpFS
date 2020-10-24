@@ -77,7 +77,7 @@ class TaskRunner():
 
             lock.acquire()
             try:
-                self._results_writter.write(result)
+                self._results_writter.write_csv(result)
                 print(f"{GREEN_COLOR}Task {task.name} done! written results for {task.dataset_name}{DEFAULT_COLOR}")
             finally:
                 lock.release()
