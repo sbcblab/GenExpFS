@@ -5,7 +5,7 @@ from sklearn.exceptions import ConvergenceWarning
 
 from data.dataloader import DataLoader
 from data.shared_datasets import SharedDatasets
-from data.results import ResultsWritter
+from results.writter import ResultsWritter
 from task.runner import TaskRunner
 from util.shared_resources import SharedResources
 from util.command_line import get_args

@@ -2,7 +2,7 @@ import json
 from time import time
 
 from data.sampling import bootstrap
-from data.results import Result
+from results.model import Result
 from feature_selectors.base_models import ResultType
 from .model import Task
 from util.shared_resources import SharedResources
