@@ -52,10 +52,14 @@ def pearsons_correlation(a, b):
     return spearman_rank_ties(a, b)
 
 
-def canberra_rank(a, b):
-    _a = np.array(a) + 1
-    _b = np.array(b) + 1
-    return (np.abs(_a - _b) / np.abs(_a + _b)).sum()
+def canberra_distance(a, b):
+    if a == b:
+        return 0
+
+    _a, _b = np.array([(a, b) for a, b in zip(a, b) if not (a == b)]).T
+    _a = np.array(_a)
+    _b = np.array(_b)
+    return (np.abs(_a - _b) / (np.abs(_a) + np.abs(_b))).sum()
 
 
 def kendalls_rank(a, b):
