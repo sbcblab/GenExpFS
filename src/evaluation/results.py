@@ -7,6 +7,13 @@ from util.dict import flatten_dict
 from results.loader import ResultsLoader
 
 
+DEFAULT_COLOR = '\033[39m'
+CYAN_COLOR = '\033[36m'
+GREEN_COLOR = '\033[32m'
+YELLOW_COLOR = '\033[33m'
+WHITE_COLOR = '\033[37m'
+
+
 class ResultsScorer:
     def __init__(
         self,
@@ -44,17 +51,21 @@ class ResultsScorer:
     def _weights_to_rank(self, weights):
         return [int(x) for x in np.argsort(weights)[::-1]]
 
+    def _print(self, result):
+        if self._verbose > 0:
+            print(
+                f"{YELLOW_COLOR}Evaluated results for {GREEN_COLOR}{result['name']}\n"
+                f"{WHITE_COLOR}  type:{CYAN_COLOR} {result['result_type']}\n"
+                f"{WHITE_COLOR}  dataset:{CYAN_COLOR} {result['dataset_name']}\n"
+                f"{WHITE_COLOR}  features:{CYAN_COLOR} {result['num_selected']}{DEFAULT_COLOR}"
+            )
+
     def evaluate_subsets(self, subset_results):
         def evaluate(result):
             selected = self._values_from_result(result)
             X, y = self._dataset_from_result(result)
             eval_results = self._selection_scorer.eval(X[:, selected], y)
-
-            if self._verbose > 0:
-                print(
-                    f"Evaluated result subset for {result['name']}; "
-                    f"{result['dataset_name']}; {result['num_selected']}"
-                )
+            self._print(result)
 
             return pd.Series({**result, **flatten_dict(eval_results)})
 
@@ -84,12 +95,7 @@ class ResultsScorer:
                 results['values'] = json.dumps(selected)
                 results['num_selected'] = k
                 results_data.append(results)
-
-            if self._verbose > 0:
-                print(
-                    f"Evaluated result {result_type} for {result['name']}; "
-                    f"{result['dataset_name']}; {result['num_selected']}"
-                )
+                self._print(results)
 
             return pd.DataFrame(results_data)
 
