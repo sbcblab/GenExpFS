@@ -3,8 +3,8 @@ import os
 import pandas as pd
 
 from feature_selectors.base_models import ResultType
-from .sampling import SamplingType
-from src.util.filesystem import files_in_dir_tree
+from data.sampling import SamplingType
+from util.filesystem import files_in_dir_tree
 
 
 class ResultsLoader:
