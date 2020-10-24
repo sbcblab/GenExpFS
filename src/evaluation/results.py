@@ -10,7 +10,6 @@ from results.loader import ResultsLoader
 class ResultsScorer:
     def __init__(
         self,
-        path_to_save,
         results_loader: ResultsLoader,
         datasets,
         selection_scorer,
