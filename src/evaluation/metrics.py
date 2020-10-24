@@ -38,6 +38,13 @@ def normalized_hamming_distance(a, b):
         raise TypeError("Only pair of `lists` or `numpy arrays` of the same size is allowed.")
 
 
+def set_normalized_hamming_distance(a, b):
+    if isinstance(a, set) and isinstance(b, set):
+        return len(a.symmetric_difference(b)) / len(a.union(b))
+    else:
+        raise TypeError("A and B must be pair of `sets`")
+
+
 def dice_coefficient(a, b):
     is_list = isinstance(a, list) and isinstance(b, list) or isinstance(a, np.ndarray) and isinstance(b, np.ndarray)
     if is_list and len(a) == len(b):
