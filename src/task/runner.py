@@ -79,13 +79,14 @@ class TaskRunner():
                 values = [int(v) for v in fs.get_selected()]
 
             num_selected = task.feature_selector._n_features
+            num_features = dataset.get_instances_shape()[1]
 
             result = Result(
                 name=task.name,
                 processing_time=time_spent,
                 dataset_name=dataset.name,
-                num_features=dataset.get_instances_shape()[1],
-                num_selected=num_selected if num_selected else -1,
+                num_features=num_features,
+                num_selected=num_selected if num_selected else num_features,
                 sampling='bootstrap' if task.bootstrap else 'none',
                 result_type=fs.result_type.value,
                 values=json.dumps(values)
