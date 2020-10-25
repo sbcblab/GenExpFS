@@ -36,7 +36,7 @@ def spearmans_rank(a, b):
     return 1 - 6 * np.power(_a - _b, 2).sum() / (m * (np.power(m, 2) - 1))
 
 
-def spearman_rank_ties(a, b):
+def pearsons_correlation(a, b):
     _a = np.array(a) + 1
     _b = np.array(b) + 1
     a_mean = _a.mean()
@@ -46,10 +46,6 @@ def spearman_rank_ties(a, b):
     quo = np.sqrt(np.power(_a - a_mean, 2).sum() * np.power(_b - b_mean, 2).sum())
 
     return div / quo
-
-
-def pearsons_correlation(a, b):
-    return spearman_rank_ties(a, b)
 
 
 def canberra_distance(a, b):
