@@ -73,6 +73,8 @@ def kuncheva_index(a, b, m):
 
     feat_size = len(a)
     same_size = feat_size == len(b)
+    if m == feat_size:
+        return 0
 
     if same_size and isinstance(a, set) and isinstance(b, set):
         r = a.intersection(b)
