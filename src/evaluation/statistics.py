@@ -5,6 +5,7 @@ from scipy.stats import kruskal
 from sklearn.feature_selection import mutual_info_classif, mutual_info_regression
 
 from util.features import is_discrete
+from .util import partial_rank, ranked_to_permutation_list
 
 
 def mutual_information(X, y):
@@ -29,11 +30,26 @@ def kruskal_wallis(X, y):
     return scores, pvalues
 
 
-def spearmans_rank(a, b):
+def no_ties_spearmans_correlation(a, b):
     _a = np.array(a) + 1
     _b = np.array(b) + 1
     m = len(_a)
     return 1 - 6 * np.power(_a - _b, 2).sum() / (m * (np.power(m, 2) - 1))
+
+
+def spearmans_correlation(a, b):
+    return pearsons_correlation(a, b)
+
+
+def spearmans_correlation_ranked_list(a, b):
+    _a = ranked_to_permutation_list(a)
+    _b = ranked_to_permutation_list(b)
+    return spearmans_correlation(_a, _b)
+
+
+def spearmans_correlation_partial_ranked_list(a, b):
+    _a, _b = partial_rank(a, b)
+    return spearmans_correlation(_a, _b)
 
 
 def pearsons_correlation(a, b):
@@ -48,6 +64,11 @@ def pearsons_correlation(a, b):
     return div / quo
 
 
+def pearsons_correlation_no_zeros(a, b):
+    a, b = np.array([(a, b) for a, b in zip(a, b) if not (a == 0 and b == 0)]).T
+    return pearsons_correlation(a, b)
+
+
 def canberra_distance(a, b):
     if a == b:
         return 0
@@ -58,7 +79,18 @@ def canberra_distance(a, b):
     return (np.abs(_a - _b) / (np.abs(_a) + np.abs(_b))).sum()
 
 
-def kendalls_rank(a, b):
+def canberra_distance_ranked_list(a, b):
+    _a = ranked_to_permutation_list(a)
+    _b = ranked_to_permutation_list(b)
+    return canberra_distance(_a, _b)
+
+
+def canberra_distance_partial_ranked_list(a, b):
+    _a, _b = partial_rank(a, b)
+    return canberra_distance(_a, _b)
+
+
+def kendalls_tau_coefficient(a, b):
     _a = np.array(a) + 1
     _b = np.array(b) + 1
 
@@ -68,3 +100,14 @@ def kendalls_rank(a, b):
     concordant = [x[0][0] < x[0][1] and x[1][0] < x[1][1] for x in zip(a_pairs, b_pairs)]
 
     return (2 * np.count_nonzero(concordant) - len(concordant)) / len(concordant)
+
+
+def kendalls_tau_ranked_list(a, b):
+    _a = ranked_to_permutation_list(a)
+    _b = ranked_to_permutation_list(b)
+    return kendalls_tau_coefficient(_a, _b)
+
+
+def kendalls_tau_partial_ranked_list(a, b):
+    _a, _b = partial_rank(a, b)
+    return kendalls_tau_coefficient(_a, _b)
