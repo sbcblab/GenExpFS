@@ -66,7 +66,7 @@ class BaseSelector(ABC):
     def get_top_k_rank(self, k):
         self._check_fit()
         if self._rank is not None:
-            if k < self._n_features:
+            if self._n_features is None or k < self._n_features:
                 return self._rank[:k]
             else:
                 raise ValueError("Given `k` should be lower than the number of selected `n_features!")
