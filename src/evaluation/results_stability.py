@@ -33,24 +33,24 @@ class ResultsStability:
 
         return stability.drop(['dataset', 'feats'], axis=1).groupby(['name', 'selected']).agg(fields)
 
-    def algorithms_stability(self, sampling='none', evaluate_at_max_features=False):
+    def algorithms_stability(self, sampling='none', evaluate_at_all_features=False):
         df = self._results_loader.load_by_sampling(sampling)
-        return self.stability_for_results(df, evaluate_at_max_features)
+        return self.stability_for_results(df, evaluate_at_all_features)
 
     def summarized_algorithms_stability(
         self,
         sampling='none',
         return_complete=False,
-        evaluate_at_max_features=False
+        evaluate_at_all_features=False
     ):
-        complete_stability = self.algorithms_stability(sampling, evaluate_at_max_features)
+        complete_stability = self.algorithms_stability(sampling, evaluate_at_all_features)
         summarized_stability = self._summarize_algorithm_stability(complete_stability)
         if return_complete:
             return summarized_stability, complete_stability
         else:
             return summarized_stability
 
-    def _stability_for_result(self, df, evaluate_at_max_features=True):
+    def _stability_for_result(self, df, evaluate_at_all_features=True):
         values = np.stack(deepcopy(df['values']).apply(json.loads).values)
 
         name = deepcopy(df['name'].iloc[0])
@@ -68,9 +68,9 @@ class ResultsStability:
         }
 
         evaluate_at_k = [k for k in set(self._evaluate_at) if k <= num_selected]
-        if not evaluate_at_max_features and num_selected != num_features:
+        if not evaluate_at_all_features and num_selected != num_features:
             evaluate_at_k += [num_selected]
-        elif evaluate_at_max_features and num_selected == num_features:
+        elif evaluate_at_all_features and num_selected == num_features:
             evaluate_at_k += [num_selected]
 
         ranks = values
@@ -109,8 +109,8 @@ class ResultsStability:
             subset_results = {**result_model, **stability_for_sets(values, num_features)}
             return pd.DataFrame([subset_results])
 
-    def stability_for_results(self, df, evaluate_at_max_features=True):
+    def stability_for_results(self, df, evaluate_at_all_features=True):
         return df \
             .groupby(['name', 'dataset_name', 'num_selected']) \
-            .apply(self._stability_for_result, evaluate_at_max_features=evaluate_at_max_features) \
+            .apply(self._stability_for_result, evaluate_at_all_features=evaluate_at_all_features) \
             .reset_index(drop=True)
