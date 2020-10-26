@@ -1,6 +1,5 @@
 from sklearn.svm import SVC
 
-
 from feature_selectors.base_models.embedded import BaseEmbeddedFeatureSelector
 
 

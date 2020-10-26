@@ -5,13 +5,14 @@ from .linear_svm import LinearSVMFeatureSelector
 from .logistic_regression_forward_selector import LRForwardFeatureSelector
 from .logistic_regression_genetic_algorithm import LRGAFeatureSelector
 from .mrmr import MRMRFeatureSelector
+from .mrmr_ga import MRMRGAFeatureSelector
 from .mutual_info_filter import MutualInformationFeatureSelector
 from .random_forest import RandomForestFeatureSelector
 from .relieff import ReliefFFeatureSelector
 from .ridge import RidgeClassifierFeatureSelector
 from .svm_forward_selector import SVMForwardFeatureSelector
 from .svm_genetic_algorithm import SVMGAFeatureSelector
-from .mrmr_ga import MRMRGAFeatureSelector
+from .svm_rfe import SVMRFE
 
 __all__ = [
     DecisionTreeFeatureSelector,
@@ -27,5 +28,6 @@ __all__ = [
     ReliefFFeatureSelector,
     RidgeClassifierFeatureSelector,
     SVMForwardFeatureSelector,
-    SVMGAFeatureSelector
+    SVMGAFeatureSelector,
+    SVMRFE
 ]
