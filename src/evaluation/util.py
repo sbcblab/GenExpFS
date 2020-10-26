@@ -1,5 +1,5 @@
 import numpy as np
-from numpy.ctypeslib import int64
+from numpy import int64
 
 
 def ranked_to_permutation_list(a, size=None, fill=0):
