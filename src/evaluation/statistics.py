@@ -70,7 +70,7 @@ def pearsons_correlation_no_zeros(a, b):
 
 
 def canberra_distance(a, b):
-    if a == b:
+    if list(a) == list(b):
         return 0
 
     _a, _b = np.array([(a, b) for a, b in zip(a, b) if not (a == b)]).T
