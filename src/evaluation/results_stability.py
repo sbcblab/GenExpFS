@@ -18,7 +18,7 @@ class ResultsStability:
         self._results_loader = results_loader
         self._evaluate_at = evaluate_at
 
-    def _stability_for_result(self, df):
+    def _stability_for_result(self, df, evaluate_at_max_features=True):
         values = np.stack(deepcopy(df['values']).apply(json.loads).values)
 
         name = deepcopy(df['name'].iloc[0])
@@ -35,10 +35,11 @@ class ResultsStability:
             'selected': num_selected,
         }
 
-        evaluate_at_k = [
-            k for k in set(self._evaluate_at + [num_selected])
-            if k <= num_selected
-        ]
+        evaluate_at_k = [k for k in set(self._evaluate_at) if k <= num_selected]
+        if not evaluate_at_max_features and num_selected != num_features:
+            evaluate_at_k += [num_selected]
+        elif evaluate_at_max_features and num_selected == num_features:
+            evaluate_at_k += [num_selected]
 
         ranks = values
         weights = values
@@ -76,8 +77,8 @@ class ResultsStability:
             subset_results = {**result_model, **stability_for_sets(values, num_features)}
             return pd.DataFrame([subset_results])
 
-    def stability_for_results(self, df):
+    def stability_for_results(self, df, evaluate_at_max_features=True):
         return df \
             .groupby(['name', 'dataset_name', 'num_selected']) \
-            .apply(self._stability_for_result) \
+            .apply(self._stability_for_result, evaluate_at_max_features=evaluate_at_max_features) \
             .reset_index(drop=True)
