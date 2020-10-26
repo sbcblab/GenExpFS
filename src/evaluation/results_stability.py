@@ -18,6 +18,30 @@ class ResultsStability:
         self._results_loader = results_loader
         self._evaluate_at = evaluate_at
 
+    def _summarize_algorithm_stability(self, stability):
+        fields = {
+            'executions': np.sum,
+            'jaccard': np.mean,
+            'hamming': np.mean,
+            'dice': np.mean,
+            'ochiai': np.mean,
+            'kuncheva': np.mean,
+            'pog': np.mean,
+            'spearman': np.mean,
+            'pearson': np.mean,
+        }
+
+        return stability.drop(['dataset', 'feats'], axis=1).groupby(['name', 'selected']).agg(fields)
+
+    def algorithms_result_stability(self, return_complete=False):
+        df = self._results_loader.load_by_sampling('none')
+        complete_stability = self.stability_for_results(df, evaluate_at_max_features=False)
+        summarized_stability = self._summarize_algorithm_stability(complete_stability)
+        if return_complete:
+            return summarized_stability, complete_stability
+        else:
+            return summarized_stability
+
     def _stability_for_result(self, df, evaluate_at_max_features=True):
         values = np.stack(deepcopy(df['values']).apply(json.loads).values)
 
