@@ -33,12 +33,17 @@ class ResultsStability:
 
         return stability.drop(['dataset', 'feats'], axis=1).groupby(['name', 'selected']).agg(fields)
 
-    def algorithms_stability(self, sampling='none'):
+    def algorithms_stability(self, sampling='none', evaluate_at_max_features=False):
         df = self._results_loader.load_by_sampling(sampling)
-        return self.stability_for_results(df, evaluate_at_max_features=False)
+        return self.stability_for_results(df, evaluate_at_max_features)
 
-    def summarized_algorithms_stability(self, sampling='none', return_complete=False):
-        complete_stability = self.algorithms_stability(sampling)
+    def summarized_algorithms_stability(
+        self,
+        sampling='none',
+        return_complete=False,
+        evaluate_at_max_features=False
+    ):
+        complete_stability = self.algorithms_stability(sampling, evaluate_at_max_features)
         summarized_stability = self._summarize_algorithm_stability(complete_stability)
         if return_complete:
             return summarized_stability, complete_stability
