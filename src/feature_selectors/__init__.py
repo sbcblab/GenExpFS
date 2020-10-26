@@ -9,6 +9,7 @@ from .mrmr_ga import MRMRGAFeatureSelector
 from .mutual_info_filter import MutualInformationFeatureSelector
 from .random_forest import RandomForestFeatureSelector
 from .relieff import ReliefFFeatureSelector
+from .relieff_ga import ReliefFGAFeatureSelector
 from .ridge import RidgeClassifierFeatureSelector
 from .svm_forward_selector import SVMForwardFeatureSelector
 from .svm_genetic_algorithm import SVMGAFeatureSelector
@@ -26,6 +27,7 @@ __all__ = [
     MutualInformationFeatureSelector,
     RandomForestFeatureSelector,
     ReliefFFeatureSelector,
+    ReliefFGAFeatureSelector,
     RidgeClassifierFeatureSelector,
     SVMForwardFeatureSelector,
     SVMGAFeatureSelector,
