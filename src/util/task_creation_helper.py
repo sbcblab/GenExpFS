@@ -61,6 +61,17 @@ def config_to_tasks(config):
                     yield Task(name, feature_selectors[name](*params), dataset, True)
 
 
+def tasks_from_presets(preset_names):
+    tasks = []
+    for name in preset_names:
+        if name == 'test':
+            tasks.append(test_presets())
+        elif name == 'default':
+            tasks.append(default_presets())
+
+    return chain(*tasks)
+
+
 def test_presets():
     test_config = load_preset('test.json')
     return config_to_tasks(test_config)
