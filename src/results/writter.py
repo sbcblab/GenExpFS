@@ -7,40 +7,33 @@ from .model import Result
 
 
 class ResultsWritter:
-    def __init__(self, base_dir, file_name='selection.csv'):
+    def __init__(self, base_dir):
         self._base_dir = base_dir
-        self._file_name = file_name
 
         if not os.path.exists(base_dir):
             os.makedirs(base_dir)
         elif not os.path.isdir(base_dir):
             raise Exception(f"base_dir[{base_dir}] must be a directory!")
 
-    def _write_csv(self, path_to_save, result: Result):
+    def write_dict(self, d, file_name):
+        path_to_save = os.path.join(self._base_dir, file_name)
+        file_name = file_name if file_name.endswith('.csv') else f"{file_name}.csv"
         with open(path_to_save, "a") as f:
-            writer = csv.DictWriter(f, result.fields())
+            writer = csv.DictWriter(f, d.keys())
 
             if f.tell() == 0:
                 writer.writeheader()
 
-            writer.writerow(result.to_dict())
+            writer.writerow(d)
 
-    def write_csv(self, result: Result):
-        if not os.path.exists(self._base_dir):
-            os.makedirs(self._base_dir)
-
-        file_name = self._file_name if self._file_name.endswith('.csv') else f"{self._file_name}.csv"
-        path_to_save = os.path.join(self._base_dir, file_name)
-
-        self._write_csv(path_to_save, result)
+    def write_result(self, result: Result, file_name: str):
+        self.write_dict(result.to_dict(), file_name)
 
     def write_dataframe(self, df: pd.DataFrame, file_name: str):
-        if not os.path.exists(self._base_dir):
-            os.makedirs(self._base_dir)
+        file_name = file_name if file_name.endswith('.csv') else f"{file_name}.csv"
+        path_to_save = os.path.join(self._base_dir, file_name)
 
-        path = os.path.join(self._base_dir, file_name)
-
-        if os.path.exists(path):
-            df.to_csv(path, mode='a', index=False, header=False)
+        if os.path.exists(path_to_save):
+            df.to_csv(path_to_save, mode='a', index=False, header=False)
         else:
-            df.to_csv(path, index=False)
+            df.to_csv(path_to_save, index=False)

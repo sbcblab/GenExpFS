@@ -17,9 +17,10 @@ YELLOW_COLOR = '\033[33m'
 
 
 class TaskRunner():
-    def __init__(self, results_writter, verbose=1):
+    def __init__(self, results_writter, output_file_name, verbose=1):
         self._results_writter = results_writter
         self._verbose = verbose
+        self._output_file_name = output_file_name
 
     def _print_start(self, name, dataset_name):
         if self._verbose > 0:
@@ -94,7 +95,7 @@ class TaskRunner():
 
             lock.acquire()
             try:
-                self._results_writter.write_csv(result)
+                self._results_writter.write_result(result, self._output_file_name)
                 self._print_end(task.name, task.dataset_name, time_spent)
             finally:
                 lock.release()
