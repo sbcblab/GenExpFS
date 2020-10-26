@@ -4,30 +4,29 @@ import numpy as np
 from .base_selector import BaseSelector, ResultType
 
 
-def check_selectors(selectors):
-    all_selectors_have_n_features = all([s._n_features for s in selectors])
-
-    if not all_selectors_have_n_features:
-        raise Exception("All selectors must have n_features param not None!")
-
-    num_features_decreases = all([
-        s1._n_features > s2._n_features
-        for s1, s2 in zip(selectors, selectors[1:])
-    ])
-
-    if not num_features_decreases:
-        raise Exception("n_features should decrease along the pipeline!")
-
-
 class FeatureSelectorPipeline(BaseSelector):
 
     result_type = ResultType.SUBSET
+
+    def _check_selectors(self, selectors):
+        all_selectors_have_n_features = all([s._n_features for s in selectors])
+
+        if not all_selectors_have_n_features:
+            raise Exception("All selectors must have n_features param not None!")
+
+        num_features_decreases = all([
+            s1._n_features > s2._n_features
+            for s1, s2 in zip(selectors, selectors[1:])
+        ])
+
+        if not num_features_decreases:
+            raise Exception("n_features should decrease along the pipeline!")
 
     def __init__(self, selectors: list):
         last_selector = selectors[-1]
         super().__init__(last_selector._n_features)
 
-        check_selectors(selectors)
+        self._check_selectors(selectors)
         self.result_type = last_selector.result_type
         self._selectors = selectors
 
