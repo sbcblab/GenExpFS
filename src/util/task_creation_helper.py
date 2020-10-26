@@ -58,7 +58,7 @@ def config_to_tasks(config):
                     yield Task(name, feature_selectors[name](*params), dataset, False)
                 for _ in range(alg['bootstrap_runs']):
                     name = alg['name']
-                    yield Task(name, feature_selectors[name](*params), dataset, False)
+                    yield Task(name, feature_selectors[name](*params), dataset, True)
 
 
 def test_presets():
