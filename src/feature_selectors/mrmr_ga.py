@@ -1,5 +1,6 @@
-from feature_selectors import SVMGAFeatureSelector, MRMRFeatureSelector
 from feature_selectors.base_models import FeatureSelectorPipeline
+from .mrmr import MRMRFeatureSelector
+from .svm_genetic_algorithm import SVMGAFeatureSelector
 
 
 class MRMRGAFeatureSelector(FeatureSelectorPipeline):
