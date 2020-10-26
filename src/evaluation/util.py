@@ -17,3 +17,14 @@ def partial_rank(a, b):
 
     x, y = np.array([(x, y) for x, y in zip(_a, _b) if not (x == m and y == m)]).T
     return x, y
+
+
+def rank_from_weights(weights, n=None):
+    return np.argsort(weights)[::-1][:n]
+
+
+def keep_top_k(weights, k, set_others_to=0):
+    feat_rank = rank_from_weights(weights, k)
+    new_weights = np.zeros(len(weights))
+    new_weights[feat_rank] = np.array(weights)[feat_rank]
+    return new_weights
