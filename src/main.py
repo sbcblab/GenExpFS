@@ -100,7 +100,7 @@ def main():
     if mode in ['all', 'scoring']:
         selection_scorer = SelectionScorer()
         scorer = ResultsScorer(results_loader, datasets, selection_scorer, verbose=verbose)
-        summarized_scoring, scoring = scorer.score_all()
+        summarized_scoring, scoring = scorer.summarized_score_all(return_complete=True)
 
         results_writter.write_dataframe(summarized_scoring, scoring_filename)
         results_writter.write_dataframe(scoring, f'{scoring_filename}-complete')
