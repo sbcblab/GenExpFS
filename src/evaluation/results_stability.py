@@ -33,7 +33,10 @@ class ResultsStability:
             'pearson': np.mean,
         }
 
-        return stability.drop(['dataset', 'feats'], axis=1).groupby(['name', 'selected']).agg(fields)
+        return \
+            stability.drop(['dataset', 'feats'], axis=1) \
+            .groupby(['name', 'selected']) \
+            .agg(fields).reset_index()
 
     def algorithms_stability(self, sampling=None, evaluate_at_all_features=False):
         if sampling is not None:

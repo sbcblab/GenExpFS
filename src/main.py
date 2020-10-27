@@ -113,8 +113,8 @@ def main():
                 sampling='none', return_complete=True
             )
 
-            results_writter.write_dataframe(alg_stab, stability_filename)
-            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-complete')
+            results_writter.write_dataframe(alg_stab_sum, stability_filename)
+            results_writter.write_dataframe(alg_stab, f'{stability_filename}-complete')
         except Exception as e:
             print(f"Could not run results stability evaluation. Reason: {e}")
 
