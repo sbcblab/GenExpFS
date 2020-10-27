@@ -60,11 +60,11 @@ def main():
             'xor_500samples_50features': 'xor/xor_500samples_50features.csv',
 
             # Cumida Datasets
-            # 'Liver_GSE22405': 'cumida/Liver_GSE22405.csv',
-            # 'Prostate_GSE6919_U95C': 'cumida/Prostate_GSE6919_U95C.csv',
-            # 'Breast_GSE70947': 'cumida/Breast_GSE70947.csv',
-            # 'Renal_GSE53757': 'cumida/Renal_GSE53757.csv',
-            # 'Colorectal_GSE44861': 'cumida/Colorectal_GSE44861.csv',
+            'Liver_GSE22405': 'cumida/Liver_GSE22405.csv',
+            'Prostate_GSE6919_U95C': 'cumida/Prostate_GSE6919_U95C.csv',
+            'Breast_GSE70947': 'cumida/Breast_GSE70947.csv',
+            'Renal_GSE53757': 'cumida/Renal_GSE53757.csv',
+            'Colorectal_GSE44861': 'cumida/Colorectal_GSE44861.csv',
 
             # Synthetic Datasets
             'synth_100samples_5000features_50informative':
