@@ -12,31 +12,35 @@ from feature_selectors import (
     LRForwardFeatureSelector,
     LRGAFeatureSelector,
     MRMRFeatureSelector,
+    MRMRGAFeatureSelector,
     MutualInformationFeatureSelector,
     RandomForestFeatureSelector,
     ReliefFFeatureSelector,
+    ReliefFGAFeatureSelector,
     RidgeClassifierFeatureSelector,
     SVMForwardFeatureSelector,
     SVMGAFeatureSelector,
-    MRMRGAFeatureSelector
+    SVMRFE
 )
 
 
 feature_selectors = {
-    "MRMR": MRMRFeatureSelector,
-    "SVMFowardSelection": SVMForwardFeatureSelector,
-    "LRFowardSelection": LRForwardFeatureSelector,
-    "MutualInformationFilter": MutualInformationFeatureSelector,
+    "DecisionTree": DecisionTreeFeatureSelector,
     "KruskallWallisFilter": KruskalWallisFeatureSelector,
-    "ReliefFFeatureSelector": ReliefFFeatureSelector,
     "Lasso": LassoFeatureSelector,
-    "RidgeClassifier": RidgeClassifierFeatureSelector,
     "LinearSVM": LinearSVMFeatureSelector,
     "LogisticRegressionGeneticAlgorithm": LRGAFeatureSelector,
-    "SVMGeneticAlgorithm": SVMGAFeatureSelector,
-    "DecisionTree": DecisionTreeFeatureSelector,
-    "RandomForest": RandomForestFeatureSelector,
+    "LRFowardSelection": LRForwardFeatureSelector,
+    "MRMR": MRMRFeatureSelector,
     "MRMRGeneticAlgorithm": MRMRGAFeatureSelector,
+    "MutualInformationFilter": MutualInformationFeatureSelector,
+    "RandomForest": RandomForestFeatureSelector,
+    "ReliefFFeatureSelector": ReliefFFeatureSelector,
+    "ReliefFGeneticAlgorithm": ReliefFGAFeatureSelector,
+    "RidgeClassifier": RidgeClassifierFeatureSelector,
+    "SVMFowardSelection": SVMForwardFeatureSelector,
+    "SVMGeneticAlgorithm": SVMGAFeatureSelector,
+    "SVMRFE": SVMRFE,
 }
 
 
@@ -45,7 +49,7 @@ def load_preset(path):
     presets_path = os.path.join(dirname, 'presets')
     file_path = os.path.join(presets_path, path)
 
-    with open(file_path) as f:
+    with open(file_path, "r") as f:
         return json.load(f)
 
 
@@ -61,13 +65,18 @@ def config_to_tasks(config):
                     yield Task(name, feature_selectors[name](*params), dataset, True)
 
 
-def tasks_from_presets(preset_names):
+def tasks_from_presets(preset_names, runs=1):
     tasks = []
     for name in preset_names:
-        if name == 'test':
-            tasks.append(test_presets())
-        elif name == 'default':
-            tasks.append(default_presets())
+        try:
+            preset = load_preset(name)
+            for _ in range(runs):
+                tasks.append(config_to_tasks(preset))
+        except Exception as e:
+            if name == 'default':
+                tasks.append(default_tasks(runs))
+            else:
+                print(f"Could not load preset {name}, reason: {e}")
 
     return chain(*tasks)
 
@@ -77,7 +86,7 @@ def test_presets():
     return config_to_tasks(test_config)
 
 
-def default_presets(runs=100):
+def default_tasks(runs=100):
     det_config = load_preset('default/deterministic.json')
     bs_det_config = load_preset('default/bootstrap_deterministic.json')
     stoc_config = load_preset('default/stochastic.json')
