@@ -26,7 +26,7 @@ class ReliefFFeatureSelector(BaseSelector):
         self.check_already_fitted()
         self._X = X
         n_samples, n_features = X.shape
-        self._weights = np.zeros((n_features))
+        self._weights = np.zeros(n_features)
 
         _, neighbors = NearestNeighbors(n_samples, metric='manhattan').fit(X).kneighbors(X)
 
@@ -64,8 +64,10 @@ class ReliefFFeatureSelector(BaseSelector):
                     self._weights += miss_weights
 
         self._rank = np.argsort(self._weights)[::-1]
-        self._support_mask = np.zeros(n_features)
-        self._support_mask[self._rank] = True
-        self._fitted = True
+        if self._n_features is not None:
+            self._selected = self._rank[:self._n_features]
+            self._support_mask = np.zeros(n_features)
+            self._support_mask[self._selected] = True
 
+        self._fitted = True
         return self
