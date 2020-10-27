@@ -122,6 +122,7 @@ def get_args(arguments=None):
     add_results_path(all_parser)
     add_datasets_path(all_parser)
     add_presets(all_parser)
+    add_presets_runs(all_parser)
     add_selection_filename(all_parser)
     add_scoring_filename(all_parser)
     add_stability_filename(all_parser)
@@ -135,6 +136,7 @@ def get_args(arguments=None):
     add_results_path(feature_selection_parser)
     add_datasets_path(feature_selection_parser)
     add_presets(feature_selection_parser)
+    add_presets_runs(feature_selection_parser)
     add_selection_filename(feature_selection_parser)
     add_verbosity(feature_selection_parser)
 
