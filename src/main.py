@@ -28,6 +28,7 @@ def main():
     args = get_args()
 
     mode = args.mode
+    verbose = args.verbose
 
     if mode in ['all', 'select']:
         num_workers = args.workers
@@ -87,7 +88,7 @@ def main():
     results_writter = ResultsWritter(results_path)
 
     if mode in ['all', 'select']:
-        task_runner = TaskRunner(results_writter, selection_filename)
+        task_runner = TaskRunner(results_writter, selection_filename, verbose=verbose)
         tasks = tasks_from_presets(presets, presets_runs)
 
         with Pool(num_workers, SharedResources.set_resources, [shared_resources]) as pool:
@@ -98,14 +99,14 @@ def main():
 
     if mode in ['all', 'scoring']:
         selection_scorer = SelectionScorer()
-        scorer = ResultsScorer(results_loader, datasets, selection_scorer)
+        scorer = ResultsScorer(results_loader, datasets, selection_scorer, verbose=verbose)
         summarized_scoring, scoring = scorer.score_all()
 
         results_writter.write_dataframe(summarized_scoring, scoring_filename)
         results_writter.write_dataframe(scoring, f'{scoring_filename}-complete')
 
     if mode in ['all', 'stability']:
-        stability_evaluator = ResultsStability(results_loader)
+        stability_evaluator = ResultsStability(results_loader, verbose=verbose)
 
         try:
             alg_stab_sum, alg_stab = stability_evaluator.summarized_algorithms_stability(
