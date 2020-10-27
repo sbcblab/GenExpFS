@@ -16,8 +16,8 @@ class ResultsWritter:
             raise Exception(f"base_dir[{base_dir}] must be a directory!")
 
     def write_dict(self, d, file_name):
-        path_to_save = os.path.join(self._base_dir, file_name)
         file_name = file_name if file_name.endswith('.csv') else f"{file_name}.csv"
+        path_to_save = os.path.join(self._base_dir, file_name)
         with open(path_to_save, "a") as f:
             writer = csv.DictWriter(f, d.keys())
 
