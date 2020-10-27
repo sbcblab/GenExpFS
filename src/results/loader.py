@@ -12,6 +12,7 @@ class ResultsLoader:
         if not os.path.exists(results_path):
             raise Exception(f"'{results_path}' does not exist!")
 
+        self._is_dir = False
         if os.path.isdir(results_path):
             self._is_dir = True
             if [f for f in files_in_dir_tree(results_path) if f.endswith('.csv')] == []:
