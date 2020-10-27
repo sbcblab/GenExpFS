@@ -101,7 +101,7 @@ def main():
         summarized_scoring, scoring = scorer.score_all()
 
         results_writter.write_dataframe(summarized_scoring, scoring_filename)
-        results_writter.write_dataframe(scoring, f'complete-{scoring_filename}')
+        results_writter.write_dataframe(scoring, f'{scoring_filename}-complete')
 
     if mode in ['all', 'stability']:
         stability_evaluator = ResultsStability(results_loader)
@@ -112,7 +112,7 @@ def main():
             )
 
             results_writter.write_dataframe(alg_stab, stability_filename)
-            results_writter.write_dataframe(alg_stab_sum, f'complete-{stability_filename}')
+            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-complete')
         except Exception as e:
             print(f"Could not run results stability evaluation. Reason: {e}")
 
@@ -122,7 +122,7 @@ def main():
             )
 
             results_writter.write_dataframe(alg_data_stab, data_stability_filename)
-            results_writter.write_dataframe(alg_data_stab_sum, f'complete-{data_stability_filename}')
+            results_writter.write_dataframe(alg_data_stab_sum, f'{data_stability_filename}-complete')
         except Exception as e:
             print(f"Could not run data stability evaluation. Reason: {e}")
 

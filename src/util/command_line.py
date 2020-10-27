@@ -59,7 +59,7 @@ def add_presets_runs(parser):
 def add_selection_filename(parser):
     parser.add_argument(
         '--selection-filename',
-        default=f'selection-{current_timestamp}',
+        default=f'{current_timestamp}-selection',
         help='File name of file where selection results will be saved.',
         type=str
     )
@@ -68,7 +68,7 @@ def add_selection_filename(parser):
 def add_scoring_filename(parser):
     parser.add_argument(
         '--scoring-filename',
-        default=f'scoring-{current_timestamp}',
+        default=f'{current_timestamp}-scoring',
         help='File name of file where scoring results will be saved.',
         type=str
     )
@@ -77,7 +77,7 @@ def add_scoring_filename(parser):
 def add_stability_filename(parser):
     parser.add_argument(
         '--stability-filename',
-        default=f'stability-{current_timestamp}',
+        default=f'{current_timestamp}-stability',
         help='File name of file where stability results will be saved.',
         type=str
     )
@@ -86,7 +86,7 @@ def add_stability_filename(parser):
 def add_data_stability_filename(parser):
     parser.add_argument(
         '--data-stability-filename',
-        default=f'data-stability-{current_timestamp}',
+        default=f'{current_timestamp}-data-stability',
         help='File name of file where data stability results will be saved.',
         type=str
     )
@@ -95,7 +95,7 @@ def add_data_stability_filename(parser):
 def add_times_filename(parser):
     parser.add_argument(
         '--times-filename',
-        default=f'times-{current_timestamp}',
+        default=f'{current_timestamp}-times',
         help='File name of file where execution times will be saved.',
         type=str
     )
