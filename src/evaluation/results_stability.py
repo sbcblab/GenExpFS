@@ -13,10 +13,12 @@ class ResultsStability:
     def __init__(
         self,
         results_loader: ResultsLoader,
-        evaluate_at=[5, 10, 20, 50, 100, 200]
+        evaluate_at=[5, 10, 20, 50, 100, 200],
+        verbose=1
     ):
         self._results_loader = results_loader
         self._evaluate_at = evaluate_at
+        self._verbose = verbose
 
     def _summarize_algorithm_stability(self, stability):
         fields = {
@@ -63,13 +65,23 @@ class ResultsStability:
         num_features = deepcopy(df['num_features'].iloc[0])
         result_type = deepcopy(df['result_type'].iloc[0])
 
+        num_executions = len(values)
+
         result_model = {
             'name': name,
             'dataset': dataset_name,
-            'executions': len(values),
+            'executions': num_executions,
             'feats': num_features,
             'selected': num_selected,
         }
+
+        if self._verbose > 0:
+            print(
+                f"Evaluating stability for {name}:\n"
+                f"  dataset: {dataset_name}\n"
+                f"  number of features selected: {num_selected}\n"
+                f"  executions: {num_executions}\n"
+            )
 
         evaluate_at_k = [k for k in set(self._evaluate_at) if k <= num_selected]
         if not evaluate_at_all_features and num_selected != num_features:
