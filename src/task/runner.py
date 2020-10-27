@@ -23,20 +23,29 @@ class TaskRunner():
         self._output_file_name = output_file_name
 
     def _print_start(self, name, dataset_name):
-        if self._verbose > 0:
+        if self._verbose > 1:
             print(f"{CYAN_COLOR}Starting task {name} for dataset: {dataset_name}{DEFAULT_COLOR}")
+        elif self._verbose > 0:
+            print(f"[Start] Task {name} for dataset: {dataset_name}")
 
     def _print_end(self, name, dataset_name, time):
-        if self._verbose > 0:
+        if self._verbose > 1:
             print(
                 f"{GREEN_COLOR}Task {name} done! written results for "
                 f"{dataset_name}{YELLOW_COLOR} [{time:0.2f}s]{DEFAULT_COLOR}"
             )
+        elif self._verbose > 0:
+            print(f"[Done] task {name}! written results for {dataset_name} [{time:0.2f}s]")
 
     def _error(self, text):
-        print(f"{RED_COLOR}{text}{DEFAULT_COLOR}")
-        tb_string = traceback.format_exc(limit=5)
-        print(f"{YELLOW_COLOR}{tb_string}{DEFAULT_COLOR}", end='')
+        if self._verbose > 1:
+            print(f"{RED_COLOR}{text}{DEFAULT_COLOR}")
+            tb_string = traceback.format_exc(limit=5)
+            print(f"{YELLOW_COLOR}{tb_string}{DEFAULT_COLOR}", end='')
+        else:
+            print(text)
+            tb_string = traceback.format_exc(limit=5)
+            print(tb_string, end='')
 
     def run(self, task: Task):
         self._print_start(task.name, task.dataset_name)

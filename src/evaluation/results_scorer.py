@@ -71,12 +71,19 @@ class ResultsScorer:
         return [int(x) for x in np.argsort(weights)[::-1]]
 
     def _print(self, result):
-        if self._verbose > 0:
+        if self._verbose > 1:
             print(
                 f"{YELLOW_COLOR}Evaluated results for {GREEN_COLOR}{result['name']}\n"
                 f"{WHITE_COLOR}  type:{CYAN_COLOR} {result['result_type']}\n"
                 f"{WHITE_COLOR}  dataset:{CYAN_COLOR} {result['dataset_name']}\n"
                 f"{WHITE_COLOR}  features:{CYAN_COLOR} {result['num_selected']}{DEFAULT_COLOR}"
+            )
+        elif self._verbose > 0:
+            print(
+                f"Evaluated results for {result['name']}\n"
+                f"  type: {result['result_type']}\n"
+                f"  dataset: {result['dataset_name']}\n"
+                f"  features: {result['num_selected']}"
             )
 
     def evaluate_subsets(self, subset_results):
