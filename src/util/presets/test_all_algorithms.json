@@ -72,7 +72,7 @@
             },
             {
                 "name": "ReliefFGeneticAlgorithm",
-                "params": [[30]],
+                "params": [[20, 30]],
                 "runs": 1,
                 "bootstrap_runs": 0
             },
