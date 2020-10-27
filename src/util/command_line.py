@@ -46,6 +46,16 @@ def add_presets(parser):
     )
 
 
+def add_presets_runs(parser):
+    parser.add_argument(
+        '-n',
+        '--presets-runs',
+        default=1,
+        help='Number of times presets will be run.',
+        type=int
+    )
+
+
 def add_selection_filename(parser):
     parser.add_argument(
         '--selection-filename',

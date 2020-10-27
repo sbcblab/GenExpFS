@@ -30,6 +30,7 @@ def main():
     if mode in ['all', 'select']:
         num_workers = args.workers
         presets = args.presets
+        presets_runs = args.presets_runs
 
     results_path = args.results_path
 
@@ -86,7 +87,7 @@ def main():
 
     if mode in ['all', 'select']:
         task_runner = TaskRunner(results_writter, selection_filename)
-        tasks = tasks_from_presets(presets)
+        tasks = tasks_from_presets(presets, presets_runs)
 
         with Pool(num_workers, SharedResources.set_resources, [shared_resources]) as pool:
             pool.map(task_runner.run, tasks)
