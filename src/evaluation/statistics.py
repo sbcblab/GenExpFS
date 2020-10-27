@@ -94,12 +94,15 @@ def kendalls_tau_coefficient(a, b):
     _a = np.array(a) + 1
     _b = np.array(b) + 1
 
-    a_pairs = combinations(_a, 2)
-    b_pairs = combinations(_b, 2)
+    _pairs = combinations(zip(_a, _b), 2)
 
-    concordant = [x[0][0] < x[0][1] and x[1][0] < x[1][1] for x in zip(a_pairs, b_pairs)]
+    pair_comp_results = [x[0][0] < x[1][0] and x[0][1] < x[1][1] for x in _pairs]
 
-    return (2 * np.count_nonzero(concordant) - len(concordant)) / len(concordant)
+    num_concordant = np.count_nonzero(pair_comp_results)
+    num_total = len(pair_comp_results)
+    num_discordant = num_total - num_concordant
+
+    return (num_concordant - num_discordant) / num_total
 
 
 def kendalls_tau_ranked_list(a, b):
