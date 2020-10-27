@@ -66,7 +66,7 @@ class ReliefFFeatureSelector(BaseSelector):
         self._rank = np.argsort(self._weights)[::-1]
         if self._n_features is not None:
             self._selected = self._rank[:self._n_features]
-            self._support_mask = np.zeros(n_features)
+            self._support_mask = np.zeros(n_features, dtype=bool)
             self._support_mask[self._selected] = True
 
         self._fitted = True
