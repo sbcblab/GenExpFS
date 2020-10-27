@@ -1,4 +1,5 @@
 from multiprocessing import Pool, Lock
+import os
 import warnings
 
 from sklearn.exceptions import ConvergenceWarning
@@ -58,11 +59,11 @@ def main():
             'xor_500samples_50features': 'xor/xor_500samples_50features.csv',
 
             # Cumida Datasets
-            'Liver_GSE22405': 'cumida/Liver_GSE22405.csv',
-            'Prostate_GSE6919_U95C': 'cumida/Prostate_GSE6919_U95C.csv',
-            'Breast_GSE70947': 'cumida/Breast_GSE70947.csv',
-            'Renal_GSE53757': 'cumida/Renal_GSE53757.csv',
-            'Colorectal_GSE44861': 'cumida/Colorectal_GSE44861.csv',
+            # 'Liver_GSE22405': 'cumida/Liver_GSE22405.csv',
+            # 'Prostate_GSE6919_U95C': 'cumida/Prostate_GSE6919_U95C.csv',
+            # 'Breast_GSE70947': 'cumida/Breast_GSE70947.csv',
+            # 'Renal_GSE53757': 'cumida/Renal_GSE53757.csv',
+            # 'Colorectal_GSE44861': 'cumida/Colorectal_GSE44861.csv',
 
             # Synthetic Datasets
             'synth_100samples_5000features_50informative':
@@ -83,7 +84,6 @@ def main():
         }
 
     results_writter = ResultsWritter(results_path)
-    results_loader = ResultsLoader(results_path)
 
     if mode in ['all', 'select']:
         task_runner = TaskRunner(results_writter, selection_filename)
@@ -91,6 +91,8 @@ def main():
 
         with Pool(num_workers, SharedResources.set_resources, [shared_resources]) as pool:
             pool.map(task_runner.run, tasks)
+
+    results_loader = ResultsLoader(os.path.join(results_path, selection_filename))
 
     if mode in ['all', 'scoring']:
         selection_scorer = SelectionScorer()
@@ -102,17 +104,25 @@ def main():
     if mode in ['all', 'stability']:
         stability_evaluator = ResultsStability(results_loader)
 
-        alg_stab_sum, alg_stab = stability_evaluator.summarized_algorithms_stability(
-            sampling='none', return_complete=True
-        )
-        results_writter.write_dataframe(alg_stab, stability_filename)
-        results_writter.write_dataframe(alg_stab_sum, f'complete-{stability_filename}')
+        try:
+            alg_stab_sum, alg_stab = stability_evaluator.summarized_algorithms_stability(
+                sampling='none', return_complete=True
+            )
 
-        alg_data_stab_sum, alg_data_stab = stability_evaluator.summarized_algorithms_stability(
-            sampling='bootstrap', return_complete=True
-        )
-        results_writter.write_dataframe(alg_data_stab, data_stability_filename)
-        results_writter.write_dataframe(alg_data_stab_sum, f'complete-{data_stability_filename}')
+            results_writter.write_dataframe(alg_stab, stability_filename)
+            results_writter.write_dataframe(alg_stab_sum, f'complete-{stability_filename}')
+        except Exception as e:
+            print(f"Could not run results stability evaluation. Reason: {e}")
+
+        try:
+            alg_data_stab_sum, alg_data_stab = stability_evaluator.summarized_algorithms_stability(
+                sampling='bootstrap', return_complete=True
+            )
+
+            results_writter.write_dataframe(alg_data_stab, data_stability_filename)
+            results_writter.write_dataframe(alg_data_stab_sum, f'complete-{data_stability_filename}')
+        except Exception as e:
+            print(f"Could not run data stability evaluation. Reason: {e}")
 
 
 if __name__ == '__main__':
