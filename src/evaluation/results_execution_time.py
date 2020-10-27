@@ -3,7 +3,7 @@ import numpy as np
 from results.loader import ResultsLoader
 
 
-class ResultsExecutionTime:
+class ExecutionTimesAggregator:
     def __init__(
         self,
         results_loader: ResultsLoader,

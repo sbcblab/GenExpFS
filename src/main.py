@@ -15,7 +15,7 @@ from util.task_creation_helper import tasks_from_presets
 
 from evaluation.results_scorer import ResultsScorer
 from evaluation.results_stability import ResultsStability
-from evaluation.results_execution_time import ResultsExecutionTime
+from evaluation.results_execution_time import ExecutionTimesAggregator
 from evaluation.selection import SelectionScorer
 
 
@@ -128,8 +128,8 @@ def main():
             print(f"Could not run data stability evaluation. Reason: {e}")
 
     if mode in ['all', 'times']:
-        results_exec_time = ResultsExecutionTime(results_loader)
-        exec_times = results_exec_time.aggregated_execution_times()
+        times_aggregator = ExecutionTimesAggregator(results_loader)
+        exec_times = times_aggregator.aggregated_execution_times()
         results_writter.write_dataframe(exec_times, times_filename)
 
 
