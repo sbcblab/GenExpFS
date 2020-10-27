@@ -29,9 +29,12 @@ class ResultsWritter:
     def write_result(self, result: Result, file_name: str):
         self.write_dict(result.to_dict(), file_name)
 
-    def write_dataframe(self, df: pd.DataFrame, file_name: str):
+    def write_dataframe(self, df: pd.DataFrame, file_name: str, fillna=False, fill_value="-"):
         file_name = file_name if file_name.endswith('.csv') else f"{file_name}.csv"
         path_to_save = os.path.join(self._base_dir, file_name)
+
+        if fillna:
+            df = df.copy().fillna("-")
 
         if os.path.exists(path_to_save):
             df.to_csv(path_to_save, mode='a', index=False, header=False)
