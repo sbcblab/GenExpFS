@@ -69,8 +69,8 @@ def tasks_from_presets(preset_names, runs=1):
     tasks = []
     for name in preset_names:
         try:
-            name = name if name.endswith('.json') else f'{name}.json'
-            preset = load_preset(name)
+            _name = name if name.endswith('.json') else f'{name}.json'
+            preset = load_preset(_name)
             for _ in range(runs):
                 tasks.append(config_to_tasks(preset))
         except Exception as e:
