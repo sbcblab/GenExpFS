@@ -15,6 +15,7 @@ from util.task_creation_helper import tasks_from_presets
 
 from evaluation.results_scorer import ResultsScorer
 from evaluation.results_stability import ResultsStability
+from evaluation.results_execution_time import ResultsExecutionTime
 from evaluation.selection import SelectionScorer
 
 
@@ -47,8 +48,8 @@ def main():
         stability_filename = args.stability_filename
         data_stability_filename = args.data_stability_filename
 
-    # if mode in ['all', 'times']:
-    #     times_filename = args.times_filename
+    if mode in ['all', 'times']:
+        times_filename = args.times_filename
 
     if mode in ['all', 'select', 'scoring']:
         dataloader = DataLoader(datasets_path, normalize=True)
@@ -125,6 +126,11 @@ def main():
             results_writter.write_dataframe(alg_data_stab_sum, f'{data_stability_filename}-complete')
         except Exception as e:
             print(f"Could not run data stability evaluation. Reason: {e}")
+
+    if mode in ['all', 'times']:
+        results_exec_time = ResultsExecutionTime(results_loader)
+        exec_times = results_exec_time.aggregated_execution_times()
+        results_writter.write_dataframe(exec_times, times_filename)
 
 
 if __name__ == '__main__':
