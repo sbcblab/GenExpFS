@@ -40,6 +40,25 @@ class ResultsScorer:
 
         return pd.concat([subset_scores, rank_scores, weights_scores])
 
+    def _summarized_scores(self, scores):
+        fields = {
+            'SupportVectorMachine_macro_f1': np.mean,
+            'DecisionTree_macro_f1': np.mean,
+            'RandomForest_macro_f1': np.mean,
+            'NaiveBayes_macro_f1': np.mean,
+            'ZeroR_macro_f1': np.mean,
+        }
+
+        return scores.groupby(['name', 'num_selected']).agg(fields).reset_index()
+
+    def summarized_score_all(self, return_complete=False):
+        complete_scoring = self.score_all()
+        summarized_scoring = self._summarized_scores(complete_scoring)
+        if return_complete:
+            return summarized_scoring, complete_scoring
+        else:
+            return summarized_scoring
+
     def _dataset_from_result(self, result):
         dataset_name = result['dataset_name']
         X, y, _ = self._datasets.get_dataset(dataset_name).get()

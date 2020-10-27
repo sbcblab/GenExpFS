@@ -98,9 +98,10 @@ def main():
     if mode in ['all', 'scoring']:
         selection_scorer = SelectionScorer()
         scorer = ResultsScorer(results_loader, datasets, selection_scorer)
-        scoring_results = scorer.score_all()
+        summarized_scoring, scoring = scorer.score_all()
 
-        results_writter.write_dataframe(scoring_results, scoring_filename)
+        results_writter.write_dataframe(summarized_scoring, scoring_filename)
+        results_writter.write_dataframe(scoring, f'complete-{scoring_filename}')
 
     if mode in ['all', 'stability']:
         stability_evaluator = ResultsStability(results_loader)
