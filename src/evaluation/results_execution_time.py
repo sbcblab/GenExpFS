@@ -26,4 +26,4 @@ class ExecutionTimesAggregator:
         return \
             filtered_by_max[['name', 'dataset_name', 'num_selected', 'processing_time']] \
             .groupby(['name', 'dataset_name', 'num_selected']) \
-            .agg('mean')
+            .agg('mean').reset_index()
