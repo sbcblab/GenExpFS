@@ -92,6 +92,7 @@ def main():
         with Pool(num_workers, SharedResources.set_resources, [shared_resources]) as pool:
             pool.map(task_runner.run, tasks)
 
+    selection_filename = selection_filename if selection_filename.endswith('.csv') else f'{selection_filename}.csv'
     results_loader = ResultsLoader(os.path.join(results_path, selection_filename))
 
     if mode in ['all', 'scoring']:
