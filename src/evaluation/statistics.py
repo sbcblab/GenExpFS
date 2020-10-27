@@ -91,6 +91,9 @@ def canberra_distance_partial_ranked_list(a, b):
 
 
 def kendalls_tau_coefficient(a, b):
+    if list(a) == list(b):
+        return 1.0
+
     _a = np.array(a) + 1
     _b = np.array(b) + 1
 
