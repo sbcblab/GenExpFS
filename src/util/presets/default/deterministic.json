@@ -11,18 +11,6 @@
                 "bootstrap_runs": 0
             },
             {
-                "name": "SVMFowardSelection",
-                "params": [[null]],
-                "runs": 1,
-                "bootstrap_runs": 0
-            },
-            {
-                "name": "LRFowardSelection",
-                "params": [[null]],
-                "runs": 1,
-                "bootstrap_runs": 0
-            },
-            {
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 1,
@@ -54,6 +42,12 @@
             },
             {
                 "name": "LinearSVM",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "SVMRFE",
                 "params": [[null]],
                 "runs": 1,
                 "bootstrap_runs": 0
@@ -76,18 +70,6 @@
                 "bootstrap_runs": 0
             },
             {
-                "name": "SVMFowardSelection",
-                "params": [[200]],
-                "runs": 1,
-                "bootstrap_runs": 0
-            },
-            {
-                "name": "LRFowardSelection",
-                "params": [[200]],
-                "runs": 1,
-                "bootstrap_runs": 0
-            },
-            {
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 1,
@@ -119,6 +101,12 @@
             },
             {
                 "name": "LinearSVM",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "SVMRFE",
                 "params": [[null]],
                 "runs": 1,
                 "bootstrap_runs": 0
@@ -140,18 +128,6 @@
                 "bootstrap_runs": 0
             },
             {
-                "name": "SVMFowardSelection",
-                "params": [[100]],
-                "runs": 1,
-                "bootstrap_runs": 0
-            },
-            {
-                "name": "LRFowardSelection",
-                "params": [[100]],
-                "runs": 1,
-                "bootstrap_runs": 0
-            },
-            {
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 1,
@@ -183,6 +159,12 @@
             },
             {
                 "name": "LinearSVM",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "SVMRFE",
                 "params": [[null]],
                 "runs": 1,
                 "bootstrap_runs": 0

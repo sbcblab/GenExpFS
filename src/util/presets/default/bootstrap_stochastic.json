@@ -17,19 +17,13 @@
                 "bootstrap_runs": 1
             },
             {
-                "name": "LogisticRegressionGeneticAlgorithm",
-                "params": [[5], [10], [20]],
-                "runs": 0,
-                "bootstrap_runs": 1
-            },
-            {
                 "name": "SVMGeneticAlgorithm",
                 "params": [[5], [10], [20]],
                 "runs": 0,
                 "bootstrap_runs": 1
             },
             {
-                "name": "MRMRGeneticAlgorithm",
+                "name": "ReliefFGeneticAlgorithm",
                 "params": [[5, 10], [10, 20], [20, 30]],
                 "runs": 0,
                 "bootstrap_runs": 1
@@ -58,20 +52,14 @@
                 "bootstrap_runs": 1
             },
             {
-                "name": "LogisticRegressionGeneticAlgorithm",
-                "params": [[10], [20], [50], [100], [200]],
-                "runs": 0,
-                "bootstrap_runs": 1
-            },
-            {
                 "name": "SVMGeneticAlgorithm",
                 "params": [[10], [20], [50], [100], [200]],
                 "runs": 0,
                 "bootstrap_runs": 1
             },
             {
-                "name": "MRMRGeneticAlgorithm",
-                "params": [[10, 500], [20, 500], [50, 500], [100, 500], [200, 500]],
+                "name": "ReliefFGeneticAlgorithm",
+                "params": [[10, 1000], [20, 1000], [50, 1000], [100, 1000], [200, 1000]],
                 "runs": 0,
                 "bootstrap_runs": 1
             }
@@ -110,8 +98,8 @@
                 "bootstrap_runs": 1
             },
             {
-                "name": "MRMRGeneticAlgorithm",
-                "params": [[10, 500], [20, 500], [50, 500], [100, 500]],
+                "name": "ReliefFGeneticAlgorithm",
+                "params": [[10, 1000], [20, 1000], [50, 1000], [100, 1000]],
                 "runs": 0,
                 "bootstrap_runs": 1
             }
