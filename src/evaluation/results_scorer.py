@@ -30,15 +30,33 @@ class ResultsScorer:
         self._verbose = verbose
 
     def score_all(self):
-        subset_results = self._results_loader.load_by_result_type('subset')
-        rank_results = self._results_loader.load_by_result_type('rank')
-        weights_results = self._results_loader.load_by_result_type('weights')
+        scores = []
 
-        subset_scores = self.evaluate_subsets(subset_results)
-        rank_scores = self.evaluate_ordered(rank_results)
-        weights_scores = self.evaluate_ordered(weights_results)
+        try:
+            subset_results = self._results_loader.load_by_result_type('subset')
+            subset_scores = self.evaluate_subsets(subset_results)
+            scores.append(subset_scores)
+        except Exception as e:
+            print(f"Could not load subset results, reson: {e}")
 
-        return pd.concat([subset_scores, rank_scores, weights_scores])
+        try:
+            rank_results = self._results_loader.load_by_result_type('rank')
+            rank_scores = self.evaluate_ordered(rank_results)
+            scores.append(rank_scores)
+        except Exception as e:
+            print(f"Could not load rank results, reson: {e}")
+
+        try:
+            weights_results = self._results_loader.load_by_result_type('weights')
+            weights_scores = self.evaluate_ordered(weights_results)
+            scores.append(weights_scores)
+        except Exception as e:
+            print(f"Could not load weighted results, reson: {e}")
+
+        if len(scores) == 0:
+            raise Exception("Could generate any scoring for given results.")
+
+        return pd.concat(scores)
 
     def _summarized_scores(self, scores):
         fields = {
