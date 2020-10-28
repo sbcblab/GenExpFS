@@ -1,0 +1,197 @@
+[
+    {
+        "description": "Deterministic algorithms for Xor Dataset",
+        "run_once": true,
+        "datasets": [
+            "xor_500samples_50features"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            }
+        ]
+    },
+    {
+        "description": "Deterministic algorithms for CuMiDa Dataset",
+        "run_once": true,
+        "datasets": [
+            "Liver_GSE22405",
+            "Prostate_GSE6919_U95C"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[200]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            }
+        ]
+    },
+    {
+        "description": "Deterministic algorithms for synthetic datasets",
+        "run_once": true,
+        "datasets": [
+            "synth_100samples_5000features_50informative",
+            "synth_100samples_5000features_50informative_50redundant"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[100]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 1,
+                "bootstrap_runs": 0
+            }
+        ]
+    },
+    {
+        "description": "Deterministic algorithms with bootstrap for Xor dataset",
+        "run_once": false,
+        "datasets": [
+            "xor_500samples_50features"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            }
+        ]
+    },
+    {
+        "description": "Deterministic algorithms with bootstrap for CuMiDa datasets",
+        "run_once": false,
+        "datasets": [
+            "Liver_GSE22405",
+            "Prostate_GSE6919_U95C"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[200]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            }
+        ]
+    },
+    {
+        "description": "Deterministic algorithms with bootstrap for synthetic datasets",
+        "run_once": false,
+        "datasets": [
+            "synth_100samples_5000features_50informative",
+            "synth_100samples_5000features_50informative_50redundant"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[100]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 0,
+                "bootstrap_runs": 1
+            }
+        ]
+    },
+    {
+        "description": "Stochastic algorithms for Xor dataset",
+        "run_once": false,
+        "datasets": [
+            "xor_500samples_50features"
+        ],
+        "algorithms": [
+            {
+                "name": "SVMGeneticAlgorithm",
+                "params": [[5], [10], [20]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "ReliefFGeneticAlgorithm",
+                "params": [[5, 10], [10, 20], [20, 30]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            }
+        ]
+    },
+    {
+        "description": "Stochastic algorithms for CuMiDa datasets",
+        "run_once": false,
+        "datasets": [
+            "Liver_GSE22405",
+            "Prostate_GSE6919_U95C"
+        ],
+        "algorithms": [
+            {
+                "name": "SVMGeneticAlgorithm",
+                "params": [[10], [20], [50], [100], [200]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "ReliefFGeneticAlgorithm",
+                "params": [[10, 1000], [20, 1000], [50, 1000], [100, 1000], [200, 1000]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            }
+        ]
+    },
+    {
+        "description": "Stochastic algorithms for synthetic datasets",
+        "run_once": false,
+        "datasets": [
+            "synth_100samples_5000features_50informative",
+            "synth_100samples_5000features_50informative_50redundant"
+        ],
+        "algorithms": [
+            {
+                "name": "SVMGeneticAlgorithm",
+                "params": [[10], [20], [50], [100]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            },
+            {
+                "name": "ReliefFGeneticAlgorithm",
+                "params": [[10, 1000], [20, 1000], [50, 1000], [100, 1000]],
+                "runs": 1,
+                "bootstrap_runs": 1
+            }
+        ]
+    }
+]
