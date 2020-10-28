@@ -49,7 +49,7 @@ class ResultsScorer:
             'ZeroR_macro_f1': np.mean,
         }
 
-        return scores.groupby(['name', 'num_selected']).agg(fields).reset_index()
+        return scores.groupby(['name', 'selected']).agg(fields).reset_index()
 
     def summarized_score_all(self, return_complete=False):
         complete_scoring = self.score_all()
@@ -70,20 +70,30 @@ class ResultsScorer:
     def _weights_to_rank(self, weights):
         return [int(x) for x in np.argsort(weights)[::-1]]
 
+    def _get_result_model(self, result):
+        return {
+            'name': result['name'],
+            'processing_time': result['processing_time'],
+            'dataset': result['dataset_name'],
+            'features': result['num_features'],
+            'selected': result['num_selected'],
+            'sampling': result['sampling'],
+        }
+
     def _print(self, result):
         if self._verbose > 1:
             print(
                 f"{YELLOW_COLOR}Evaluated results for {GREEN_COLOR}{result['name']}\n"
-                f"{WHITE_COLOR}  type:{CYAN_COLOR} {result['result_type']}\n"
-                f"{WHITE_COLOR}  dataset:{CYAN_COLOR} {result['dataset_name']}\n"
-                f"{WHITE_COLOR}  features:{CYAN_COLOR} {result['num_selected']}{DEFAULT_COLOR}"
+                f"{WHITE_COLOR}  dataset:{CYAN_COLOR} {result['dataset']}\n"
+                f"{WHITE_COLOR}  features:{CYAN_COLOR} {result['features']}{DEFAULT_COLOR}\n"
+                f"{WHITE_COLOR}  selected:{CYAN_COLOR} {result['selected']}{DEFAULT_COLOR}"
             )
         elif self._verbose > 0:
             print(
                 f"Evaluated results for {result['name']}\n"
-                f"  type: {result['result_type']}\n"
-                f"  dataset: {result['dataset_name']}\n"
-                f"  features: {result['num_selected']}"
+                f"  dataset: {result['dataset']}\n"
+                f"  selected: {result['selected']}\n"
+                f"  features: {result['features']}"
             )
 
     def evaluate_subsets(self, subset_results):
@@ -91,9 +101,11 @@ class ResultsScorer:
             selected = self._values_from_result(result)
             X, y = self._dataset_from_result(result)
             eval_results = self._selection_scorer.eval(X[:, selected], y)
-            self._print(result)
 
-            return pd.Series({**result, **flatten_dict(eval_results)})
+            result_model = self._get_result_model(result)
+            self._print(result_model)
+
+            return pd.Series({**result_model, **flatten_dict(eval_results)})
 
         return subset_results.apply(evaluate, axis=1)
 
@@ -111,14 +123,15 @@ class ResultsScorer:
 
             X, y = self._dataset_from_result(result)
 
+            result_model = self._get_result_model(result)
+
             results_data = []
             for k in self._evaluate_at:
                 if k >= len(rank):
                     continue
                 selected = rank[:k]
                 eval_results = self._selection_scorer.eval(X[:, selected], y)
-                results = {**result, **flatten_dict(eval_results)}
-                results['values'] = json.dumps(selected)
+                results = {**result_model, **flatten_dict(eval_results)}
                 results['num_selected'] = k
                 results_data.append(results)
                 self._print(results)
