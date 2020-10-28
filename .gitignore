@@ -12,3 +12,6 @@ __pycache__/
 #Results
 /results
 datasets
+
+#Slurm
+/sbatches
