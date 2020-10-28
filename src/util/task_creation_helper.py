@@ -117,6 +117,6 @@ def tasks_from_presets(preset_names, runs=1, verbose=0):
     final_tasks = list(chain(*tasks))
 
     if verbose > 0:
-        print(f"Generated {len(final_tasks)} for {preset_names} presets!")
+        print(f"Generated {len(final_tasks)} tasks for {preset_names} presets!")
 
     return final_tasks
