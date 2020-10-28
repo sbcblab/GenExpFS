@@ -1,3 +1,4 @@
+from time import time
 import numpy as np
 from sklearn.preprocessing import label_binarize
 
@@ -48,14 +49,15 @@ class RFE(BaseSelector):
         remaining = list(range(num_feats))
         reverse_rank = []
 
+        start = time()
+
         for i in range(num_feats_to_remove):
             selected_idx = self._select_worst(X, y, remaining, **kwargs)
             remaining.remove(selected_idx)
             reverse_rank.append(selected_idx)
 
             if self._verbose:
-                print(f'[{i+1}/{num_feats_to_remove}] removed variable {selected_idx}.')
-
+                print(f'[{i+1}/{num_feats_to_remove}] removed variable {selected_idx}. {time() - start:.0f}s')
         if self._n_features is None:
             self._rank = reverse_rank[::-1]
         else:
