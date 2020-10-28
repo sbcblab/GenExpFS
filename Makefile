@@ -8,10 +8,13 @@ lint:
 	flake8
 
 run:
-	python src/main.py all -p default -n 2 -vv
+	python src/main.py all -p default -n 1 -vv
 
 run-test-algorithms:
 	python src/main.py all -p test_algorithms -n 1 -vv
+
+run-reduced:
+	python src/main.py all -p reduced -n 31 -vv
 
 build-synthetic-data:
 	python scripts/synthetic_datasets.py
