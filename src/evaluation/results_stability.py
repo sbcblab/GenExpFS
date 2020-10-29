@@ -1,3 +1,4 @@
+import time
 import json
 from copy import deepcopy
 
@@ -59,6 +60,16 @@ class ResultsStability:
         else:
             return summarized_stability
 
+    def _print_evaluating(self, name, dataset_name, num_selected, num_executions):
+        if self._verbose > 0:
+            print(
+                f"Evaluating stability for {name}:\n"
+                f"  dataset: {dataset_name}\n"
+                f"  number of features selected: {num_selected}\n"
+                f"  executions: {num_executions}",
+                flush=True
+            )
+
     def _stability_for_result(self, df, evaluate_at_all_features=True):
         values = np.stack(deepcopy(df['values']).apply(json.loads).values)
 
@@ -78,14 +89,6 @@ class ResultsStability:
             'selected': num_selected,
         }
 
-        if self._verbose > 0:
-            print(
-                f"Evaluating stability for {name}:\n"
-                f"  dataset: {dataset_name}\n"
-                f"  number of features selected: {num_selected}\n"
-                f"  executions: {num_executions}\n"
-            )
-
         evaluate_at_k = [k for k in set(self._evaluate_at) if k <= num_selected]
         if not evaluate_at_all_features and num_selected != num_features:
             evaluate_at_k += [num_selected]
@@ -102,6 +105,8 @@ class ResultsStability:
             all_results = []
             for k in evaluate_at_k:
                 results = deepcopy(result_model)
+
+                self._print_evaluating(name, dataset_name, k,  num_executions)
 
                 rank_at_k = ranks[:, :k]
 
@@ -125,10 +130,15 @@ class ResultsStability:
             return pd.DataFrame(all_results)
 
         if result_type == 'subset':
+            self._print_evaluating(name, dataset_name, num_selected, num_executions)
             subset_results = {**result_model, **stability_for_sets(values, num_features)}
             return pd.DataFrame([subset_results])
 
     def stability_for_results(self, df, evaluate_at_all_features=True):
+        if self._verbose > 0:
+            print("Starting stability analysis.")
+
+        time.sleep(1)
         return df \
             .groupby(['name', 'dataset_name', 'num_selected']) \
             .apply(self._stability_for_result, evaluate_at_all_features=evaluate_at_all_features) \
