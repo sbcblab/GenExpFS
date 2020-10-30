@@ -2,7 +2,7 @@ from multiprocessing import Pool, Lock
 import os
 import warnings
 
-from sklearn.exceptions import ConvergenceWarning
+from sklearn.exceptions import ConvergenceWarning, UndefinedMetricWarning
 
 from data.dataloader import DataLoader
 from data.shared_datasets import SharedDatasets
@@ -21,7 +21,9 @@ from evaluation.selection import SelectionScorer
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=ConvergenceWarning)
+warnings.simplefilter(action='ignore', category=UndefinedMetricWarning)
 ConvergenceWarning('ignore')
+UndefinedMetricWarning('ignore')
 
 
 def main():
@@ -31,9 +33,11 @@ def main():
     verbose = args.verbose
 
     if mode in ['all', 'select']:
-        num_workers = args.workers
         presets = args.presets
         presets_runs = args.presets_runs
+
+    if mode in ['all', 'select', 'stability']:
+        num_workers = args.workers
 
     results_path = args.results_path
 
@@ -106,7 +110,7 @@ def main():
         results_writter.write_dataframe(scoring, f'{scoring_filename}-complete')
 
     if mode in ['all', 'stability']:
-        stability_evaluator = ResultsStability(results_loader, verbose=verbose)
+        stability_evaluator = ResultsStability(results_loader, verbose=verbose, n_workers=num_workers)
 
         try:
             alg_stab_sum, alg_stab = stability_evaluator.summarized_algorithms_stability(

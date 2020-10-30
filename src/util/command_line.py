@@ -150,6 +150,7 @@ def get_args(arguments=None):
 
     # Stability Evaluation Command
     stability_parser = subparsers.add_parser('stability', help='Run stability evaluation tasks.')
+    add_num_workers(stability_parser)
     add_results_path(stability_parser)
     add_selection_filename(stability_parser)
     add_stability_filename(stability_parser)

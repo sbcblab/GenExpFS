@@ -1,6 +1,6 @@
-import time
 import json
 from copy import deepcopy
+from multiprocessing import Pool
 
 import numpy as np
 import pandas as pd
@@ -15,11 +15,13 @@ class ResultsStability:
         self,
         results_loader: ResultsLoader,
         evaluate_at=[5, 10, 20, 50, 100, 200],
-        verbose=1
+        verbose=1,
+        n_workers=1
     ):
         self._results_loader = results_loader
         self._evaluate_at = evaluate_at
         self._verbose = verbose
+        self._n_workers = n_workers
 
     def _summarize_algorithm_stability(self, stability):
         fields = {
@@ -66,8 +68,7 @@ class ResultsStability:
                 f"Evaluating stability for {name}:\n"
                 f"  dataset: {dataset_name}\n"
                 f"  number of features selected: {num_selected}\n"
-                f"  executions: {num_executions}",
-                flush=True
+                f"  executions: {num_executions}"
             )
 
     def _stability_for_result(self, df, evaluate_at_all_features=True):
@@ -89,10 +90,8 @@ class ResultsStability:
             'selected': num_selected,
         }
 
-        evaluate_at_k = [k for k in set(self._evaluate_at) if k <= num_selected]
-        if not evaluate_at_all_features and num_selected != num_features:
-            evaluate_at_k += [num_selected]
-        elif evaluate_at_all_features and num_selected == num_features:
+        evaluate_at_k = [k for k in self._evaluate_at if k <= num_selected]
+        if num_selected not in evaluate_at_k and evaluate_at_all_features and num_selected == num_features:
             evaluate_at_k += [num_selected]
 
         ranks = values
@@ -138,8 +137,25 @@ class ResultsStability:
         if self._verbose > 0:
             print("Starting stability analysis.")
 
-        time.sleep(1)
-        return df \
-            .groupby(['name', 'dataset_name', 'num_selected']) \
-            .apply(self._stability_for_result, evaluate_at_all_features=evaluate_at_all_features) \
-            .reset_index(drop=True)
+        grouped = df.groupby(['name', 'dataset_name', 'num_selected'])
+        groups = [g for i, g in grouped]
+
+        if self._verbose > 0:
+            print(f"Grouped results in {len(groups)} groups.")
+
+        if self._n_workers > 1:
+            with Pool(self._n_workers) as pool:
+                eval_at_max = [evaluate_at_all_features for _ in groups]
+
+                stabilities = pool.starmap(
+                    self._stability_for_result,
+                    zip(groups, eval_at_max)
+                )
+
+        else:
+            stabilities = []
+            for g in groups:
+                result = self._stability_for_result(g, evaluate_at_all_features)
+                stabilities.append(result)
+
+        return pd.concat(stabilities)
