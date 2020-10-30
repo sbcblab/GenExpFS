@@ -162,7 +162,8 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
                 print(f"Generation [{gen + 1}/{self._max_generations}]: Best fitness: {fitness[fitness_index[0]]}")
 
             if self._max_fitness is not None and best_fitness >= self._max_fitness:
-                print("Early stop, found optimal solution!")
+                if self._verbose > 0:
+                    print("Early stop, found optimal solution!")
                 break
 
             new_population = self._selection(population, fitness)
