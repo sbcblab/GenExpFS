@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.model_selection import KFold, cross_val_score
+from sklearn.model_selection import StratifiedKFold, cross_val_score
 
 from .base_selector import BaseSelector, ResultType
 
@@ -11,7 +11,7 @@ class ForwardFeatureSelector(BaseSelector):
     def __init__(self, model, n_features=None, cv_folds=5, verbose=0):
         super().__init__(n_features)
         self._model = model
-        self._cv = KFold(cv_folds)
+        self._cv = StratifiedKFold(cv_folds)
         self._verbose = verbose
         self._selected = []
 
