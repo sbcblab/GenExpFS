@@ -19,6 +19,7 @@ from evaluation.results_execution_time import ExecutionTimesAggregator
 from evaluation.selection import SelectionScorer
 
 
+warnings.simplefilter(action='ignore', category=DeprecationWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=ConvergenceWarning)
 warnings.simplefilter(action='ignore', category=UndefinedMetricWarning)
