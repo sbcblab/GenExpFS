@@ -120,7 +120,7 @@ class GeneticAlgorithmFeatureSelector(BaseSelector):
         scaled_fitness = minmax_scale(fitness)
         fitness_sum = scaled_fitness.sum()
         selected = []
-        for i in range(self._num_to_select):
+        for _ in range(self._num_to_select):
             current_sum = uniform(0, fitness_sum)
             i = 0
             while (current_sum < fitness_sum):
