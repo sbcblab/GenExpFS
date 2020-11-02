@@ -14,8 +14,7 @@ from evaluation.metrics import (
 from evaluation.statistics import (
     spearmans_correlation_partial_ranked_list,
     canberra_distance_partial_ranked_list,
-    kendalls_tau_partial_ranked_list,
-    pearsons_correlation
+    pearsons_correlation_no_zeros
 )
 
 
@@ -45,10 +44,9 @@ def stability_for_ranks(selections, num_features):
     return {
         **stability_for_sets(selections, num_features),
         'spearman': averaged_stability(selections, spearmans_correlation_partial_ranked_list, np.array),
-        'canberra': averaged_stability(selections, canberra_distance_partial_ranked_list),
-        'kendall': averaged_stability(selections, kendalls_tau_partial_ranked_list)
+        'canberra': averaged_stability(selections, canberra_distance_partial_ranked_list, np.array),
     }
 
 
 def stability_for_weights(selections):
-    return {'pearson': averaged_stability(selections, pearsons_correlation, np.array)}
+    return {'pearson': averaged_stability(selections, pearsons_correlation_no_zeros, np.array)}
