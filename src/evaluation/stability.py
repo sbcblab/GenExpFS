@@ -6,9 +6,7 @@ from evaluation.metrics import (
     jaccard_score,
     set_normalized_hamming_distance,
     dice_coefficient,
-    ochiai_index,
     kuncheva_index,
-    percentage_of_overlapping_features
 )
 
 from evaluation.statistics import (
@@ -34,9 +32,7 @@ def stability_for_sets(selections, num_features):
         'jaccard': averaged_stability(selections, jaccard_score, set),
         'hamming': averaged_stability(selections, set_normalized_hamming_distance, set),
         'dice': averaged_stability(selections, dice_coefficient, set),
-        'ochiai': averaged_stability(selections, ochiai_index, set),
-        'kuncheva': averaged_stability(selections, kuncheva_index, set, num_features),
-        'pog': averaged_stability(selections, percentage_of_overlapping_features, set),
+        'kuncheva': averaged_stability(selections, kuncheva_index, set, num_features)
     }
 
 
