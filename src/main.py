@@ -120,8 +120,8 @@ def main():
                 sampling='bootstrap', return_complete=True
             )
 
-            results_writter.write_dataframe(alg_stab, f'{stability_filename}-bootstrap')
-            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-bootstrap-complete')
+            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-bootstrap')
+            results_writter.write_dataframe(alg_stab, f'{stability_filename}-bootstrap-complete')
         except Exception as e:
             print(f"Could not run data stability evaluation. Reason: {e}")
 
@@ -130,8 +130,8 @@ def main():
                 sampling='percent90', return_complete=True
             )
 
-            results_writter.write_dataframe(alg_stab, f'{stability_filename}-90perecent')
-            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-90percent-complete')
+            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-90perecent')
+            results_writter.write_dataframe(alg_stab, f'{stability_filename}-90percent-complete')
         except Exception as e:
             print(f"Could not run data stability evaluation. Reason: {e}")
 

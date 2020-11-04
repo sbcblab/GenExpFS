@@ -29,9 +29,8 @@ class ResultsStability:
             'jaccard': np.mean,
             'hamming': np.mean,
             'dice': np.mean,
-            'ochiai': np.mean,
             'kuncheva': np.mean,
-            'pog': np.mean,
+            'canberra': np.mean,
             'spearman': np.mean,
             'pearson': np.mean,
         }
