@@ -37,7 +37,7 @@ def main():
         presets = args.presets
         presets_runs = args.presets_runs
 
-    if mode in ['all', 'select', 'stability']:
+    if mode in ['all', 'select', 'stability', 'determinism']:
         num_workers = args.workers
 
     results_path = args.results_path
@@ -50,9 +50,11 @@ def main():
     if mode in ['all', 'scoring']:
         scoring_filename = args.scoring_filename
 
+    if mode in ['all', 'determinism']:
+        determinism_filename = args.determinism_filename
+
     if mode in ['all', 'stability']:
         stability_filename = args.stability_filename
-        data_stability_filename = args.data_stability_filename
 
     if mode in ['all', 'times']:
         times_filename = args.times_filename
@@ -115,23 +117,36 @@ def main():
 
         try:
             alg_stab_sum, alg_stab = stability_evaluator.summarized_algorithms_stability(
-                sampling='none', return_complete=True
-            )
-
-            results_writter.write_dataframe(alg_stab_sum, stability_filename)
-            results_writter.write_dataframe(alg_stab, f'{stability_filename}-complete')
-        except Exception as e:
-            print(f"Could not run results stability evaluation. Reason: {e}")
-
-        try:
-            alg_data_stab_sum, alg_data_stab = stability_evaluator.summarized_algorithms_stability(
                 sampling='bootstrap', return_complete=True
             )
 
-            results_writter.write_dataframe(alg_data_stab, data_stability_filename)
-            results_writter.write_dataframe(alg_data_stab_sum, f'{data_stability_filename}-complete')
+            results_writter.write_dataframe(alg_stab, stability_filename)
+            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-complete')
         except Exception as e:
             print(f"Could not run data stability evaluation. Reason: {e}")
+
+        try:
+            alg_stab_sum, alg_stab = stability_evaluator.summarized_algorithms_stability(
+                sampling='percent90', return_complete=True
+            )
+
+            results_writter.write_dataframe(alg_stab, stability_filename)
+            results_writter.write_dataframe(alg_stab_sum, f'{stability_filename}-complete')
+        except Exception as e:
+            print(f"Could not run data stability evaluation. Reason: {e}")
+
+    if mode in ['all', 'determinism']:
+        stability_evaluator = ResultsStability(results_loader, verbose=verbose, n_workers=num_workers)
+
+        try:
+            alg_det_sum, alg_det = stability_evaluator.summarized_algorithms_stability(
+                sampling='none', return_complete=True
+            )
+
+            results_writter.write_dataframe(alg_det_sum, determinism_filename)
+            results_writter.write_dataframe(alg_det, f'{determinism_filename}-complete')
+        except Exception as e:
+            print(f"Could not run results determinism evaluation. Reason: {e}")
 
     if mode in ['all', 'times']:
         times_aggregator = ExecutionTimesAggregator(results_loader)

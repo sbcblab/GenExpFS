@@ -7,9 +7,9 @@ class Task():
         name: str,
         feature_selector: BaseSelector,
         dataset_name: str,
-        bootstrap: bool = False
+        sampling: str = 'none'
     ):
         self.name = name
         self.feature_selector = feature_selector
         self.dataset_name = dataset_name
-        self.bootstrap = bootstrap
+        self.sampling = sampling

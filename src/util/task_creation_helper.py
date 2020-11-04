@@ -59,10 +59,15 @@ def config_to_tasks(config):
             for params in algorithm['params']:
                 for _ in range(algorithm['runs']):
                     name = algorithm['name']
-                    yield Task(name, feature_selectors[name](*params), dataset, False)
-                for _ in range(algorithm['bootstrap_runs']):
+                    yield Task(name, feature_selectors[name](*params), dataset, 'none')
+
+                for _ in range(algorithm['sample_runs']):
                     name = algorithm['name']
-                    yield Task(name, feature_selectors[name](*params), dataset, True)
+                    yield Task(name, feature_selectors[name](*params), dataset, 'bootstrap')
+
+                for _ in range(algorithm['sample_runs']):
+                    name = algorithm['name']
+                    yield Task(name, feature_selectors[name](*params), dataset, 'percent90')
 
 
 def print_preset(name, preset, verbose, runs):
@@ -79,10 +84,10 @@ def print_preset(name, preset, verbose, runs):
                 if alg['runs'] > 0
             ]
 
-            bootstrap_alg_runs = [
-                (alg['name'], alg['bootstrap_runs'])
+            sampling_alg_runs = [
+                (alg['name'], alg['sample_runs'])
                 for alg in config.get('algorithms')
-                if alg['bootstrap_runs'] > 0
+                if alg['sample_runs'] > 0
             ]
 
             if description is not None:
@@ -92,8 +97,8 @@ def print_preset(name, preset, verbose, runs):
                 print(f"\t\tPreset repeat times: {config_runs}")
                 print("\t\tAlgorithm runs:")
                 [print(f'\t\t\t{a}: {r} per dataset') for a, r in alg_runs]
-                print("\t\tAlgorithm Bootstrap runs:")
-                [print(f'\t\t\t{a}: {r} per dataset') for a, r in bootstrap_alg_runs]
+                print("\t\tAlgorithm sampling runs:")
+                [print(f'\t\t\t{a}: {r} per dataset') for a, r in sampling_alg_runs]
 
 
 def tasks_from_presets(preset_names, runs=1, verbose=0):

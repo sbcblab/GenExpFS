@@ -10,37 +10,37 @@
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "KruskallWallisFilter",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "ReliefFFeatureSelector",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "Lasso",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "RidgeClassifier",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "LinearSVM",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             }
         ]
     },
@@ -56,37 +56,37 @@
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "KruskallWallisFilter",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "ReliefFFeatureSelector",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "Lasso",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "RidgeClassifier",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "LinearSVM",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             }
         ]
     },
@@ -102,42 +102,42 @@
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "KruskallWallisFilter",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "ReliefFFeatureSelector",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "Lasso",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "RidgeClassifier",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "LinearSVM",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             }
         ]
     },
     {
-        "description": "Deterministic algorithms with bootstrap for Xor dataset",
+        "description": "Deterministic algorithms with sampling for Xor dataset",
         "run_once": false,
         "datasets": [
             "xor_500samples_50features"
@@ -147,42 +147,42 @@
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "KruskallWallisFilter",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "ReliefFFeatureSelector",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "Lasso",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "RidgeClassifier",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "LinearSVM",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             }
         ]
     },
     {
-        "description": "Deterministic algorithms with bootstrap for CuMiDa datasets",
+        "description": "Deterministic algorithms with sampling for CuMiDa datasets",
         "run_once": false,
         "datasets": [
             "Liver_GSE22405",
@@ -193,42 +193,42 @@
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "KruskallWallisFilter",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "ReliefFFeatureSelector",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "Lasso",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "RidgeClassifier",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "LinearSVM",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             }
         ]
     },
     {
-        "description": "Deterministic algorithms with bootstrap for synthetic datasets",
+        "description": "Deterministic algorithms with sampling for synthetic datasets",
         "run_once": false,
         "datasets": [
             "synth_100samples_5000features_50informative",
@@ -239,37 +239,37 @@
                 "name": "MutualInformationFilter",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "KruskallWallisFilter",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "ReliefFFeatureSelector",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "Lasso",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "RidgeClassifier",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "LinearSVM",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             }
         ]
     },
@@ -284,13 +284,13 @@
                 "name": "DecisionTree",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "RandomForest",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             }
         ]
     },
@@ -306,13 +306,13 @@
                 "name": "DecisionTree",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "RandomForest",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             }
         ]
     },
@@ -328,13 +328,13 @@
                 "name": "DecisionTree",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             },
             {
                 "name": "RandomForest",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 1
+                "sample_runs": 1
             }
         ]
     }

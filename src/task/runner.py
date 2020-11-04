@@ -2,7 +2,7 @@ import json
 from time import time
 import traceback
 
-from data.sampling import bootstrap
+from data.sampling import bootstrap, percent90
 from results.model import Result
 from feature_selectors.base_models import ResultType
 from .model import Task
@@ -62,8 +62,11 @@ class TaskRunner():
             X = dataset.get_instances()
             y = dataset.get_classes()
 
-            if task.bootstrap:
+            if task.sampling == 'bootstrap':
                 X, y = bootstrap(X, y)
+            elif task.sampling == 'percent90':
+                X, y = percent90(X, y)
+
         except Exception:
             self._error(
                 f"Failed to load dataset `{task.dataset_name}` for task `{task.name}`!"
@@ -97,7 +100,7 @@ class TaskRunner():
                 dataset_name=dataset.name,
                 num_features=num_features,
                 num_selected=num_selected if num_selected else num_features,
-                sampling='bootstrap' if task.bootstrap else 'none',
+                sampling=task.sampling,
                 result_type=fs.result_type.value,
                 values=json.dumps(values)
             )

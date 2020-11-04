@@ -11,31 +11,31 @@
                 "name": "MRMR",
                 "params": [[10]],
                 "runs": 1,
-                "bootstrap_runs": 0
+                "sample_runs": 0
             },
             {
                 "name": "SVMFowardSelection",
                 "params": [[5]],
                 "runs": 0,
-                "bootstrap_runs": 3
+                "sample_runs": 3
             },
             {
                 "name": "ReliefFFeatureSelector",
                 "params": [[null]],
                 "runs": 0,
-                "bootstrap_runs": 3
+                "sample_runs": 3
             },
             {
                 "name": "SVMGeneticAlgorithm",
                 "params": [[30]],
                 "runs": 1,
-                "bootstrap_runs": 3
+                "sample_runs": 3
             },
             {
                 "name": "DecisionTree",
                 "params": [[null]],
                 "runs": 1,
-                "bootstrap_runs": 3
+                "sample_runs": 3
             }
         ]
     }

@@ -83,11 +83,11 @@ def add_stability_filename(parser):
     )
 
 
-def add_data_stability_filename(parser):
+def add_determinism_filename(parser):
     parser.add_argument(
-        '--data-stability-filename',
-        default=f'{current_timestamp}-data-stability',
-        help='File name of file where data stability results will be saved.',
+        '--determinism-filename',
+        default=f'{current_timestamp}-determinism',
+        help='File name of file where data determinism results will be saved.',
         type=str
     )
 
@@ -126,7 +126,7 @@ def get_args(arguments=None):
     add_selection_filename(all_parser)
     add_scoring_filename(all_parser)
     add_stability_filename(all_parser)
-    add_data_stability_filename(all_parser)
+    add_determinism_filename(all_parser)
     add_times_filename(all_parser)
     add_verbosity(all_parser)
 
@@ -148,13 +148,20 @@ def get_args(arguments=None):
     add_scoring_filename(scoring_parser)
     add_verbosity(scoring_parser)
 
+    # Determinism Evaluation Command
+    determinism_parser = subparsers.add_parser('determinism', help='Run determinism evaluation tasks.')
+    add_num_workers(determinism_parser)
+    add_results_path(determinism_parser)
+    add_selection_filename(determinism_parser)
+    add_determinism_filename(determinism_parser)
+    add_verbosity(determinism_parser)
+
     # Stability Evaluation Command
     stability_parser = subparsers.add_parser('stability', help='Run stability evaluation tasks.')
     add_num_workers(stability_parser)
     add_results_path(stability_parser)
     add_selection_filename(stability_parser)
     add_stability_filename(stability_parser)
-    add_data_stability_filename(stability_parser)
     add_verbosity(stability_parser)
 
     # Execution time Command
