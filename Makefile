@@ -13,6 +13,9 @@ run:
 run-test-algorithms:
 	python src/main.py all -p test_algorithms -n 1 -vv
 
+run-test-pipeline:
+	python src/main.py all -p test_pipeline -n 1 -vv
+
 run-reduced:
 	python src/main.py all -p reduced -n 31 -vv
 
