@@ -1,7 +1,7 @@
 [
     {
         "description": "Deterministic algorithms for Xor Dataset",
-        "run_once": true,
+        "run_once": false,
         "datasets": [
             "xor_500samples_50features"
         ],
@@ -58,7 +58,7 @@
     },
     {
         "description": "Deterministic algorithms for CuMiDa Dataset",
-        "run_once": true,
+        "run_once": false,
         "datasets": [
             "Liver_GSE22405",
             "Prostate_GSE6919_U95C"
@@ -116,7 +116,7 @@
     },
     {
         "description": "Deterministic algorithms for synthetic datasets",
-        "run_once": true,
+        "run_once": false,
         "datasets": [
             "synth_100samples_5000features_50informative",
             "synth_100samples_5000features_50informative_50redundant"
