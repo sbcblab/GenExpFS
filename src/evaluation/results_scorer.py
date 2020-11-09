@@ -96,6 +96,7 @@ class ResultsScorer:
             'features': result['num_features'],
             'selected': result['num_selected'],
             'sampling': result['sampling'],
+            'values': result['values'],
         }
 
     def _print(self, result):
