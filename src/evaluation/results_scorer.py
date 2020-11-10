@@ -151,7 +151,7 @@ class ResultsScorer:
                 selected = rank[:k]
                 eval_results = self._selection_scorer.eval(X[:, selected], y)
                 results = {**result_model, **flatten_dict(eval_results)}
-                results['num_selected'] = k
+                results['selected'] = k
                 results_data.append(results)
                 self._print(results)
 
