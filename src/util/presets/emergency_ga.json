@@ -1,0 +1,26 @@
+[
+    {
+        "description": "Emergency Genetic Algorithms run (missing results for subset size 5)",
+        "run_once": false,
+        "datasets": [
+            "synth_100samples_5000features_50informative",
+            "synth_100samples_5000features_50informative_50redundant",
+            "Liver_GSE22405",
+            "Prostate_GSE6919_U95C"
+        ],
+        "algorithms": [
+            {
+                "name": "SVMGeneticAlgorithm",
+                "params": [[5]],
+                "runs": 1,
+                "sample_runs": 1
+            },
+            {
+                "name": "ReliefFGeneticAlgorithm",
+                "params": [[5, 1000]],
+                "runs": 1,
+                "sample_runs": 1
+            }
+        ]
+    }
+]
