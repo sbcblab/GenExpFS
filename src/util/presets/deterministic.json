@@ -1,0 +1,175 @@
+[
+    {
+        "description": "Deterministic algorithms for Xor Dataset",
+        "run_once": false,
+        "datasets": [
+            "xor_500samples_50features"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "MutualInformationFilter",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "KruskallWallisFilter",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "ReliefFFeatureSelector",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "Lasso",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "RidgeClassifier",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "LinearSVM",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            }
+        ]
+    },
+    {
+        "description": "Deterministic algorithms for CuMiDa Dataset",
+        "run_once": false,
+        "datasets": [
+            "Liver_GSE22405",
+            "Prostate_GSE6919_U95C"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[200]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "MutualInformationFilter",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "KruskallWallisFilter",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "ReliefFFeatureSelector",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "Lasso",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "RidgeClassifier",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "LinearSVM",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            }
+        ]
+    },
+    {
+        "description": "Deterministic algorithms for synthetic datasets",
+        "run_once": false,
+        "datasets": [
+            "synth_100samples_5000features_50informative",
+            "synth_100samples_5000features_50informative_50redundant"
+        ],
+        "algorithms": [
+            {
+                "name": "MRMR",
+                "params": [[100]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "MutualInformationFilter",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "KruskallWallisFilter",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "ReliefFFeatureSelector",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "Lasso",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "RidgeClassifier",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "LinearSVM",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            },
+            {
+                "name": "SVMRFE",
+                "params": [[null]],
+                "runs": 1,
+                "sample_runs": 0
+            }
+        ]
+    }
+]
