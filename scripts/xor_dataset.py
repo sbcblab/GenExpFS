@@ -28,7 +28,7 @@ class DatasetParams:
         return [f'{t}_{x}' for t, x in zip(types, range(self.n_features))]
 
     def build_dataset(self):
-        instance_model = cycle([([0, 0], 1), ([0, 1], 0), ([1, 0], 0), ([1, 1], 1)])
+        instance_model = cycle([([0, 0], 0), ([0, 1], 1), ([1, 0], 1), ([1, 1], 0)])
         X, y = zip(*[(x, y) for i, (x, y) in zip(range(self.n_samples), instance_model)])
         noisy_features = np.random.randint(2, size=(self.n_samples, self.n_noisy))
         X = np.concatenate((X, noisy_features), axis=1)
