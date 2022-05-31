@@ -1,6 +1,6 @@
 # Analysis and Comparison of Feature Selection Methods Towards Performance and Stability
 
-> This project aims to evaluate and compare Feature Selection algorithms over gene expression microarray datasets.
+> This project aims to evaluate and compare Feature Selection algorithms.
 
 The amount of gathered data is increasing at unprecedented rates for machine learning applications
 such as natural language processing, computer vision, and bioinformatics. This increase implies a
