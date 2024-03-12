@@ -21,7 +21,7 @@ guide their application.
 
 If you use our code, methods, or results in your research, please consider citing the main publication:
 
-- Matheus Cezimbra Barbieri, Bruno Iochins Grisci, Marcio Dorn. _Analysis and Comparison of Feature Selection Methods Towards Performance and Stability_, to be published, Volume x, June **2022**, Pages 111-129, DOI: [xxx](xxx)
+- Matheus Cezimbra Barbieri, Bruno Iochins Grisci, Marcio Dorn. _Analysis and Comparison of Feature Selection Methods Towards Performance and Stability_, **Expert Systems with Applications** (to be published), Volume x, March **2024**, Pages xxx-xxx, DOI: [xxx](xxx)
 
 Bibtex entry:
 ```
@@ -36,7 +36,7 @@ Bibtex entry:
 
     - mcbarbieri@inf.ufrgs.br
 
-- [Bruno I. Grisci](https://orcid.org/0000-0003-4083-5881) - PhD student ([Institute of Informatics](https://www.inf.ufrgs.br/site/en) - [UFRGS](http://www.ufrgs.br/english/home))
+- [Bruno I. Grisci](https://orcid.org/0000-0003-4083-5881) - Associate Professor ([Institute of Informatics](https://www.inf.ufrgs.br/site/en) - [UFRGS](http://www.ufrgs.br/english/home))
 
     - bigrisci@inf.ufrgs.br
 
