@@ -21,13 +21,19 @@ guide their application.
 
 If you use our code, methods, or results in your research, please consider citing the main publication:
 
-- Matheus Cezimbra Barbieri, Bruno Iochins Grisci, Marcio Dorn. _Analysis and Comparison of Feature Selection Methods Towards Performance and Stability_, **Expert Systems with Applications** (to be published), Volume x, March **2024**, Pages xxx-xxx, DOI: [xxx](xxx)
+- Matheus Cezimbra Barbieri, Bruno Iochins Grisci, Marcio Dorn. _Analysis and Comparison of Feature Selection Methods Towards Performance and Stability_, **Expert Systems with Applications**, 123667, March **2024**, DOI: [https://doi.org/10.1016/j.eswa.2024.123667](https://doi.org/10.1016/j.eswa.2024.123667)
 
 Bibtex entry:
 ```
-@article{
-
+@article{barbieri2024analysis,
+  title={Analysis and comparison of feature selection methods towards performance and stability},
+  author={Barbieri, Matheus Cezimbra and Grisci, Bruno Iochins and Dorn, M{\'a}rcio},
+  journal={Expert Systems with Applications},
+  pages={123667},
+  year={2024},
+  publisher={Elsevier}
 }
+
 ```
 
 ## Contact information
